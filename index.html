@@ -106,7 +106,6 @@
               <code>?explicit</code>
             </h3>
           </li>
-          <div class="alert" style="background-color:  #f2f2f2;">Songs with explicit language can be filtered with the query parameters /filter?<i>explicit=false</i></div>
           <ul>
             <li>Returns songs that either have explicit language or not</li>
             <li>Can only be true or false</li>
@@ -114,7 +113,18 @@
               example: <code>/api/filter?explicit=false</code>
             </li>
           </ul>
-        </ul></div>
+          <li>
+            <h3>
+              <code>?year</code>
+            </h3>
+          </li>
+          <ul>
+            <li>Will filter out songs by year it came out</li>
+            <li>value is in year format, do not need month or day</li>
+            <li>example: <code>/api/filter?year=1985</code></li>
+          </ul>
+        </ul>
+      </div>
 
         
     

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const SongModel = require('../SongModel');
+const SongModel = require("../SongModel");
 
 router.get("/api", async (req, res) => {
   const songData = await SongModel.find({});
@@ -30,6 +30,7 @@ router.get("/api/filter", async (req, res) => {
     });
     //SINGLE QUERY
   } else if (queryLength == 1) {
+    console.log("SINGLE QUERY");
     console.log(query);
 
     //ARTIST
@@ -90,6 +91,27 @@ router.get("/api/filter", async (req, res) => {
           res.json(results[r]);
         }
       }
+      //YEAR
+    } else if (query.hasOwnProperty("year")) {
+      console.log("year query!");
+      res.status(200);
+
+      const results = await SongModel.find({ release_date: query.year });
+      console.log(results);
+
+      //404
+      if (results.length == 0) {
+        res.status(404);
+        res.json({
+          message: "could not find any songs that came out in " + query.year,
+        });
+      }
+      //200
+      else {
+        const r = Math.floor(Math.random() * results.length);
+
+        res.json(results[r]);
+      }
     } else {
       res.status(400);
       res.json({
@@ -106,12 +128,37 @@ router.get("/api/filter", async (req, res) => {
     if (query.hasOwnProperty("explicit")) {
       m.explicit = query.explicit;
     }
+    if (query.hasOwnProperty("year")) {
+      m.release_date = query.year;
+    }
 
-    if (query.explicit !== "true" && query.explicit !== "false") {
-      res.status(400);
-      res.json({
-        message: "explicit query can only be true or false",
-      });
+    //if there is a explicit query in url, make sure it equals true or false
+    if (query.hasOwnProperty("explicit")) {
+      if (query.explicit !== "true" && query.explicit !== "false") {
+        res.status(400);
+        res.json({
+          message: "explicit query can only be true or false",
+        });
+      } else {
+        const results = await SongModel.find(m);
+        console.log(results);
+
+        //404
+        if (results.length == 0) {
+          res.status(404);
+          res.json({
+            message: "cannot find any songs with current query",
+          });
+        }
+        //200
+        else {
+          res.status(200);
+
+          const r = Math.floor(Math.random() * results.length);
+
+          res.json(results[r]);
+        }
+      }
     } else {
       const results = await SongModel.find(m);
       console.log(results);
