@@ -22,24 +22,63 @@
         <label class="form-check-label" for="explicit-filter">
             Explicit
         </label>
-        <% var onlyExplicitSongs = true%>
-          <% for(var i=0; i<artist_data.length; ++i) { %>
-              <% if(artist_data[0].explicit !== true) { %>
-                <% onlyExplicitSongs = false %>
-                <p><i><%= artist_data[i].lyrics %></i></p>
-              <% } %>
-          <% } %>
+        <div id='artist-feed'>
+            <% var onlyExplicitSongs = true%>
+                    <% for(var i=0; i<artist_data.length; ++i) { %>
+                        <% if(artist_data[0].explicit !== true) { %>
+                            <% onlyExplicitSongs = false %>
+                            <p><i>"<%= artist_data[i].lyrics %>"</i></p>
+                        <% } %>
+                    <% } %>
 
-          <% if(onlyExplicitSongs) { %>
+                   
+        </div>
+        <% if(onlyExplicitSongs) { %>
             <br>
             <code>All of <%= artist_data[0].artist %>'s lyrics are explicit</code>
-          <% } %>
+        <% } %>
+       
       </div>
    <script>
+       async function getExplicitSongs(x) {
+           console.log('asdasdf');
+           //show explicit songs
+            if(x == true) {
+                var x = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=true');
+                const y = await x.json();
+                if(x.status !== 200) {
+                    alert('error while fetching explicit content')
+                }
+                else {
+                    //NEED TO LOOP THROUGH RESULTS AND PLACE LYRICS
+                    console.log(y);
+                    document.getElementById('artist-feed').innerText = y.artist_feed[0].lyrics
+                }
+                
+            }
+            //hide explicit songs
+            else {
+                console.log('hide bad song');
+                var x = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=false');
+                const y = await x.json();
+                if(x.status !== 200) {
+                    console.log(y);
+                    alert('there are no songs that not explicit')
+                }
+                else {
+                    //NEED TO LOOP THROUGH RESULTS AND PLACE LYRICS
+                    console.log(y);
+                    document.getElementById('artist-feed').innerText = 'showing non explicit songs now'
+                }
+            }
+
+
+       }
+
+
        const explicitCheckbox = document.getElementById('explicit-filter');
        explicitCheckbox.addEventListener('change', () => {
-           console.log('explicitcheck!');
-           console.log(explicitCheckbox.checked)
+           getExplicitSongs(explicitCheckbox.checked);
        })
    </script>
   </body>

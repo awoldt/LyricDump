@@ -35,9 +35,7 @@ app.get("/artists", async (req, res) => {
     }
   });
 
-  console.log(a.sort());
-  console.log(b.sort());
-
+  
   res.render("artists", {
     artist_names: b.sort(),
     artists_links: a.sort(),

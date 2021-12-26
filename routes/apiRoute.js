@@ -1,4 +1,5 @@
 const express = require("express");
+const Song = require("../SongModel");
 const router = express.Router();
 const SongModel = require("../SongModel");
 
@@ -180,6 +181,24 @@ router.get("/api/filter", async (req, res) => {
       }
     }
   }
+});
+
+//updates artists feed on frontend
+router.get("/api/getartistfeed", async (req, res) => {
+  res.status(200);
+
+  console.log("GET /api/getartistfeed");
+  console.log(req.query);
+
+  const feed = await SongModel.find({
+    artist_query: req.query.artist,
+    explicit: req.query.explicit,
+  });
+  console.log(feed);
+
+  res.json({
+    artist_feed: feed,
+  });
 });
 
 module.exports = router;
