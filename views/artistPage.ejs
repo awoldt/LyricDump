@@ -40,36 +40,58 @@
        
       </div>
    <script>
+       const artistFeed = document.getElementById('artist-feed');
        async function getExplicitSongs(x) {
-           console.log('asdasdf');
            //show explicit songs
             if(x == true) {
                 var x = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=true');
                 const y = await x.json();
-                if(x.status !== 200) {
-                    alert('error while fetching explicit content')
-                }
-                else {
+               
+             
                     //NEED TO LOOP THROUGH RESULTS AND PLACE LYRICS
                     console.log(y);
-                    document.getElementById('artist-feed').innerText = y.artist_feed[0].lyrics
-                }
+                    //no explicit songs to show
+                    if(y.artist_feed.length == 0) {
+                        document.getElementById('artist-feed').innerText = 'This user does not have any explicit songs'
+                    }
+                    else {
+                        document.getElementById('artist-feed').innerText = y.artist_feed[0].lyrics
+                    }
+                    
+                
                 
             }
             //hide explicit songs
             else {
+                artistFeed.innerText = "";
                 console.log('hide bad song');
                 var x = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=false');
                 const y = await x.json();
-                if(x.status !== 200) {
+              
                     console.log(y);
-                    alert('there are no songs that not explicit')
-                }
-                else {
-                    //NEED TO LOOP THROUGH RESULTS AND PLACE LYRICS
-                    console.log(y);
-                    document.getElementById('artist-feed').innerText = 'showing non explicit songs now'
-                }
+
+                    //artist has no explicit songs
+                    if(y.artist_feed.length == 0) {
+                        artistFeed.innerText = 'artist has no songs that are not explicit'
+                    }
+                    else {
+                        //loop through all songs and place on frontend
+                    for(i=0; i<y.artist_feed.length; ++i) {
+                        const lyricBox = document.createElement('div');
+                        const lyrics = document.createElement('p');
+
+                        lyrics.innerText = y.artist_feed[i].lyrics;
+                        lyricBox.appendChild(lyrics);
+
+                        artistFeed.appendChild(lyricBox);
+                    } 
+                    }
+
+
+                    
+
+
+                
             }
 
 
