@@ -15,8 +15,16 @@
 
   <body>
       <div class="container">
+          <a href='/'>home</a>
            <h1>Supported artists</h1>
-           <%= data %>
+           <p>there are <%= artists_links.length %> artists stored in the database</p>
+
+           <div>
+               <% for(var i=0; i<artists_links.length; ++i) { %>
+                <a href='/api/filter?artist=<%= artists_links[i] %>'><%= artist_names[i] %></a>
+                <br>
+               <% } %>
+           </div>
       </div>
    
   </body>
