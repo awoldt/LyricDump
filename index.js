@@ -8,7 +8,6 @@ const dbConnect = require("./DB_connect");
 
 dbConnect();
 
-
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/", "index.html"));
 });
@@ -63,58 +62,66 @@ app.get("/api/filter", async (req, res) => {
         });
         //200
       } else {
-
-        const r = Math.floor(Math.random() * results.length); //0 to length of how many songs
-
+        const r = Math.floor(Math.random() * results.length);
 
         res.status(200);
         res.json(results[r]);
       }
-    } else {
-      res.json({ message: "only artist rn!!!" });
-    }
+      //EXPLICIT
+    } else if (query.hasOwnProperty("explicit")) {
+      console.log("explicit query");
+      const results = await SongModel.find({
+        explicit: query.explicit,
+      });
+      console.log(results);
 
-  
+      //404
+      //no songs with current artist
+      if (results.length == 0) {
+        res.status(404);
+        res.json({
+          message:
+            "no songs could be found with current query (explicit=" +
+            query.explicit +
+            ")",
+        });
+        //200
+      } else {
+        const r = Math.floor(Math.random() * results.length);
+
+        res.status(200);
+        res.json(results[r]);
+      }
+    }
   }
   //MULTI-QUERY
   else {
-    
-
-
     const m = new Object();
-    if(query.hasOwnProperty('artist')) {
+    if (query.hasOwnProperty("artist")) {
       m.artist_query = query.artist;
     }
-    if(query.hasOwnProperty('explicit')) {
+    if (query.hasOwnProperty("explicit")) {
       m.explicit = query.explicit;
     }
 
-    console.log(m);
-
     const results = await SongModel.find(m);
-    console.log(results)
+    console.log(results);
 
     //404
-    if(results.length == 0) {
+    if (results.length == 0) {
       res.status(404);
       res.json({
-        message: 'cannot find any songs with current query'
-      })
+        message: "cannot find any songs with current query",
+      });
     }
     //200
     else {
       res.status(200);
-      res.json({
-        message: 'found data!'
-      })
+
+      const r = Math.floor(Math.random() * results.length);
+
+      res.json(results[r]);
     }
-
-
-
-
-
-
-
   }
 });
 

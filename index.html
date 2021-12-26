@@ -12,14 +12,14 @@
     <div class="container">
         <h1>Worst rap lyrics api</h1>
         <p>
-          Easy-to-use api to get some of the worst rap lyrics of all time. All rap
-          lyric data can be retrieved from /api endpoint
+          Easy-to-use api to get some of the worst rap lyrics of all time.
         </p>
     
         <hr></hr>
     
         <h2>
-          <code>/api</code>
+          <a href='/api'>   <code>/api</code></a>
+        
         </h2>
         <p>
           <svg
@@ -41,7 +41,7 @@
             <p>
                 This endpoint will randomly fetch a single bad rap lyric from database
               </p>
-              <p>Returned data structure: </p>
+              <p>Returned JSON structure: </p>
               <ul>
                 <li>
                   <code>lyrics</code> - the bad lyric of the song <i>(text)</i>
@@ -69,7 +69,8 @@
         <hr></hr>
     
         <h2>
-          <code>/api/filter</code>
+          <a href='/api/filter?explicit=false'><code>/api/filter</code></a>
+          
         </h2>
         <p>
           <svg
@@ -85,7 +86,8 @@
           </svg>
           <span>Some song lyrics are explicit</span>
         </p>
-        <p>
+
+        <div style="padding: 15px"><p>
           This endpoint will fetch all song lyrics that match queries in the url
           <br></br>
           endpoint MUST contain at least one query
@@ -115,6 +117,7 @@
               <code>?explicit</code>
             </h3>
           </li>
+          <div class="alert" style="background-color:  #f2f2f2;">Songs with explicit language can be filtered with the query parameters /filter?<i>explicit=false</i></div>
           <ul>
             <li>Returns songs that either have explicit language or not</li>
             <li>Can only be true or false</li>
@@ -122,13 +125,14 @@
               example: <code>/api/filter?explicit=false</code>
             </li>
           </ul>
-        </ul>
+        </ul></div>
+
+        
     
         <hr></hr>
 
-        <h4>Imporant things to consider:</h4>
 
-        <div class="alert" style="background-color:  #f2f2f2;">Songs with explicit language can be filtered with the query parameters /filter?<i>explicit=false</i></div>
+       
     
         
     </div>
