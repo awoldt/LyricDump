@@ -70,28 +70,41 @@ app.get("/api/filter", async (req, res) => {
       //EXPLICIT
     } else if (query.hasOwnProperty("explicit")) {
       console.log("explicit query");
-      const results = await SongModel.find({
-        explicit: query.explicit,
-      });
-      console.log(results);
 
-      //404
-      //no songs with current artist
-      if (results.length == 0) {
-        res.status(404);
+      if ((query.explicit !== "true") && ( query.explicit !== "false")) {
+        res.status(400);
         res.json({
-          message:
-            "no songs could be found with current query (explicit=" +
-            query.explicit +
-            ")",
+          message: "explicit query can only be true or false",
         });
-        //200
       } else {
-        const r = Math.floor(Math.random() * results.length);
+        const results = await SongModel.find({
+          explicit: query.explicit,
+        });
+        console.log(results);
 
-        res.status(200);
-        res.json(results[r]);
+        //404
+        //no songs with current artist
+        if (results.length == 0) {
+          res.status(404);
+          res.json({
+            message:
+              "no songs could be found with current query (explicit=" +
+              query.explicit +
+              ")",
+          });
+          //200
+        } else {
+          const r = Math.floor(Math.random() * results.length);
+
+          res.status(200);
+          res.json(results[r]);
+        }
       }
+    } else {
+      res.status(400);
+      res.json({
+        message: "query paramter not supported",
+      });
     }
   }
   //MULTI-QUERY
