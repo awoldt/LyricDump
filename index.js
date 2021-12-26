@@ -5,6 +5,8 @@ const app = express();
 const path = require("path");
 const dbConnect = require("./DB_connect");
 
+app.set("view engine", "ejs");
+
 dbConnect();
 
 const apiRoutes = require("./routes/apiRoute");
@@ -16,7 +18,9 @@ app.get("/", (req, res) => {
 
 app.get("/artists", (req, res) => {
   res.status(200);
-  res.sendFile(path.join(__dirname + "/", "artists.html"));
+  res.render("artists", {
+    data: "heyyy",
+  });
 });
 
 app.use(apiRoutes);
