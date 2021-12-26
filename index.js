@@ -70,9 +70,7 @@ app.get("/api/filter", async (req, res) => {
       res.json({ message: "only artist rn!!!" });
     }
 
-    res.json({
-      message: "SINGLE query!",
-    });
+  
   }
   //MULTI-QUERY
   else {
