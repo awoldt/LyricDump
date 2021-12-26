@@ -21,7 +21,7 @@
 
            <div>
                <% for(var i=0; i<artists_links.length; ++i) { %>
-                <a href='/api/filter?artist=<%= artists_links[i] %>'><%= artist_names[i] %></a>
+                <a href='/artists/<%= artists_links[i] %>'><%= artist_names[i] %></a>
                 <br>
                <% } %>
            </div>
