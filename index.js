@@ -5,12 +5,15 @@ const app = express();
 const path = require("path");
 const dbConnect = require("./DB_connect");
 const SongModel = require("./SongModel");
+const Profile = require('./ArtistProfile')
 
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
 
 dbConnect();
 
 const apiRoutes = require("./routes/apiRoute");
+const ArtistProfile = require("./ArtistProfile");
 
 app.get("/", (req, res) => {
   res.status(200);
@@ -35,7 +38,6 @@ app.get("/artists", async (req, res) => {
     }
   });
 
-  
   res.render("artists", {
     artist_names: b.sort(),
     artists_links: a.sort(),
@@ -43,28 +45,32 @@ app.get("/artists", async (req, res) => {
 });
 
 app.get("/artists/:artist_name", async (req, res) => {
-
-
   res.status(200);
+  console.log("loading " + req.params.artist_name + " artist page");
 
   const artistData = await SongModel.find({
     artist_query: req.params.artist_name,
   });
-
-  console.log(artistData)
+  console.log("arist song data");
+  console.log(artistData);
 
   //determine if artist has any explicit songs
   var hasExplicitSongs = false;
-  for(var i=0; i<artistData.length; ++i) {
-    if(artistData[i].explicit == true) {
+  for (var i = 0; i < artistData.length; ++i) {
+    if (artistData[i].explicit == true) {
       hasExplicitSongs = true;
       break;
     }
   }
 
+  const profile = await Profile.find({artist_query: req.params.artist_name});
+  console.log('artist profile')
+  console.log(profile)
+
   res.render("artistPage", {
     artist_data: artistData,
-    has_explicit_songs: hasExplicitSongs
+    artist_profile: profile,
+    has_explicit_songs: hasExplicitSongs,
   });
 });
 
