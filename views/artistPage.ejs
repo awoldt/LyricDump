@@ -19,7 +19,12 @@
         <h1>Bad <%= artist_data[0].artist %> lyrics</h1>
 
        <% if(artist_profile.length !== 0) { %>
-        <p><%= artist_profile[0].profile_description %></p>
+        <div class='row'>
+            <div class="col"><img class="img-fluid" src='<%= artist_profile[0].profile_img %>' style='height: 300px; width: 300px;'/></div>
+            <div class="col"><p><%= artist_profile[0].profile_description %></p></div>
+        </div>
+        
+        
        <% } %>
         
         
