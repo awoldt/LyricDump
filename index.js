@@ -43,14 +43,28 @@ app.get("/artists", async (req, res) => {
 });
 
 app.get("/artists/:artist_name", async (req, res) => {
+
+
   res.status(200);
 
   const artistData = await SongModel.find({
     artist_query: req.params.artist_name,
   });
 
+  console.log(artistData)
+
+  //determine if artist has any explicit songs
+  var hasExplicitSongs = false;
+  for(var i=0; i<artistData.length; ++i) {
+    if(artistData[i].explicit == true) {
+      hasExplicitSongs = true;
+      break;
+    }
+  }
+
   res.render("artistPage", {
     artist_data: artistData,
+    has_explicit_songs: hasExplicitSongs
   });
 });
 

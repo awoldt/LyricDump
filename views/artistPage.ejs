@@ -17,122 +17,85 @@
     <div class="container">
         <a href='/'>home</a>
         <h1>Bad <%= artist_data[0].artist %> lyrics</h1>
-        <input class="form-check-input" type="checkbox" id="explicit-filter">
-        <label class="form-check-label" for="explicit-filter">
-            Explicit
-        </label>
+
         <div id='artist-feed'>
-            <% var onlyExplicitSongs=true%>
-                <% for(var i=0; i<artist_data.length; ++i) { %>
-                    <% if(artist_data[0].explicit !==true) { %>
-                        <% onlyExplicitSongs=false %>
-                            <p><i>"<%= artist_data[i].lyrics %>"</i></p>
-                            <% } %>
-                                <% } %>
+            <p style='color: red'>Below will show ONLY the non explicit songs</p>
+            <% for(var i=0; i<artist_data.length; ++i) { %>
+                <% if(artist_data[i].explicit !== true) { %>
+                    <i>"<%= artist_data[i].lyrics %>"</i>
+                <% } %>
+                
+            <% } %>
 
 
         </div>
-        <% if(onlyExplicitSongs) { %>
-            <br>
-            <code>All of <%= artist_data[0].artist %>'s lyrics are explicit</code>
-            <% } %>
+
+        <% if(has_explicit_songs) { %>
+            <input class="form-check-input" type="checkbox" id="explicit-filter">
+            <label class="form-check-label" for="explicit-filter">
+                Explicit
+            </label>
+
+            <script>
+                const explicitCheckbox = document.getElementById('explicit-filter');
+                const artistFeed = document.getElementById('artist-feed');
+                //show spinner while loading data
+                const loading = document.createElement('div');
+                loading.setAttribute('class', 'spinner-border');
+                loading.setAttribute('role', 'status');
+                loading.setAttribute('id', 'loading-icon');
+            
+                async function explicitFilter(x) {
+                    console.log('clicked explicit filter!');
+                    console.log('show explicit songs - ' + x)
+        
+                    //SHOW EXPLICIT
+                    if(x == true) {
+                        artistFeed.innerText = '';
+                        var explicitSongs = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=true');
+                        explicitSongs = await explicitSongs.json();
+        
+                        console.log(explicitSongs);
+
+                        //append all explicit songs to artist-feed
+                        for(var i=0; i<explicitSongs.artist_feed.length; ++i) {
+                            const lyric = document.createElement('i');
+                            lyric.innerText = '"' + explicitSongs.artist_feed[i].lyrics + '"';
+                            artistFeed.appendChild(lyric);
+                        }
+                    }
+                    //HIDE EXPLICIT
+                    else {
+                        artistFeed.innerText = '';
+                        var explicitSongs = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=false');
+                        explicitSongs = await explicitSongs.json();
+
+                        //artist has no songs that dont have explicit 
+                        if(explicitSongs.artist_feed.length == 0) {
+                            const x = document.createElement('p');
+                            x.innerText = 'Artist does not have any songs that dont have curse words'
+                            x.style.color = 'red';
+                            artistFeed.appendChild(x);
+                        }
+        
+                        console.log(explicitSongs);
+                    }
+        
+        
+                }
+        
+                explicitCheckbox.addEventListener('change', (x) => {
+                    explicitFilter(x.target.checked);
+                })
+        
+        
+            </script>
+        <% } %>
+        
+        
+      
 
     </div>
-    <script>
-        const artistFeed = document.getElementById('artist-feed');
-        //show spinner while loading data
-        const loading = document.createElement('div');
-        loading.setAttribute('class', 'spinner-border');
-        loading.setAttribute('role', 'status');
-        loading.setAttribute('id', 'loading-icon');
-
-        const lyricBox = document.createElement('div');
-        const lyrics = document.createElement('p');
-        const italicStyle = document.createElement('i');
-        
-        async function getExplicitSongs(x) {
-            //show explicit songs
-            if (x == true) {
-                artistFeed.appendChild(loading);
-                var x = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=true');
-                const y = await x.json();
-
-                document.getElementById('loading-icon').remove();
-
-                //NEED TO LOOP THROUGH RESULTS AND PLACE LYRICS
-                console.log(y);
-                //no explicit songs to show
-                if (y.artist_feed.length == 0) {
-                    document.getElementById('artist-feed').innerHTML = '<i>This user does not have any explicit songs</i>'
-                    //show all other non explicit songs 
-                    var z = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=false');
-                    z = await z.json();
-
-                    console.log('non explicit songs to show');
-                    console.log(z);
-
-                    //loop through all songs and place on frontend
-                    for (i = 0; i < z.artist_feed.length; ++i) {
-                        lyrics.innerText = '"' + z.artist_feed[i].lyrics + '"';
-                        italicStyle.appendChild(lyrics);
-                        lyricBox.appendChild(italicStyle);
-
-                        artistFeed.appendChild(lyricBox);
-                    }
-
-                }
-                else {
-                    //loop through all songs and place on frontend
-                    for (i = 0; i < y.artist_feed.length; ++i) {
-                        lyrics.innerText = '"' + y.artist_feed[i].lyrics + '"';
-                        italicStyle.appendChild(lyrics);
-                        lyricBox.appendChild(italicStyle);
-
-                        artistFeed.appendChild(lyricBox);
-                    }
-                }
-
-
-
-            }
-            //hide explicit songs
-            else {
-                
-                artistFeed.innerText = "";
-                var x = await fetch('/api/getartistfeed?artist=<%= artist_data[0].artist_query %>&explicit=false');
-                const y = await x.json();
-
-                console.log(y);
-
-                //artist has no explicit songs
-                if (y.artist_feed.length !== 0) {
-                    //loop through all songs and place on frontend
-                    for (i = 0; i < y.artist_feed.length; ++i) {
-                        lyrics.innerText = '"' + y.artist_feed[i].lyrics + '"';
-                        italicStyle.appendChild(lyrics);
-                        lyricBox.appendChild(italicStyle);
-
-                        artistFeed.appendChild(lyricBox);
-                    }
-                }
-                
-
-
-
-
-
-
-            }
-
-
-        }
-
-
-        const explicitCheckbox = document.getElementById('explicit-filter');
-        explicitCheckbox.addEventListener('change', () => {
-            getExplicitSongs(explicitCheckbox.checked);
-        })
-    </script>
 </body>
 
 </html>
