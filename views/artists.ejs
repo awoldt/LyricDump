@@ -16,11 +16,12 @@
   <%- include('./navbar'); %>
   <div class="container">
     <h1>Supported artists</h1>
-    <p>there are <%= artists_links.length %> artists stored in the database</p>
+    <p>there are <%= artist_data.length %> artists stored in the database</p>
 
     <div>
-      <% for(var i=0; i<artists_links.length; ++i) { %>
-      <a href='/artists/<%= artists_links[i] %>'><%= artist_names[i] %></a>
+      <% for(var i=0; i<artist_data.length; ++i) { %>
+        <span><a href='<%= artist_data[i].artist_href %>'><%= artist_data[i].artist_name %></a> (<%= artist_data[i].artist_num_of_songs %>)</span>
+      
       <br>
       <% } %>
     </div>
