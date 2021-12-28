@@ -13,7 +13,6 @@ app.use(express.static(__dirname + "/public"));
 dbConnect();
 
 const apiRoutes = require("./routes/apiRoute");
-const ArtistProfile = require("./ArtistProfile");
 
 app.get("/", (req, res) => {
   res.status(200);
@@ -85,6 +84,7 @@ app.get("/artists/:artist_name", async (req, res) => {
     artist_profile: profile,
     has_explicit_songs: hasExplicitSongs,
     should_index: shouldIndex,
+    num_of_songs: artistData.length
   });
 });
 
