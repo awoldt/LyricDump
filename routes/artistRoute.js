@@ -50,8 +50,12 @@ router.get("/artists/:id", async (req, res) => {
 
   console.log(artistData);
 
+  const hasExplicitSong = await SongModel.find({artist_query: req.params.id, explicit: true});
+
+
   res.render("artistPage", {
     artist_data: artistData,
+    has_explicit_song: hasExplicitSong
   });
 });
 

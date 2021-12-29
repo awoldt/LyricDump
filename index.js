@@ -4,7 +4,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const dbConnect = require("./DB_connect");
-const SongModel = require("./SongModel");
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
