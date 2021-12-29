@@ -14,7 +14,6 @@ async function organizeAristList() {
   });
 
   artistQueries = artistQueries.sort(); //artist A-Z by order of display name, not query name
-  console.log(artistQueries);
 
   const returnData = await Promise.all(
     artistQueries.map(async (x) => {
@@ -29,7 +28,6 @@ async function organizeAristList() {
   );
 
   console.log("ALL DATA BELOW");
-  console.log(returnData);
 
   return returnData;
 }
