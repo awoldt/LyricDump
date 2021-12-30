@@ -33,6 +33,28 @@ async function organizeAristList() {
   return returnData;
 }
 
+//gets the range of years the artist's lyrics are from
+async function getYearsRange(songs) {
+  console.log("yers range!!");
+  console.log(songs);
+
+  var x = new Array();
+  songs.forEach((item) => {
+    if (x.indexOf(item.release_date) == -1) {
+      x.push(item.release_date);
+    }
+  });
+
+  //artist has lyrics in only one year
+  if (x.length == 1) {
+    return null;
+  }
+  //artist has songs in multiple years
+  else {
+    return x.sort();
+  }
+}
+
 router.get("/artists", async (req, res) => {
   res.status(200);
 
@@ -49,20 +71,22 @@ router.get("/artists/:id", async (req, res) => {
 
   console.log(artistData);
 
+  const yearsRange = await getYearsRange(artistData);
+
   const hasExplicitSong = await SongModel.find({
     artist_query: req.params.id,
     explicit: true,
   });
 
-  const artistProfile = await ArtistProfile.find({ artist_query: req.params.id });
-
-  console.log(artistProfile)
-
+  const artistProfile = await ArtistProfile.find({
+    artist_query: req.params.id,
+  });
 
   res.render("artistPage", {
     artist_data: artistData,
     has_explicit_song: hasExplicitSong,
     artist_profile: artistProfile,
+    lyrics_years_range: yearsRange,
   });
 });
 
