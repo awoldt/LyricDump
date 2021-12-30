@@ -35,9 +35,7 @@ async function organizeAristList() {
 
 //gets the range of years the artist's lyrics are from
 async function getYearsRange(songs) {
-  console.log("yers range!!");
-  console.log(songs);
-
+ 
   var x = new Array();
   songs.forEach((item) => {
     if (x.indexOf(item.release_date) == -1) {
