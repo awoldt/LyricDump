@@ -3,6 +3,7 @@ const router = express.Router();
 const SongModel = require("../SongModel");
 
 router.get("/api", async (req, res) => {
+  res.status(200)
   const songData = await SongModel.find({});
 
   const randomPick = Math.floor(Math.random() * songData.length); //0 to length of how many songs
