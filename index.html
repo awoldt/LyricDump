@@ -39,8 +39,8 @@
 
 
 
-  <div class="container pt-3">
-    <p>
+  <div class="container">
+    <p class="text-center"  style='margin-top: 50px; margin-bottom: 50px;'>
       Easy-to-use api to get some of the worst rap lyrics of all time. Send a GET request and get back JSON data. Simple
       and easy to use, unlimited requests. Browse some of the artists featured in the databse and submit your own
       favorite horrible rap lyrics!
@@ -58,9 +58,9 @@
     <div style="padding: 15px">
 
       <p>
-        This endpoint will randomly fetch a single bad rap lyric from database
+        This endpoint will randomly fetch one single lyric from database
       </p>
-      <p>Returned JSON structure: </p>
+      <h3 style='font-size: 18px; text-decoration: none;'>Returned JSON structure: </h3>
       <ul>
         <li>
           <code style='color: #0d6efd'>lyrics</code> - the bad lyric of the song <i>(text)</i>
@@ -101,7 +101,7 @@
       </p>
 
       <p>Valid queries</p>
-      <ul>
+      <ul style='margin-bottom: 25px;'>
         <li>
           <h3>
             <code style='color: #0d6efd'>?artist</code>
@@ -116,7 +116,7 @@
             <li>Andre 3000 = andre3000</li>
           </ul>
           <li>
-            example: <a href='/api/filter?explicit=false' style='text-decoration: none;'><code
+            example: <a href='/api/filter?artist=jayz' style='text-decoration: none;'><code
                 class="text-secondary">/api/filter?artist=jayz</code></a>
           </li>
         </ul>
@@ -145,10 +145,7 @@
                 class="text-secondary">/api/filter?year=1985</code></a></li>
         </ul>
       </ul>
-      <p>Returned JSON structure</p>
-      <p>
-
-      </p>
+      <p style='max-width: 550px;'>Keep in mind that all filter queries can be used at once. Different combinations can get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a></p>
     </div>
     <hr>
     </hr>
