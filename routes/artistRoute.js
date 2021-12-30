@@ -35,7 +35,6 @@ async function organizeAristList() {
 
 //gets the range of years the artist's lyrics are from
 async function getYearsRange(songs) {
- 
   var x = new Array();
   songs.forEach((item) => {
     if (x.indexOf(item.release_date) == -1) {
@@ -65,7 +64,9 @@ router.get("/artists", async (req, res) => {
 
 router.get("/artists/:id", async (req, res) => {
   res.status(200);
-  const artistData = await SongModel.find({ artist_query: req.params.id });
+  const artistData = await SongModel.find({ artist_query: req.params.id }).sort(
+    { date_added: -1 }
+  );
 
   console.log(artistData);
 

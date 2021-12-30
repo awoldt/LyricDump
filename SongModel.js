@@ -6,7 +6,8 @@ const songSchema = new mongoose.Schema({
   artist_query: String,
   song: String,
   release_date: String, 
-  explicit: Boolean
+  explicit: Boolean,
+  date_added: Date
 });
 
 const Song =
