@@ -21,6 +21,7 @@
     <% if(artist_profile.length !==0) { %>
 
     <img src="<%= artist_profile[0].profile_img %>" class="rounded mx-auto d-block" alt='<%=artist_data[0].artist %>' style='margin-top: 50px; margin-bottom: 5px;' />
+    <p style='font-size: 10px;' class="text-center"><a style="text-decoration: none;" href='<%= artist_profile[0].img_attribution.author_source %>'><%= artist_profile[0].img_attribution.author %></a>, <a style='text-decoration: none;' href='<%= artist_profile[0].img_attribution.license_source %>'><%= artist_profile[0].img_attribution.license %></a>, via Wikimedia Commons</p>
     <% } %>
     <h1 class="mt-3 text-center">Bad <%= artist_data[0].artist %> lyrics</h1>
 
@@ -56,7 +57,7 @@
     <% } %>
 
     <% if(lyrics_years_range !== null) { %>
-      <p class="text-center">Lyrics range from <%= lyrics_years_range[0] %>-<%= lyrics_years_range[lyrics_years_range.length-1] %></p>
+    <p class="text-center">Lyrics range from <%= lyrics_years_range[0] %>-<%= lyrics_years_range[lyrics_years_range.length-1] %></p>
     <% } %>
 
     <hr>

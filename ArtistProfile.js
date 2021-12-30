@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const profileSchema = new mongoose.Schema({
   artist_query: String,
-  profile_img: String
+  profile_img: String,
+  img_attribution: Object
 });
 
 const ArtistProfile =
