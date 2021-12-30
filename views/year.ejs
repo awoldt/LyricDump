@@ -18,23 +18,18 @@
     <h1 style='margin-bottom: 75px;'>Worst rap lyrics throughout the years</h1>
 
       <% for(var i=0; i<data.length; ++i) { %>
-      <div style='margin-bottom: 25px;'>
-        <h2><%= data[i].year %></h2>
         <hr>
+        <div style='margin-bottom: 25px;'>
+        <h2><%= data[i].year %></h2>
         <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
             <div>
                 <span><%= data[i].songs_in_year[y].artist %></span>
             </div>
-        
-        
         <%  } %>
-
       </div>
+      
       <% } %>
-
-
   </div>
-
 </body>
 
 </html>

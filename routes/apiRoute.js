@@ -53,10 +53,8 @@ router.get("/api/filter", async (req, res) => {
         });
         //200
       } else {
-        const r = Math.floor(Math.random() * results.length);
-
         res.status(200);
-        res.json(results[r]);
+        res.json({ total_results: results.length, data: results });
       }
       //EXPLICIT
     } else if (query.hasOwnProperty("explicit")) {
@@ -74,7 +72,7 @@ router.get("/api/filter", async (req, res) => {
         console.log(results);
 
         //404
-        //no songs with current artist
+        //no songs with explicit lyrics
         if (results.length == 0) {
           res.status(404);
           res.json({
@@ -85,10 +83,8 @@ router.get("/api/filter", async (req, res) => {
           });
           //200
         } else {
-          const r = Math.floor(Math.random() * results.length);
-
           res.status(200);
-          res.json(results[r]);
+          res.json({ total_results: results.length, data: results });
         }
       }
       //YEAR
@@ -108,9 +104,7 @@ router.get("/api/filter", async (req, res) => {
       }
       //200
       else {
-        const r = Math.floor(Math.random() * results.length);
-
-        res.json(results[r]);
+        res.json({ total_results: results.length, data: results });
       }
     } else {
       res.status(400);
@@ -132,13 +126,13 @@ router.get("/api/filter", async (req, res) => {
       m.release_date = query.year;
     }
 
-    //if there is a explicit query in url, make sure it equals true or false
-    if (query.hasOwnProperty("explicit")) {
-      if (query.explicit !== "true" && query.explicit !== "false") {
+    //NEWAY WAYYYYY
+
+    //check is explicit query is valid
+    if (m.hasOwnProperty("explicit")) {
+      if (m.explicit !== "true" && m.explicit !== "false") {
         res.status(400);
-        res.json({
-          message: "explicit query can only be true or false",
-        });
+        res.json({ error: "explicit query must be either true or false" });
       } else {
         const results = await SongModel.find(m);
         console.log(results);
@@ -154,29 +148,8 @@ router.get("/api/filter", async (req, res) => {
         else {
           res.status(200);
 
-          const r = Math.floor(Math.random() * results.length);
-
-          res.json(results[r]);
+          res.json({ total_results: results.length, data: results });
         }
-      }
-    } else {
-      const results = await SongModel.find(m);
-      console.log(results);
-
-      //404
-      if (results.length == 0) {
-        res.status(404);
-        res.json({
-          message: "cannot find any songs with current query",
-        });
-      }
-      //200
-      else {
-        res.status(200);
-
-        const r = Math.floor(Math.random() * results.length);
-
-        res.json(results[r]);
       }
     }
   }
