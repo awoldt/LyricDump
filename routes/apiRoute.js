@@ -3,7 +3,7 @@ const router = express.Router();
 const SongModel = require("../SongModel");
 
 router.get("/api", async (req, res) => {
-  res.status(200)
+  res.status(200);
   const songData = await SongModel.find({});
 
   const randomPick = Math.floor(Math.random() * songData.length); //0 to length of how many songs
@@ -151,6 +151,25 @@ router.get("/api/filter", async (req, res) => {
 
           res.json({ total_results: results.length, data: results });
         }
+      }
+    }
+    //no explicit query
+    else {
+      const results = await SongModel.find(m);
+      console.log(results);
+
+      //404
+      if (results.length == 0) {
+        res.status(404);
+        res.json({
+          message: "cannot find any songs with current query",
+        });
+      }
+      //200
+      else {
+        res.status(200);
+
+        res.json({ total_results: results.length, data: results });
       }
     }
   }
