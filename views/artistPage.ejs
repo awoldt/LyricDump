@@ -56,11 +56,13 @@
 
     <% } %>
 
+
+
+    <hr>
+
     <% if(lyrics_years_range !== null) { %>
     <p class="text-center">Lyrics range from <%= lyrics_years_range[0] %>-<%= lyrics_years_range[lyrics_years_range.length-1] %></p>
     <% } %>
-
-    <hr>
 
     <% for(var i=0; i<artist_data.length; ++i) { %>
     <div style="background-color: #f2f2f2; padding: 10px; margin-bottom: 10px; border-radius: 5px;">

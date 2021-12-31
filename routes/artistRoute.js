@@ -28,9 +28,34 @@ async function organizeAristList() {
     })
   );
 
-  console.log("ALL DATA BELOW");
+  console.log("FORMATTED DATA");
+  console.log(returnData);
 
   return returnData;
+}
+
+//will display the rappers who have the most lyrics stored in the database
+//LOOPS THROUGH THE RETURNDATA ARRAY FROM ABOVE FUNCTION
+async function rapperWithMostLyrics(x) {
+  var rappers = new Array();
+  var currentHighestNum = 0;
+
+  x.forEach((artist) => {
+    //only want artists with more than 1 lyric
+    if (artist.artist_num_of_songs > 1) {
+      //the rapper being added has to have more lyrics than the previous highest
+      if (artist.artist_num_of_songs > currentHighestNum) {
+        rappers.pop();
+        currentHighestNum = artist.artist_num_of_songs;
+        rappers.push(artist.artist_name);
+      } else if (artist.artist_num_of_songs == currentHighestNum) {
+        currentHighestNum = artist.artist_num_of_songs;
+        rappers.push(artist.artist_name);
+      }
+    }
+  });
+
+  return rappers;
 }
 
 //gets the range of years the artist's lyrics are from
@@ -57,8 +82,11 @@ router.get("/artists", async (req, res) => {
 
   const allArtistData = await organizeAristList();
 
+  const mostLyrics = await rapperWithMostLyrics(allArtistData);
+
   res.render("artists", {
     artist_data: allArtistData,
+    most_lyrics: mostLyrics,
   });
 });
 
