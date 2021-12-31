@@ -19,30 +19,34 @@
     <p>there are <%= artist_data.length %> artists stored in the database</p>
 
 
-    <p>Currently
+    <p>
       <% if(most_lyrics.length > 1) { %>
-      <% for(var i=0; i<most_lyrics.length; ++i) { %>
-      <% if(i == most_lyrics.length-1 ) { %>
-      and <b><%= most_lyrics[i] %></b>
-      <% } else { %>
-      <b><%= most_lyrics[i] %></b>,
-      <% } %>
-      <% } %>
-      have the most bad lyrics stored
-      <% } else if(most_lyrics.length == 1) { %>
-      <b><%= most_lyrics[0] %></b> has the most bad lyrics stored
-      <% } %>
-
+      <% if(most_lyrics.length == 2) { %>
+    <p>Currently <b><%= most_lyrics[0] %></b> and <b><%= most_lyrics[1] %></b> have the most bad lyrics</p>
+    <% } else { %>
+    Currently
+    <% for(var i=0; i<most_lyrics.length; ++i) { %>
+    <% if(i == most_lyrics.length-1 ) { %>
+    and <b><%= most_lyrics[i] %></b>
+    <% } else { %>
+    <b><%= most_lyrics[i] %></b>,
+    <% } %>
+    <% } %>
+    have the most bad lyrics stored
+    <% } %>
+    <% } else if(most_lyrics.length == 1) { %>
+    <b><%= most_lyrics[0] %></b> has the most bad lyrics stored
+    <% } %>
     </p>
 
     <div style='margin-bottom: 25px;'>
-   
-        <% for(var i=0; i<artist_data.length; ++i) { %>
+
+      <% for(var i=0; i<artist_data.length; ++i) { %>
       <span style='display: block;'><a href='<%= artist_data[i].artist_href %>'><%= artist_data[i].artist_name %></a> (<%= artist_data[i].artist_num_of_songs %>)</span>
-   
+
       <% } %>
-      
-      
+
+
     </div>
   </div>
 

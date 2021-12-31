@@ -43,17 +43,19 @@ async function rapperWithMostLyrics(x) {
   x.forEach((artist) => {
     //only want artists with more than 1 lyric
     if (artist.artist_num_of_songs > 1) {
-      //the rapper being added has to have more lyrics than the previous highest
-      if (artist.artist_num_of_songs > currentHighestNum) {
-        rappers.pop();
-        currentHighestNum = artist.artist_num_of_songs;
+      if (artist.artist_num_of_songs == currentHighestNum) {
         rappers.push(artist.artist_name);
-      } else if (artist.artist_num_of_songs == currentHighestNum) {
+        //rapper has same amount of lyrics as recent hightest, also add
+      } else if (artist.artist_num_of_songs > currentHighestNum) {
+        rappers.length = 0;
         currentHighestNum = artist.artist_num_of_songs;
         rappers.push(artist.artist_name);
       }
     }
   });
+
+  console.log('rappers with most lyrics')
+  console.log(rappers)
 
   return rappers;
 }
