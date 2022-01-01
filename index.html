@@ -40,7 +40,8 @@
 
 
   <div class="container">
-    <p class="text-center"  style='margin-top: 50px; margin-bottom: 50px;'>
+    <h1 class="text-center" style='margin-top: 50px; margin-bottom: 25px;'>Home of the Worst Rap Lyrics</h1>
+    <p class="text-center"  style='margin-bottom: 50px;'>
       Easy-to-use api to get some of the worst rap lyrics of all time. Send a GET request and get back JSON data. Simple
       and easy to use, unlimited requests. Browse some of the artists featured in the databse and submit your own
       favorite horrible rap lyrics!
@@ -50,7 +51,7 @@
     </hr>
 
       <h2>
-        <a href='/api' style="text-decoration: none;"> <code>/api</code></a>
+        <a href='/api' style="text-decoration: none; color: #d63384;"> <code>/api</code></a>
       </h2>
 
 
@@ -60,25 +61,30 @@
       <p>
         This endpoint will randomly fetch one single lyric from database
       </p>
-      <h3 style='font-size: 18px; text-decoration: none;'>Returned JSON structure: </h3>
+      <h3 style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </h3>
       <ul>
         <li>
-          <code style='color: #0d6efd'>lyrics</code> - the bad lyric of the song <i>(text)</i>
+          <p style='margin-bottom: 0px;'><code style='color: #d63384'>lyrics</code> - the bad lyric of the song <i>(text)</i></p>
+          
         </li>
         <li>
-          <code style='color: #0d6efd'>artist</code> - the rapper who said the lyrics <i>(text)</i>
+          <p style='margin-bottom: 0px;'> <code style='color: #d63384'>artist</code> - the rapper who said the lyrics <i>(text)</i></p>
+         
         </li>
         <li>
-          <code style='color: #0d6efd'>song</code> - the song in which the lyrics were said
-          <i>(text)</i>
+          <p style='margin-bottom: 0px;'><code style='color: #d63384'>song</code> - the song in which the lyrics were said
+          <i>(text)</i></p>
+          
         </li>
         <li>
-          <code style='color: #0d6efd'>release_date</code> - the date on which the song was released
-          <i>(text)</i>
+          <p style='margin-bottom: 0px;'><code style='color: #d63384'>release_date</code> - the date on which the song was released
+          <i>(text)</i></p>
+          
         </li>
         <li>
-          <code style='color: #0d6efd'>explicit</code> - whether or not song contains cuss words
-          <i>(boolean)</i>
+          <p style='margin-bottom: 0px;'> <code style='color: #d63384'>explicit</code> - whether or not song contains cuss words
+          <i>(boolean)</i></p>
+         
         </li>
       </ul>
     </div>
@@ -89,23 +95,23 @@
     </hr>
 
       <h2>
-        <a href='/api/filter?explicit=false' style='text-decoration: none;'><code>/api/filter</code></a>
+        <a href='/api/filter?explicit=false' style='text-decoration: none; color: #d63384'><code>/api/filter</code></a>
       </h2>
  
 
 
     <div style="padding: 15px">
       <p>
-        This endpoint will fetch a random song that matches current query. <u>Endpoint MUST contain at least one
-          query.</u>
+        This endpoint will fetch a random song that matches current query. Endpoint must contain at least one
+          query.
       </p>
 
-      <p>Valid queries</p>
+      <h3 style='font-weight: normal; font-size: 16px;'><u>Valid queries</u></h3>
       <ul style='margin-bottom: 25px;'>
         <li>
-          <h3>
-            <code style='color: #0d6efd'>?artist</code>
-          </h3>
+          <h4>
+            <code style='color: #d63384'>?artist</code>
+          </h4>
         </li>
         <ul>
           <li>This will filter requests by artist</li>
@@ -121,9 +127,9 @@
           </li>
         </ul>
         <li>
-          <h3>
-            <code style='color: #0d6efd'>?explicit</code>
-          </h3>
+          <h4>
+            <code style='color: #d63384'>?explicit</code>
+          </h4>
         </li>
         <ul>
           <li>Returns songs that either have explicit language or not</li>
@@ -134,9 +140,9 @@
           </li>
         </ul>
         <li>
-          <h3>
-            <code style='color: #0d6efd'>?year</code>
-          </h3>
+          <h4>
+            <code style='color: #d63384'>?year</code>
+          </h4>
         </li>
         <ul>
           <li>Will filter out songs by year it came out</li>
@@ -145,7 +151,7 @@
                 class="text-secondary">/api/filter?year=1985</code></a></li>
         </ul>
       </ul>
-      <p style='max-width: 550px;'>Keep in mind that all filter queries can be used at once. Different combinations can get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a></p>
+      <p style='max-width: 750px;'>Keep in mind that all filter queries can be used at once. Different combinations can get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a></p>
     </div>
     <hr>
     </hr>

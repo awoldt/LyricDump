@@ -18,7 +18,10 @@
    <h1><%= year %>'s Worst Rap Lyrics</h1>
 
    <% for(var i=0; i<song_data.length; ++i) { %>
-    <p><i>"<%= song_data[i].lyrics %>"</i></p>
+    <div style="background-color: #f2f2f2; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+      <p style='margin-bottom: 0px;'><i>"<%= song_data[i].lyrics %>"</i> (<a href='/artists/<%= song_data[i].artist_query %>' style='color: #d63384'><code><%= song_data[i].artist %></code></a>, <%= song_data[i].song %>)</p>
+    </div>
+    
    <% } %>
   </div>
 </body>
