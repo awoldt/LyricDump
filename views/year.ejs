@@ -15,20 +15,36 @@
 <body>
   <%- include('./navbar'); %>
   <div class="container">
-    <h1 style='margin-bottom: 75px;'>Worst Rap Lyrics by Year</h1>
+    <h1>Worst Rap Lyrics by Year</h1>
+    <% var worstYear = 0; var numInYear = 0 %>
 
-      <% for(var i=0; i<data.length; ++i) { %>
-        <hr>
-        <div style='margin-bottom: 25px;'>
-        <h2><%= data[i].year %></h2>
-        <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
-            <div>
-                <span><%= data[i].songs_in_year[y].artist %></span>
-            </div>
-        <%  } %>
+    <% for(var i=0; i<data.length; ++i) { %>
+    <% if(data[i].songs_in_year.length > numInYear) { %>
+    <% numInYear = data[i].songs_in_year.length%>
+    <% worstYear = data[i].year %>
+    <% } %>
+    <% } %>
+    <p>Currently, <b><code><%= worstYear %></code></b> is the year with the worst lyrics.</p>
+
+    <% for(var i=0; i<data.length; ++i) { %>
+    <% var addedArtists = new Array() %>
+    <hr>
+    <div style='margin-bottom: 25px;'>
+      <a href='/year/<%=  data[i].year %>'><h2><%= data[i].year %></h2></a>
+      <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
+
+      <% if(addedArtists.indexOf(data[i].songs_in_year[y].artist) == -1) { %>
+        <% addedArtists.push(data[i].songs_in_year[y].artist) %>
+      <div>
+        <span><%= data[i].songs_in_year[y].artist %></span>
       </div>
-      
       <% } %>
+
+
+      <%  } %>
+    </div>
+
+    <% } %>
   </div>
 </body>
 

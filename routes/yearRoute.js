@@ -34,4 +34,17 @@ router.get("/year", async (req, res) => {
   });
 });
 
+router.get("/year/:id", async (req, res) => {
+  const songs = await SongModel.find({ release_date: req.params.id }).sort({
+    date_added: -1,
+  });
+
+  console.log(songs)
+
+  res.render("yearPage", {
+    year: req.params.id,
+    song_data: songs,
+  });
+});
+
 module.exports = router;
