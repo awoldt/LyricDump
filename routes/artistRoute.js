@@ -28,9 +28,6 @@ async function organizeAristList() {
     })
   );
 
-  console.log("FORMATTED DATA");
-  console.log(returnData);
-
   return returnData;
 }
 
@@ -53,9 +50,6 @@ async function rapperWithMostLyrics(x) {
       }
     }
   });
-
-  console.log('rappers with most lyrics')
-  console.log(rappers)
 
   return rappers;
 }
@@ -93,30 +87,37 @@ router.get("/artists", async (req, res) => {
 });
 
 router.get("/artists/:id", async (req, res) => {
-  res.status(200);
+  
   const artistData = await SongModel.find({ artist_query: req.params.id }).sort(
     { date_added: -1 }
   );
 
-  console.log(artistData);
+  //404
+  if (artistData.length == 0) {
+    res.status(404);
+    res.send("Cannot find artist");
+  }
+  //200
+  else {
+    res.status(200);
+    const yearsRange = await getYearsRange(artistData);
 
-  const yearsRange = await getYearsRange(artistData);
+    const hasExplicitSong = await SongModel.find({
+      artist_query: req.params.id,
+      explicit: true,
+    });
 
-  const hasExplicitSong = await SongModel.find({
-    artist_query: req.params.id,
-    explicit: true,
-  });
+    const artistProfile = await ArtistProfile.find({
+      artist_query: req.params.id,
+    });
 
-  const artistProfile = await ArtistProfile.find({
-    artist_query: req.params.id,
-  });
-
-  res.render("artistPage", {
-    artist_data: artistData,
-    has_explicit_song: hasExplicitSong,
-    artist_profile: artistProfile,
-    lyrics_years_range: yearsRange,
-  });
+    res.render("artistPage", {
+      artist_data: artistData,
+      has_explicit_song: hasExplicitSong,
+      artist_profile: artistProfile,
+      lyrics_years_range: yearsRange,
+    });
+  }
 });
 
 module.exports = router;

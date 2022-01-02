@@ -35,6 +35,11 @@ app.get("/robots.txt", (req, res) => {
   res.sendFile(path.join(__dirname + "/", "robots.txt"));
 });
 
+app.use((req, res) => {
+  res.status(404)
+  res.send("Page not found")
+})
+
 app.listen(8080, () => {
   console.log("App running on port 8080");
 });

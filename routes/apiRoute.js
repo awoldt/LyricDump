@@ -19,7 +19,6 @@ router.get("/api", async (req, res) => {
 
 router.get("/api/filter", async (req, res) => {
   const query = req.query;
-  console.log(query);
 
   const queryLength = Object.keys(query).length;
 
@@ -31,16 +30,11 @@ router.get("/api/filter", async (req, res) => {
     });
     //SINGLE QUERY
   } else if (queryLength == 1) {
-    console.log("SINGLE QUERY");
-    console.log(query);
-
     //ARTIST
     if (query.hasOwnProperty("artist")) {
-      console.log("\nartist query");
       const results = await SongModel.find({
         artist_query: query.artist,
       });
-      console.log(results);
 
       //404
       //no songs with current artist
@@ -59,8 +53,6 @@ router.get("/api/filter", async (req, res) => {
       }
       //EXPLICIT
     } else if (query.hasOwnProperty("explicit")) {
-      console.log("explicit query");
-
       if (query.explicit !== "true" && query.explicit !== "false") {
         res.status(400);
         res.json({
@@ -70,7 +62,6 @@ router.get("/api/filter", async (req, res) => {
         const results = await SongModel.find({
           explicit: query.explicit,
         });
-        console.log(results);
 
         //404
         //no songs with explicit lyrics
@@ -90,11 +81,9 @@ router.get("/api/filter", async (req, res) => {
       }
       //YEAR
     } else if (query.hasOwnProperty("year")) {
-      console.log("year query!");
       res.status(200);
 
       const results = await SongModel.find({ release_date: query.year });
-      console.log(results);
 
       //404
       if (results.length == 0) {
@@ -136,7 +125,6 @@ router.get("/api/filter", async (req, res) => {
         res.json({ error: "explicit query must be either true or false" });
       } else {
         const results = await SongModel.find(m);
-        console.log(results);
 
         //404
         if (results.length == 0) {
@@ -156,7 +144,6 @@ router.get("/api/filter", async (req, res) => {
     //no explicit query
     else {
       const results = await SongModel.find(m);
-      console.log(results);
 
       //404
       if (results.length == 0) {
@@ -179,14 +166,10 @@ router.get("/api/filter", async (req, res) => {
 router.get("/api/getartistfeed", async (req, res) => {
   res.status(200);
 
-  console.log("GET /api/getartistfeed");
-  console.log(req.query);
-
   const feed = await SongModel.find({
     artist_query: req.query.artist,
     explicit: req.query.explicit,
   });
-  console.log(feed);
 
   res.json({
     artist_feed: feed,

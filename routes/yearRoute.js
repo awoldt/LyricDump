@@ -27,8 +27,6 @@ router.get("/year", async (req, res) => {
     })
   );
 
-  console.log(returnData);
-
   res.render("year", {
     data: returnData,
   });
@@ -39,12 +37,18 @@ router.get("/year/:id", async (req, res) => {
     date_added: -1,
   });
 
-  console.log(songs)
-
-  res.render("yearPage", {
-    year: req.params.id,
-    song_data: songs,
-  });
+  //404
+  if (songs.length == 0) {
+    res.status(404);
+    res.send("Cannot find year");
+  }
+  //200
+  else {
+    res.render("yearPage", {
+      year: req.params.id,
+      song_data: songs,
+    });
+  }
 });
 
 module.exports = router;
