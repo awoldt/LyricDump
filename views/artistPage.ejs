@@ -28,7 +28,7 @@
     <% if(artist_profile.length !==0) { %>
 
     <img src="<%= artist_profile[0].profile_img %>" class="rounded mx-auto d-block" alt='<%=artist_data[0].artist %>' style='margin-top: 50px; margin-bottom: 5px;' />
-    <p style='font-size: 10px;' class="text-center"><a style="text-decoration: none;" href='<%= artist_profile[0].img_attribution.author_source %>'><%= artist_profile[0].img_attribution.author %></a>, <a style='text-decoration: none;' href='<%= artist_profile[0].img_attribution.license_source %>'><%= artist_profile[0].img_attribution.license %></a>, via Wikimedia Commons. Changes were made.</p>
+    <p style='font-size: 10px;' class="text-center"><a style="text-decoration: none;" href='<%= artist_profile[0].img_attribution.author_source %>'  rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.author %></a>, <a style='text-decoration: none;' href='<%= artist_profile[0].img_attribution.license_source %>'  rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.license %></a>, via Wikimedia Commons. Changes were made.</p>
     <% } %>
     <h1 class="mt-3 text-center">Bad <%= artist_data[0].artist %> lyrics</h1>
 
