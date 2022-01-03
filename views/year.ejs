@@ -23,7 +23,7 @@
 <body>
   <%- include('./navbar'); %>
   <div class="container">
-    <h1>Worst Rap Lyrics by Year</h1>
+    <h1 class="mt-3">Worst Rap Lyrics by Year</h1>
     <% var worstYear = 0; var numInYear = 0 %>
 
     <% for(var i=0; i<data.length; ++i) { %>
@@ -32,6 +32,7 @@
     <% worstYear = data[i].year %>
     <% } %>
     <% } %>
+    <p>Easily sort through all the years of horrible rap lyrics. Each year showcases all the rappers who are currently featured having a bad lyric in that speicific year. Some rappers appear multiple times within a single year.</p>
     <p>Currently, <b><code><%= worstYear %></code></b> is the year with the worst lyrics.</p>
 
 
@@ -44,6 +45,8 @@
         <a href='/year/<%=  data[i].year %>'>
           <h2><%= data[i].year %></h2>
         </a>
+      
+
         <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
 
         <% if(addedArtists.indexOf(data[i].songs_in_year[y].artist) == -1) { %>
@@ -55,6 +58,11 @@
 
 
         <%  } %>
+        <% if(data[i].songs_in_year.length == 1) { %>
+          <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyric from <%= addedArtists.length %> artist</b></p>
+          <% } else { %>
+          <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyrics total across <%= addedArtists.length %> different artists</b></p>
+          <% } %>
       </div>
 
       <div class="col-md">
@@ -62,10 +70,10 @@
         <% if(data[i].songs_in_year.length == 1) { %>
         <div>
           <% if(data[i].songs_in_year[0].explicit) { %>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
-              <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
-              <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
-            </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+            <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
+            <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
+          </svg>
           <% } %>
           <p style='display: inline;'><i>"<%= data[i].songs_in_year[0].lyrics %>"</i> - <%= data[i].songs_in_year[0].artist %></p>
         </div>
@@ -73,10 +81,10 @@
         <% const r = Math.floor(Math.random() * data[i].songs_in_year.length)%>
         <div>
           <% if(data[i].songs_in_year[r].explicit) { %>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
-              <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
-              <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
-            </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+            <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
+            <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
+          </svg>
           <% } %>
           <p style='display: inline;'><i>"<%= data[i].songs_in_year[r].lyrics %>"</i> - <%= data[i].songs_in_year[r].artist %></p>
         </div>

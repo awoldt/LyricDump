@@ -27,6 +27,7 @@ router.get("/year", async (req, res) => {
     })
   );
 
+
   res.render("year", {
     data: returnData,
   });
