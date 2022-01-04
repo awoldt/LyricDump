@@ -2,6 +2,26 @@ const express = require("express");
 const router = express.Router();
 const SongModel = require("../SongModel");
 
+function yearsWithMostLyrics(songs) {
+  var years = new Array();
+  var currentHighestNum = 0;
+
+  songs.forEach((x) => {
+    //only want years with more than 1 lyric
+    if (x.songs_in_year.length > 1) {
+      if (x.songs_in_year.length == currentHighestNum) {
+        years.push(x.year);
+      } else if (x.songs_in_year.length > currentHighestNum) {
+        years.length = 0;
+        currentHighestNum = x.songs_in_year.length;
+        years.push(x.year);
+      }
+    }
+  });
+
+  return years;
+}
+
 router.get("/year", async (req, res) => {
   res.status(200);
 
@@ -27,9 +47,11 @@ router.get("/year", async (req, res) => {
     })
   );
 
+  const mostLyrics = yearsWithMostLyrics(returnData);
 
   res.render("year", {
     data: returnData,
+    years_with_most_lyrics: mostLyrics,
   });
 });
 
@@ -41,8 +63,8 @@ router.get("/year/:id", async (req, res) => {
   var hasExplicitLyrics = false;
 
   //check to see if any lyrics contain explicit language
-  for(var i = 0; i<songs.length; ++i) {
-    if(songs[i].explicit) {
+  for (var i = 0; i < songs.length; ++i) {
+    if (songs[i].explicit) {
       hasExplicitLyrics = true;
       break;
     }
@@ -58,7 +80,7 @@ router.get("/year/:id", async (req, res) => {
     res.render("yearPage", {
       year: req.params.id,
       song_data: songs,
-      contains_explicit_lyrics: hasExplicitLyrics
+      contains_explicit_lyrics: hasExplicitLyrics,
     });
   }
 });

@@ -33,7 +33,22 @@
     <% } %>
     <% } %>
     <p>Easily sort through all the years of horrible rap lyrics. Each year showcases all the rappers who are currently featured having a bad lyric in that speicific year. Some rappers appear multiple times within a single year.</p>
-    <p>Currently, <b><code><%= worstYear %></code></b> is the year with the worst lyrics.</p>
+
+    <% if(years_with_most_lyrics.length == 1) { %>
+    <p>Currently, <b><code><%= years_with_most_lyrics[0] %></code></b> is the year with the worst lyrics</p>
+    <% } else if(years_with_most_lyrics.length == 2) { %>
+    <p>Currently, <b><code><%= years_with_most_lyrics[0] %> </code></b> and <b><code><%= years_with_most_lyrics[1] %></code></b> are the years with the worst lyrics</p>
+    <% } else { %>
+    <p>Currently, <% for(var i=0; i<years_with_most_lyrics.length; ++i) { %>
+        <% if(i == years_with_most_lyrics.length-1) { %>
+          and <b><code><%= years_with_most_lyrics[i] %></code></b>
+        <% } else { %>
+          <b><code><%= years_with_most_lyrics[i] %></code></b>,
+        <% } %>
+      <% } %> are the years with the worst lyrics
+    </p>
+    <% } %>
+
 
 
     <div class="row">
@@ -45,7 +60,7 @@
         <a href='/year/<%=  data[i].year %>'>
           <h2><%= data[i].year %></h2>
         </a>
-      
+
 
         <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
 
@@ -59,16 +74,16 @@
 
         <%  } %>
         <% if(data[i].songs_in_year.length == 1) { %>
-          <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyric from <%= addedArtists.length %> artist</b></p>
-          <% } else { %>
-          <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyrics total across <%= addedArtists.length %> different artists</b></p>
-          <% } %>
+        <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyric from <%= addedArtists.length %> artist</b></p>
+        <% } else { %>
+        <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyrics total across <%= addedArtists.length %> different artists</b></p>
+        <% } %>
       </div>
 
       <div class="col-md">
 
         <% if(data[i].songs_in_year.length == 1) { %>
-        <div>
+        <div style='margin-bottom: 20px;'>
           <% if(data[i].songs_in_year[0].explicit) { %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
             <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
@@ -79,7 +94,7 @@
         </div>
         <% } else { %>
         <% const r = Math.floor(Math.random() * data[i].songs_in_year.length)%>
-        <div>
+        <div style='margin-bottom: 20px;'>
           <% if(data[i].songs_in_year[r].explicit) { %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
             <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
