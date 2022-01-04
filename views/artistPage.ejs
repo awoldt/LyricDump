@@ -30,18 +30,18 @@
     <img src="<%= artist_profile[0].profile_img %>" class="rounded mx-auto d-block" alt='<%=artist_data[0].artist %>' style='margin-top: 50px; margin-bottom: 5px;' />
     <p style='font-size: 10px;' class="text-center"><a style="text-decoration: none;" href='<%= artist_profile[0].img_attribution.author_source %>'  rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.author %></a>, <a style='text-decoration: none;' href='<%= artist_profile[0].img_attribution.license_source %>'  rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.license %></a>, via Wikimedia Commons. Changes were made.</p>
     <% } %>
-    <h1 class="mt-3 text-center">Bad <%= artist_data[0].artist %> lyrics</h1>
+    <h1 class="text-center" style='margin-top: 25px;'>Bad <%= artist_data[0].artist %> lyrics</h1>
 
     <% if(artist_data.length==1) { %>
-    <div class="text-center">
-      <code class="text-center">1 lyric</code>
+    <div class="text-center" style='margin-bottom: 50px;'>
+      <code>1 lyric</code>
       <% if(has_explicit_song.length !==0) { %>
       |
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
         <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
         <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
       </svg>
-      <span style="font-size: 14px;">Some song lyrics are explicit</span>
+      <span >Some song lyrics are explicit</span>
       <% } %>
     </div>
 
@@ -85,10 +85,9 @@
 
     </div>
     <% } %>
-    <div class="text-center" style="margin-bottom: 25px;">
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform" rel="noreferrer" target="_blank"><div class=" btn btn-danger">Submit Bad <%= artist_data[0].artist %> Rap Lyrics</div></a>
- 
-    </div>
+    <div class="text-center" style="margin-top: 25px; margin-bottom: 50px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform" rel="noreferrer" target="_blank" style='color: red'>Submit Bad <%= artist_data[0].artist %> Rap Lyrics</a></div>
+      
+  
     <div class="text-center" style='font-size: 10px; margin-bottom: 50px;'>Icons made by <a href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </div>
 </body>

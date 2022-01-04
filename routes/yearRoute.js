@@ -38,6 +38,16 @@ router.get("/year/:id", async (req, res) => {
     date_added: -1,
   });
 
+  var hasExplicitLyrics = false;
+
+  //check to see if any lyrics contain explicit language
+  for(var i = 0; i<songs.length; ++i) {
+    if(songs[i].explicit) {
+      hasExplicitLyrics = true;
+      break;
+    }
+  }
+
   //404
   if (songs.length == 0) {
     res.status(404);
@@ -48,6 +58,7 @@ router.get("/year/:id", async (req, res) => {
     res.render("yearPage", {
       year: req.params.id,
       song_data: songs,
+      contains_explicit_lyrics: hasExplicitLyrics
     });
   }
 });
