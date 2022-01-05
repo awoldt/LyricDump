@@ -2,6 +2,16 @@ const express = require("express");
 const router = express.Router();
 const SongModel = require("../SongModel");
 
+function ifValidQuery(obj) {
+  //loop through all queries provided and send 400 if contains any query that is not valid
+  for (const key in obj) {
+    if (key !== "artist" && key !== "explicit" && key !== "year") {
+      return false;
+    }
+  }
+  return true;
+}
+
 router.get("/api", async (req, res) => {
   res.status(200);
   const songData = await SongModel.find({});
@@ -42,7 +52,7 @@ router.get("/api/filter", async (req, res) => {
         res.status(404);
         res.json({
           message:
-            "no songs could be found with current artist (" +
+            "no lyrics could be found with current artist (" +
             query.artist +
             ")",
         });
@@ -105,27 +115,50 @@ router.get("/api/filter", async (req, res) => {
   }
   //MULTI-QUERY
   else {
-    const m = new Object();
-    if (query.hasOwnProperty("artist")) {
-      m.artist_query = query.artist;
+    const validQ = ifValidQuery(query);
+    //400
+    if (validQ == false) {
+      res.status(400);
+      res.json({ error: "url contains invalid query parameter" });
     }
-    if (query.hasOwnProperty("explicit")) {
-      m.explicit = query.explicit;
-    }
-    if (query.hasOwnProperty("year")) {
-      m.release_date = query.year;
-    }
+    //200
+    else {
+      const m = new Object();
+      if (query.hasOwnProperty("artist")) {
+        m.artist_query = query.artist;
+      }
+      if (query.hasOwnProperty("explicit")) {
+        m.explicit = query.explicit;
+      }
+      if (query.hasOwnProperty("year")) {
+        m.release_date = query.year;
+      }
+      //check is explicit query is valid
+      if (m.hasOwnProperty("explicit")) {
+        if (m.explicit !== "true" && m.explicit !== "false") {
+          res.status(400);
+          res.json({ error: "explicit query must be either true or false" });
+        } else {
+          const results = await SongModel.find(m);
 
-    //NEWAY WAYYYYY
+          //404
+          if (results.length == 0) {
+            res.status(404);
+            res.json({
+              message: "cannot find any songs with current query",
+            });
+          }
+          //200
+          else {
+            res.status(200);
 
-    //check is explicit query is valid
-    if (m.hasOwnProperty("explicit")) {
-      if (m.explicit !== "true" && m.explicit !== "false") {
-        res.status(400);
-        res.json({ error: "explicit query must be either true or false" });
-      } else {
+            res.json({ total_results: results.length, data: results });
+          }
+        }
+      }
+      //no explicit query
+      else {
         const results = await SongModel.find(m);
-
         //404
         if (results.length == 0) {
           res.status(404);
@@ -139,24 +172,6 @@ router.get("/api/filter", async (req, res) => {
 
           res.json({ total_results: results.length, data: results });
         }
-      }
-    }
-    //no explicit query
-    else {
-      const results = await SongModel.find(m);
-
-      //404
-      if (results.length == 0) {
-        res.status(404);
-        res.json({
-          message: "cannot find any songs with current query",
-        });
-      }
-      //200
-      else {
-        res.status(200);
-
-        res.json({ total_results: results.length, data: results });
       }
     }
   }
