@@ -15,6 +15,7 @@ dbConnect();
 const apiRoutes = require("./routes/apiRoute");
 const artistRoutes = require("./routes/artistRoute");
 const yearRoutes = require("./routes/yearRoute");
+const searchRoute = require("./routes/searchRoute");
 
 app.get("/", (req, res) => {
   res.status(200);
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 app.use(artistRoutes);
 app.use(yearRoutes);
 app.use(apiRoutes); //all api backend
+app.use(searchRoute);
 
 app.get("/sitemap.xml", (req, res) => {
   res.status(200);
@@ -36,9 +38,9 @@ app.get("/robots.txt", (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404)
-  res.send("Page not found")
-})
+  res.status(404);
+  res.send("Page not found");
+});
 
 app.listen(8080, () => {
   console.log("App running on port 8080");
