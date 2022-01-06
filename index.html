@@ -38,7 +38,7 @@
     </p>
 
     <div class="text-center" style="margin-bottom: 25px;">
-      <a href='/artists'  style="text-decoration: none;">
+      <a href='/artists' style="text-decoration: none;">
         <div class="btn btn-light" style='margin-right: 25px;'>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
             viewBox="0 0 16 16">
@@ -47,7 +47,6 @@
           </svg> <span>All rappers</span>
         </div>
       </a>
-
 
       <a href='/year' style="text-decoration: none;">
         <div class="btn btn-light">
@@ -58,28 +57,24 @@
           </svg> <span>Years</span>
         </div>
       </a>
-
     </div>
 
-
     <div class="text-center">
-      <input type='text' placeholder="Search any rapper" onkeyup="return searchArtist(this.value)" style='margin-bottom: 15px;'/>
+      <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch()" style='margin-bottom: 15px;'
+        id='search-input' />
       <div id='search-results-div'></div>
       <script>
+
         const resultsDiv = document.getElementById('search-results-div')
         //search function
         async function searchArtist(q) {
           resultsDiv.innerText = '';
           var data = await fetch('/api/search?artist=' + q);
-          
           var artistAdded = new Array();
-
-
           data = await data.json();
           console.log(data)
-          for(var i=0; i<data.length; ++i) {
-
-            if(artistAdded.indexOf(data[i].item.artist_query) == -1) {
+          for (var i = 0; i < data.length; ++i) {
+            if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
               artistAdded.push(data[i].item.artist_query)
               var link = document.createElement('a');
               link.setAttribute('href', '/artists/' + data[i].item.artist_query);
@@ -87,28 +82,29 @@
               link.innerText = data[i].item.artist + '\n';
               resultsDiv.appendChild(link)
             }
-
-
-            
           }
         }
-      </script>
-      
-      
+        //debounce function 
+        const debounce = (func) => {
+          let timer = null;
+          return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+              func.apply(this, args);
+            }, 700);
+          };
+        }
 
-   
+        const delaySearch = debounce(() => { searchArtist(document.getElementById('search-input').value) })
+      </script>
     </div>
 
-
-
     <hr>
-    </hr>
 
+    </hr>
     <h2>
       <a href='/api' style="text-decoration: none; color: #d63384;"> <code>/api</code></a>
     </h2>
-
-
 
     <div style="padding: 15px">
 
@@ -160,7 +156,8 @@
         query.
       </p>
       <h3 style='font-weight: normal; font-size: 16px;'><u>Valid queries</u></h3>
-      <p>Below are all the queries that can be used in the url. Any query used other than the ones indicated below will result in a 400 response code.</p>
+      <p>Below are all the queries that can be used in the url. Any query used other than the ones indicated below will
+        result in a 400 response code.</p>
       <ul style='margin-bottom: 25px;'>
         <li>
           <h4>
