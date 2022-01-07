@@ -54,25 +54,27 @@
             viewBox="0 0 16 16">
             <path
               d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-          </svg> <span>Years</span>
+          </svg> <span>Worst by Each Decade</span>
         </div>
       </a>
     </div>
 
     <div class="text-center">
-      <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch()" style='margin-bottom: 15px;'
-        id='search-input' />
-      <div id='search-results-div'></div>
-      <script>
+      <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' /> 
+ 
 
+      <div id='search-results-div'></div>
+
+      
+      <script>
         const resultsDiv = document.getElementById('search-results-div')
         //search function
         async function searchArtist(q) {
+          
           resultsDiv.innerText = '';
           var data = await fetch('/api/search?artist=' + q);
           var artistAdded = new Array();
           data = await data.json();
-          console.log(data)
           for (var i = 0; i < data.length; ++i) {
             if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
               artistAdded.push(data[i].item.artist_query)
@@ -83,6 +85,7 @@
               resultsDiv.appendChild(link)
             }
           }
+          loading.style.visibility = 'hidden';
         }
         //debounce function 
         const debounce = (func) => {
@@ -94,7 +97,6 @@
             }, 700);
           };
         }
-
         const delaySearch = debounce(() => { searchArtist(document.getElementById('search-input').value) })
       </script>
     </div>
