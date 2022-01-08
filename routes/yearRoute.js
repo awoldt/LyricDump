@@ -25,7 +25,6 @@ function yearsWithMostLyrics(songs) {
 function metaDescriptionGeneration(x) {
   //more than 3 artists
   if (x.length > 3) {
-    console.log("more than 3");
     var randomIndexUsed = new Array(); //stores the random index to be picked from artist array
     var artistsToDisplay = new Array();
 
@@ -40,7 +39,6 @@ function metaDescriptionGeneration(x) {
         //artist has been added
       } else {
         var randomPick2 = Math.floor(Math.random() * x.length);
-        console.log("artist has already been added");
 
         //while the index has already been used
         while (randomIndexUsed.indexOf(randomPick2) == 1) {
