@@ -63,8 +63,6 @@ async function getYearsRange(songs) {
     }
   });
 
-  console.log("years of songs " + x.sort());
-
   return x.sort();
 }
 
