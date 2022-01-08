@@ -17,10 +17,7 @@
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
+ 
 </head>
 
 <body>
@@ -32,9 +29,9 @@
   <div class="container">
     <h1 class="text-center" style='margin-top: 50px; margin-bottom: 25px;'>Home of the Worst Rap Lyrics</h1>
     <p class="text-center" style='margin-bottom: 50px;'>
-      Easy-to-use api to get some of the worst rap lyrics of all time. Send a GET request and get back JSON data. Simple
+      Easy-to-use api to get some of the <u>BEST</u> rap lyrics of all time. Send a GET request and get back JSON data. Simple
       and easy to use, unlimited requests. Browse some of the artists featured in the databse and submit your own
-      favorite horrible rap lyrics!
+      favorite bad rap lyrics!
     </p>
 
     <div class="text-center" style="margin-bottom: 25px;">
@@ -60,7 +57,7 @@
     </div>
 
     <div class="text-center">
-      <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='margin-bottom: 10px;'/> 
+      <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='margin-bottom: 10px;' class="text-center"/> 
  
 
       <div id='search-results-div'></div>
@@ -112,12 +109,15 @@
 
     </hr>
     <h2>
-      <a href='/api' style="text-decoration: none; color: #d63384;"> <code>/api</code></a>
+      <a href='/api' style="text-decoration: none; color: #d63384;"> <code>/api</code> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+      </svg></a>
     </h2>
 
     <div style="padding: 15px">
 
-      <p>
+      <p style="margin-bottom: 50px;">
         This endpoint will randomly fetch one single lyric from database
       </p>
       <h3 style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </h3>
@@ -157,15 +157,18 @@
     <hr>
     </hr>
     <h2>
-      <a href='/api/filter?explicit=false' style='text-decoration: none; color: #d63384'><code>/api/filter</code></a>
+      <a href='/api/filter?explicit=false' style='text-decoration: none; color: #d63384'><code>/api/filter</code> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+      </svg></a>
     </h2>
     <div style="padding: 15px">
-      <p>
+      <p style="margin-bottom: 50px;">
         This endpoint will fetch all songs that match current query. Endpoint must contain at least one
         query.
       </p>
       <h3 style='font-weight: normal; font-size: 16px;'><u>Valid queries</u></h3>
-      <p>Below are all the queries that can be used in the url. Any query used other than the ones indicated below will
+      <p style='max-width: 550px;'>Below are all the queries that can be used in the url. Any query used other than the ones indicated below will
         result in a 400 response code.</p>
       <ul style='margin-bottom: 25px;'>
         <li>
@@ -211,7 +214,7 @@
                 class="text-secondary">/api/filter?year=1985</code></a></li>
         </ul>
       </ul>
-      <p style='max-width: 750px;'>Keep in mind that all filter queries can be used at once. Different combinations can
+      <p style='max-width: 550px; background-color: rgb(242, 242, 242); padding: 10px;'>Keep in mind that all filter queries can be used at once. Different combinations can
         get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a
           href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a>
       </p>
