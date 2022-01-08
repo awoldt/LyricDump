@@ -16,7 +16,6 @@ async function organizeAristList() {
 
   artistQueries = artistQueries.sort(); //artist A-Z by order of display name, not query name
 
-
   const returnData = await Promise.all(
     artistQueries.map(async (x) => {
       const y = await SongModel.find({ artist: x });
@@ -64,22 +63,15 @@ async function getYearsRange(songs) {
     }
   });
 
-  //artist has lyrics in only one year
-  if (x.length == 1) {
-    return null;
-  }
-  //artist has songs in multiple years
-  else {
-    return x.sort();
-  }
+  console.log("years of songs " + x.sort());
+
+  return x.sort();
 }
 
 router.get("/artists", async (req, res) => {
   res.status(200);
 
   const allArtistData = await organizeAristList();
-
- 
 
   const mostLyrics = await rapperWithMostLyrics(allArtistData);
 
@@ -90,11 +82,9 @@ router.get("/artists", async (req, res) => {
 });
 
 router.get("/artists/:id", async (req, res) => {
-  
   const artistData = await SongModel.find({ artist_query: req.params.id }).sort(
     { date_added: -1 }
   );
-
 
   //404
   if (artistData.length == 0) {
