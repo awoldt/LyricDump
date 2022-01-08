@@ -52,7 +52,7 @@ function metaDescriptionGeneration(x) {
     return (
       "Some of the worst rap lyrics of " +
       x[0].release_date +
-      " including lyrics from artists " +
+      " including lyrics from artists like " +
       artistsToDisplay[0] +
       ", " +
       artistsToDisplay[1] +
@@ -66,7 +66,7 @@ function metaDescriptionGeneration(x) {
       return (
         "Some of the worst rap lyrics of " +
         x[0].release_date +
-        " including lyrics from artists  " +
+        " including lyrics from artists " +
         x[0].artist +
         " and " +
         x[1].artist
@@ -75,7 +75,7 @@ function metaDescriptionGeneration(x) {
       return (
         "Some of the worst rap lyrics of " +
         x[0].release_date +
-        " including lyrics from artists  " +
+        " including lyrics from " +
         x[0].artist
       );
     }
