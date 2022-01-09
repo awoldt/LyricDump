@@ -21,32 +21,32 @@
 <body>
   <%- include('./navbar'); %>
   <div class="container">
-    <h1 class="mt-3">Supported artists</h1>
+    <h1 class="mt-3">Supported Rappers</h1>
     <p>Sort through all the rappers currently stored in the database. The list  is alphabetized and shows how many lyrics are stored for each artist.</p>
     <p>
       <% if(most_lyrics.length > 1) { %>
       <% if(most_lyrics.length == 2) { %>
-    <p>Currently <b><code><%= most_lyrics[0] %></code> </b>and <b><code><%= most_lyrics[1] %></code></b> have the most bad lyrics</p>
+    <p>Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code> </a>and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[1] %></code></a> have the most bad lyrics</p>
     <% } else { %>
     Currently
     <% for(var i=0; i<most_lyrics.length; ++i) { %>
     <% if(i == most_lyrics.length-1 ) { %>
-    and <b><code><%= most_lyrics[i] %></code></b>
+    and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>
     <% } else { %>
-    <b><code><%= most_lyrics[i] %></code></b>,
+      <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>,
     <% } %>
     <% } %>
     have the most bad lyrics stored
     <% } %>
     <% } else if(most_lyrics.length == 1) { %>
-    Currently <b><code><%= most_lyrics[0] %></code></b> has the most bad lyrics stored
+    Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code></a> has the most bad lyrics stored
     <% } %>
     </p>
     <hr>
     <p><b><%= artist_data.length %> artists total</b></p>
     <div style='margin-bottom: 25px;'>
       <% for(var i=0; i<artist_data.length; ++i) { %>
-      <span style='display: block;'><a href='<%= artist_data[i].artist_href %>'><%= artist_data[i].artist_name %></a> (<%= artist_data[i].artist_num_of_songs %>)</span>
+      <span style='display: block;' id='<%= artist_data[i].artist_name %>'><a href='<%= artist_data[i].artist_href %>'><%= artist_data[i].artist_name %></a> (<%= artist_data[i].artist_num_of_songs %>)</span>
       <% } %>
     </div>
     <div class="text-center" style='font-size: 10px; margin-bottom: 50px; margin-top: 50px;'>Icons made by <a href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
