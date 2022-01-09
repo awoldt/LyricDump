@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+User-agent: AhrefsBot
+Crawl-Delay: 86400
+
 Sitemap: https://badrapapi.com/sitemap.xml
