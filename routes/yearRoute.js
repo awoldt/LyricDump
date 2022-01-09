@@ -22,6 +22,35 @@ function yearsWithMostLyrics(songs) {
   return years;
 }
 
+function featuresArtists(lyrics) {
+  var artists = new Array();
+  var artistsAdded = new Array();
+
+  function alphabetize(a, b) {
+    if (a.artist_query < b.artist_query) {
+      return -1;
+    }
+    if (a.artist_query > b.artist_query) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  for (i = 0; i < lyrics.length; ++i) {
+    var obj = new Object();
+    //artist is already stored
+    if (artistsAdded.indexOf(lyrics[i].artist) == -1) {
+      artistsAdded.push(lyrics[i].artist);
+      obj.artist_query = lyrics[i].artist_query;
+      obj.artist_name = lyrics[i].artist;
+      artists.push(obj);
+    } 
+  }
+  artists.sort(alphabetize);
+  return artists;
+}
+
 router.get("/year", async (req, res) => {
   res.status(200);
 
@@ -60,7 +89,8 @@ router.get("/year/:id", async (req, res) => {
     date_added: -1,
   });
 
-  
+  const featuredArtist = featuresArtists(songs);
+
   var hasExplicitLyrics = false;
 
   //check to see if any lyrics contain explicit language
@@ -82,6 +112,7 @@ router.get("/year/:id", async (req, res) => {
       year: req.params.id,
       song_data: songs,
       contains_explicit_lyrics: hasExplicitLyrics,
+      featured_artists: featuredArtist,
     });
   }
 });

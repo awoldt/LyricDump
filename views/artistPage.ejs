@@ -54,9 +54,9 @@
     </div>
     <% } %>
     <% if(artist_data.length == 1) { %>
-    <p style='font-size: 14px;'>Lyric from <a href='/year/<%= lyrics_years_range[0] %>'><%= lyrics_years_range[0] %></a></p>
+    <p>Lyric from <a href='/year/<%= lyrics_years_range[0] %>'><%= lyrics_years_range[0] %></a></p>
     <% } else { %>
-    <p style='font-size: 14px;'>Lyrics from <% for(var i=0; i<lyrics_years_range.length; ++i) { %>
+    <p>Lyrics from <% for(var i=0; i<lyrics_years_range.length; ++i) { %>
       <% if(i == lyrics_years_range.length-1) { %>
       <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a>
       <% } else { %>
@@ -76,7 +76,7 @@
         </svg>
 
         <% } %>
-        <p style="display: inline;"><i>"<%= artist_data[i].lyrics %>"</i>
+        <p style="display: inline; font-size: 18px;"><i>"<%= artist_data[i].lyrics %>"</i>
           -<%= artist_data[i].song %> (<%= artist_data[i].release_date %>)</p>
 
       </div>
