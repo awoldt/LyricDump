@@ -62,7 +62,20 @@ function metaDescriptionGeneration(x) {
   }
   //less than 3 artists
   else {
-    if (x.length == 2) {
+
+    if(x.length == 3) {
+      return (
+        "Some of the worst rap lyrics of " +
+        x[0].release_date +
+        " including lyrics from artists " +
+        x[0].artist +
+        ", " +
+        x[1].artist + 
+        ', and ' +
+        x[2].artist
+      );
+    }
+    else if (x.length == 2) {
       return (
         "Some of the worst rap lyrics of " +
         x[0].release_date +
