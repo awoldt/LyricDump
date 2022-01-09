@@ -13,9 +13,7 @@
   <meta property="og:description" content="<%= artist_data[0].artist %> has some rap lyrics that are so bad they're good" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" />
-
   <link rel="canonical" href="https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" />
-
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <!-- JavaScript Bundle with Popper -->
@@ -26,12 +24,10 @@
   <%- include('./navbar'); %>
   <div class="container" style='margin-bottom: 50px;'>
     <% if(artist_profile.length !==0) { %>
-
     <img src="<%= artist_profile[0].profile_img %>" class="rounded mx-auto d-block" alt='<%=artist_data[0].artist %>' style='margin-top: 50px; margin-bottom: 5px;' />
     <p style='font-size: 10px;' class="text-center"><a style="text-decoration: none;" href='<%= artist_profile[0].img_attribution.author_source %>' rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.author %></a>, <a style='text-decoration: none;' href='<%= artist_profile[0].img_attribution.license_source %>' rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.license %></a>, via Wikimedia Commons. Changes were made.</p>
     <% } %>
     <h1 class="text-center" style='margin-top: 25px;'>Bad <%= artist_data[0].artist %> lyrics</h1>
-
     <% if(artist_data.length==1) { %>
     <div class="text-center" style='margin-bottom: 50px;'>
       <code>1 lyric</code>
@@ -44,7 +40,6 @@
       <span>Some song lyrics are explicit</span>
       <% } %>
     </div>
-
     <% } else { %>
     <div class="text-center" style='margin-bottom: 50px;'>
       <code><%= artist_data.length %> lyrics</code>
@@ -58,11 +53,10 @@
       <% } %>
     </div>
     <% } %>
-
-    <% if(lyrics_years_range.length == 1) { %>
-    <p style='font-size: 14px;'>Lyric from year <a href='/year/<%= lyrics_years_range[0] %>'><%= lyrics_years_range[0] %></a></p>
+    <% if(artist_data.length == 1) { %>
+    <p style='font-size: 14px;'>Lyric from <a href='/year/<%= lyrics_years_range[0] %>'><%= lyrics_years_range[0] %></a></p>
     <% } else { %>
-    <p style='font-size: 14px;'>Lyrics from years <% for(var i=0; i<lyrics_years_range.length; ++i) { %>
+    <p style='font-size: 14px;'>Lyrics from <% for(var i=0; i<lyrics_years_range.length; ++i) { %>
       <% if(i == lyrics_years_range.length-1) { %>
       <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a>
       <% } else { %>
@@ -71,25 +65,23 @@
       <% } %>
     </p>
     <% } %>
-
     <hr>
+    <div style='background-color: rgb(255, 193, 7, .9); padding: 5vw'>
+      <% for(var i=0; i<artist_data.length; ++i) { %>
+      <div style="background-color: #f2f2f2; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+        <% if(artist_data[i].explicit) { %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+          <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
+          <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
+        </svg>
 
-    <% for(var i=0; i<artist_data.length; ++i) { %>
-    <div style="background-color: #f2f2f2; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
-      <% if(artist_data[i].explicit) { %>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
-        <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
-        <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
-      </svg>
+        <% } %>
+        <p style="display: inline;"><i>"<%= artist_data[i].lyrics %>"</i>
+          -<%= artist_data[i].song %> (<%= artist_data[i].release_date %>)</p>
 
+      </div>
       <% } %>
-      <p style="display: inline;"><i>"<%= artist_data[i].lyrics %>"</i>
-        -<%= artist_data[i].song %> (<%= artist_data[i].release_date %>)</p>
-
     </div>
-    <% } %>
-
-
     <div class="text-center" style='font-size: 10px; margin-bottom: 50px;'>Icons made by <a href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </div>
 </body>

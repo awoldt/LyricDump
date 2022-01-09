@@ -22,79 +22,6 @@ function yearsWithMostLyrics(songs) {
   return years;
 }
 
-function metaDescriptionGeneration(x) {
-  //more than 3 artists
-  if (x.length > 3) {
-    var randomIndexUsed = new Array(); //stores the random index to be picked from artist array
-    var artistsToDisplay = new Array();
-
-    //pick 3 random names
-    for (i = 0; i < 3; ++i) {
-      var randomPick = Math.floor(Math.random() * x.length);
-
-      //if random artist has not been added
-      if (randomIndexUsed.indexOf(randomPick) == -1) {
-        randomIndexUsed.push(randomPick); //push index of x used
-        artistsToDisplay.push(x[randomPick].artist); //push the random artists
-        //artist has been added
-      } else {
-        var randomPick2 = Math.floor(Math.random() * x.length);
-
-        //while the index has already been used
-        while (randomIndexUsed.indexOf(randomPick2) == 1) {
-          randomPick2 = Math.floor(Math.random() * x.length);
-        }
-
-        artistsToDisplay.push(x[randomPick2].artist);
-      }
-    }
-
-    return (
-      "Some of the worst rap lyrics of " +
-      x[0].release_date +
-      " including lyrics from artists like " +
-      artistsToDisplay[0] +
-      ", " +
-      artistsToDisplay[1] +
-      ", and " +
-      artistsToDisplay[2]
-    );
-  }
-  //less than 3 artists
-  else {
-
-    if(x.length == 3) {
-      return (
-        "Some of the worst rap lyrics of " +
-        x[0].release_date +
-        " including lyrics from artists " +
-        x[0].artist +
-        ", " +
-        x[1].artist + 
-        ', and ' +
-        x[2].artist
-      );
-    }
-    else if (x.length == 2) {
-      return (
-        "Some of the worst rap lyrics of " +
-        x[0].release_date +
-        " including lyrics from artists " +
-        x[0].artist +
-        " and " +
-        x[1].artist
-      );
-    } else if (x.length == 1) {
-      return (
-        "Some of the worst rap lyrics of " +
-        x[0].release_date +
-        " including lyrics from " +
-        x[0].artist
-      );
-    }
-  }
-}
-
 router.get("/year", async (req, res) => {
   res.status(200);
 
@@ -133,8 +60,7 @@ router.get("/year/:id", async (req, res) => {
     date_added: -1,
   });
 
-  const metaDescripton = metaDescriptionGeneration(songs);
-
+  
   var hasExplicitLyrics = false;
 
   //check to see if any lyrics contain explicit language
@@ -156,7 +82,6 @@ router.get("/year/:id", async (req, res) => {
       year: req.params.id,
       song_data: songs,
       contains_explicit_lyrics: hasExplicitLyrics,
-      meta_description: metaDescripton,
     });
   }
 });
