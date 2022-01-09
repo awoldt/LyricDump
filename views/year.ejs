@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,26 +30,28 @@
     <% } %>
     <p>Easily sort through all the years of not the best rap lyrics. Each year showcases all the rappers who are currently featured having a bad lyric in that speicific year. Some rappers appear multiple times within a single year.</p>
     <% if(years_with_most_lyrics.length == 1) { %>
-    <p>Currently, <b><code><%= years_with_most_lyrics[0] %></code></b> is the year with the worst lyrics</p>
+    <p>Currently, <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %></code></a> is the year with the worst lyrics</p>
     <% } else if(years_with_most_lyrics.length == 2) { %>
-    <p>Currently, <b><code><%= years_with_most_lyrics[0] %> </code></b> and <b><code><%= years_with_most_lyrics[1] %></code></b> are the years with the worst lyrics</p>
+    <p>Currently, <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %> </code></a> and <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[1] %></code></a> are the years with the worst lyrics</p>
     <% } else { %>
     <p>Currently, <% for(var i=0; i<years_with_most_lyrics.length; ++i) { %>
       <% if(i == years_with_most_lyrics.length-1) { %>
-      and <b><code><%= years_with_most_lyrics[i] %></code></b>
+      and <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>
       <% } else { %>
-      <b><code><%= years_with_most_lyrics[i] %></code></b>,
+      <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>,
       <% } %>
       <% } %> are the years with the worst lyrics
     </p>
     <% } %>
+
+
     <div class="row">
       <% for(var i=0; i<data.length; ++i) { %>
       <% var addedArtists = new Array() %>
       <hr>
       <div style='margin-bottom: 25px;' class="col-md">
         <a href='/year/<%=  data[i].year %>'>
-          <h2><%= data[i].year %></h2>
+          <h2 id='<%= data[i].year %>'><%= data[i].year %></h2>
         </a>
         <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
         <% if(addedArtists.indexOf(data[i].songs_in_year[y].artist) == -1) { %>
@@ -93,4 +96,5 @@
     <div class="text-center" style='font-size: 10px; margin-bottom: 50px; margin-top: 50px;'>Icons made by <a href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </div>
 </body>
+
 </html>
