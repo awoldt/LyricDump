@@ -63,10 +63,6 @@
         const delaySearch = debounce(() => { searchArtist(document.getElementById('search-input').value) })
       </script>
     </div>
-    <% if(artist_profile.length !==0) { %>
-    <img src="<%= artist_profile[0].profile_img %>" class="rounded mx-auto d-block" alt='<%=artist_data[0].artist %>' style='margin-top: 50px; margin-bottom: 5px;' />
-    <p style='font-size: 10px;' class="text-center"><a style="text-decoration: none;" href='<%= artist_profile[0].img_attribution.author_source %>' rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.author %></a>, <a style='text-decoration: none;' href='<%= artist_profile[0].img_attribution.license_source %>' rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.license %></a>, via Wikimedia Commons. Changes were made.</p>
-    <% } %>
     <h1 class="text-center" style='margin-top: 25px;'>Bad <%= artist_data[0].artist %> lyrics</h1>
     <% if(artist_data.length==1) { %>
     <div class="text-center" style='margin-bottom: 50px;'>
