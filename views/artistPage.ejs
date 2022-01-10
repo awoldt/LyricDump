@@ -23,6 +23,46 @@
 <body>
   <%- include('./navbar'); %>
   <div class="container" style='margin-bottom: 50px;'>
+    <div style="margin-top: 25px;">
+      <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='margin-bottom: 10px;' class="text-center"/> 
+ 
+
+      <div id='search-results-div'></div>
+
+      
+      <script>
+        const resultsDiv = document.getElementById('search-results-div')
+        //search function
+        async function searchArtist(q) {
+          
+          resultsDiv.innerText = '';
+          var data = await fetch('/api/search?artist=' + q);
+          var artistAdded = new Array();
+          data = await data.json();
+          for (var i = 0; i < data.length; ++i) {
+            if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
+              artistAdded.push(data[i].item.artist_query)
+              var link = document.createElement('a');
+              link.setAttribute('href', '/artists/' + data[i].item.artist_query);
+              link.style.textDecoration = 'none';
+              link.innerText = data[i].item.artist + '\n';
+              resultsDiv.appendChild(link)
+            }
+          }
+        }
+        //debounce function 
+        const debounce = (func) => {
+          let timer = null;
+          return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+              func.apply(this, args);
+            }, 700);
+          };
+        }
+        const delaySearch = debounce(() => { searchArtist(document.getElementById('search-input').value) })
+      </script>
+    </div>
     <% if(artist_profile.length !==0) { %>
     <img src="<%= artist_profile[0].profile_img %>" class="rounded mx-auto d-block" alt='<%=artist_data[0].artist %>' style='margin-top: 50px; margin-bottom: 5px;' />
     <p style='font-size: 10px;' class="text-center"><a style="text-decoration: none;" href='<%= artist_profile[0].img_attribution.author_source %>' rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.author %></a>, <a style='text-decoration: none;' href='<%= artist_profile[0].img_attribution.license_source %>' rel="noreferrer" target="_blank"><%= artist_profile[0].img_attribution.license %></a>, via Wikimedia Commons. Changes were made.</p>
