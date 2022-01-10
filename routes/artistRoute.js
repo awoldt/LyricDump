@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const SongModel = require("../SongModel");
-const ArtistProfile = require("../ArtistProfile");
 
 //fetches all songs and orders them by artists, num of songs by each artist, and link to each artistpage
 async function organizeAristList() {
@@ -99,14 +98,9 @@ router.get("/artists/:id", async (req, res) => {
       explicit: true,
     });
 
-    const artistProfile = await ArtistProfile.find({
-      artist_query: req.params.id,
-    });
-
     res.render("artistPage", {
       artist_data: artistData,
       has_explicit_song: hasExplicitSong,
-      artist_profile: artistProfile,
       lyrics_years_range: yearsRange,
     });
   }
