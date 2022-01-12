@@ -17,7 +17,7 @@
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
- 
+
 </head>
 
 <body>
@@ -29,45 +29,24 @@
   <div class="container">
     <h1 class="text-center" style='margin-top: 50px; margin-bottom: 25px;'>Home of the Worst Rap Lyrics</h1>
     <p class="text-center" style='margin-bottom: 50px;'>
-      Easy-to-use api to get some of the <u>BEST</u> rap lyrics of all time. Rap lyrics that are so bad you can't stop thinking about them. Send a GET request and get back JSON data. Simple
+      Easy-to-use api to get some of the <u>BEST</u> rap lyrics of all time. Rap lyrics that are so bad you can't stop
+      thinking about them. Send a GET request and get back JSON data. Simple
       and easy to use, unlimited requests. Browse some of the artists featured in the databse and submit your own
       favorite bad rap lyrics!
     </p>
 
-    <div class="text-center" style="margin-bottom: 25px;">
-      <a href='/artists' style="text-decoration: none;">
-        <div class="btn btn-warning">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
-            viewBox="0 0 16 16">
-            <path
-              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-          </svg> <span>All rappers</span>
-        </div>
-      </a>
-
-      <a href='/year' style="text-decoration: none;">
-        <div class="btn btn-warning">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar"
-            viewBox="0 0 16 16">
-            <path
-              d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-          </svg> <span>Worst of Year</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="text-center">
-      <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='margin-bottom: 10px;' class="text-center"/> 
- 
-
+    <div class="text-center mb-5">
+      <div class="row justify-content-center">
+        <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input'
+          style='margin-bottom: 10px; width: 400px;' class="form-control text-center" />
+      </div>
       <div id='search-results-div'></div>
 
-      
       <script>
         const resultsDiv = document.getElementById('search-results-div')
         //search function
         async function searchArtist(q) {
-          
+
           resultsDiv.innerText = '';
           var data = await fetch('/api/search?artist=' + q);
           var artistAdded = new Array();
@@ -97,22 +76,50 @@
       </script>
     </div>
 
-<div style="margin-bottom: 25px; margin-top: 25px;" class="text-center">
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform"
-    rel="noreferrer" target="_blank">
-    <div class=" btn btn-light">Submit Rap Lyrics</div>
-  </a>
-</div>
+    <div class="text-center" style="margin-bottom: 25px;">
+      <a href='/artists' style="text-decoration: none;">
+        <div class="btn btn-warning">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
+            viewBox="0 0 16 16">
+            <path
+              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+          </svg> <span>All rappers</span>
+        </div>
+      </a>
+
+      <a href='/year' style="text-decoration: none;">
+        <div class="btn btn-warning">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar"
+            viewBox="0 0 16 16">
+            <path
+              d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+          </svg> <span>Worst of Year</span>
+        </div>
+      </a>
+    </div>
+
+
+
+    <div style="margin-bottom: 25px; margin-top: 25px;" class="text-center">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform"
+        rel="noreferrer" target="_blank">
+        <div class=" btn btn-light">Submit Rap Lyrics</div>
+      </a>
+    </div>
 
 
     <hr>
 
     </hr>
     <h2>
-      <a href='/api' style="text-decoration: none; color: #d63384;"> <code>/api</code> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
-        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
-      </svg></a>
+      <a href='/api' style="text-decoration: none; color: #d63384;"> <code>/api</code> <svg
+          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+          <path fill-rule="evenodd"
+            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+        </svg></a>
     </h2>
 
     <div style="padding: 15px">
@@ -157,10 +164,14 @@
     <hr>
     </hr>
     <h2>
-      <a href='/api/filter?explicit=false' style='text-decoration: none; color: #d63384'><code>/api/filter</code> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
-        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
-      </svg></a>
+      <a href='/api/filter?explicit=false' style='text-decoration: none; color: #d63384'><code>/api/filter</code> <svg
+          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+          <path fill-rule="evenodd"
+            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+        </svg></a>
     </h2>
     <div style="padding: 15px">
       <p style="margin-bottom: 50px;">
@@ -168,7 +179,8 @@
         query.
       </p>
       <h3 style='font-weight: normal; font-size: 16px;'><u>Valid queries</u></h3>
-      <p style='max-width: 550px;'>Below are all the queries that can be used in the url. Any query used other than the ones indicated below will
+      <p style='max-width: 550px;'>Below are all the queries that can be used in the url. Any query used other than the
+        ones indicated below will
         result in a 400 response code.</p>
       <ul style='margin-bottom: 25px;'>
         <li>
@@ -214,7 +226,8 @@
                 class="text-secondary">/api/filter?year=1985</code></a></li>
         </ul>
       </ul>
-      <p style='max-width: 550px; background-color: rgb(242, 242, 242); padding: 10px;'>Keep in mind that all filter queries can be used at once. Different combinations can
+      <p style='max-width: 550px; background-color: rgb(242, 242, 242); padding: 10px;'>Keep in mind that all filter
+        queries can be used at once. Different combinations can
         get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a
           href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a>
       </p>
@@ -253,7 +266,7 @@
     </div>
     <hr>
     </hr>
-   
+
     <div class="text-center" style='font-size: 10px; margin-bottom: 50px;'>Icons made by <a
         href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a
         href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

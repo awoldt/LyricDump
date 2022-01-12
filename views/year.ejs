@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Worst Rap Lyrics Throughout the Years</title>
+  <title>The Worst Rap Lyrics of Each Year | BadRapApi</title>
   <meta name="description" content="Easily sort throughout the decades and discover the worst rap lyrics of each year.">
   <meta property="og:title" content="Discover the Worst Rap Lyrics Throughout the Years" />
   <meta property="og:description" content="Each year is unique in it's own way with it's own terrible lyrics" />
@@ -20,46 +20,10 @@
 <body>
   <%- include('./navbar'); %>
   <div class="container">
-    <div style="margin-top: 25px;">
-      <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='margin-bottom: 10px;' class="text-center"/> 
- 
+    
+    <%- include('./searchBar') %>
 
-      <div id='search-results-div'></div>
 
-      
-      <script>
-        const resultsDiv = document.getElementById('search-results-div')
-        //search function
-        async function searchArtist(q) {
-          
-          resultsDiv.innerText = '';
-          var data = await fetch('/api/search?artist=' + q);
-          var artistAdded = new Array();
-          data = await data.json();
-          for (var i = 0; i < data.length; ++i) {
-            if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
-              artistAdded.push(data[i].item.artist_query)
-              var link = document.createElement('a');
-              link.setAttribute('href', '/artists/' + data[i].item.artist_query);
-              link.style.textDecoration = 'none';
-              link.innerText = data[i].item.artist + '\n';
-              resultsDiv.appendChild(link)
-            }
-          }
-        }
-        //debounce function 
-        const debounce = (func) => {
-          let timer = null;
-          return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-              func.apply(this, args);
-            }, 700);
-          };
-        }
-        const delaySearch = debounce(() => { searchArtist(document.getElementById('search-input').value) })
-      </script>
-    </div>
     <h1 class="mt-3">Worst Rap Lyrics by Year</h1>
     <% var worstYear = 0; var numInYear = 0 %>
     <% for(var i=0; i<data.length; ++i) { %>
