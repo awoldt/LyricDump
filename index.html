@@ -23,7 +23,7 @@
 <body>
 
   <nav class="navbar navbar-expand-md navbar-dark bg-primary p-4">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="/" title="Home">
       <img src='/logo.png' alt="logo" width='150px' height='50px'/>
     </a>
   </nav>
@@ -129,37 +129,31 @@
       <p style="margin-bottom: 50px;">
         This endpoint will randomly fetch one single lyric from database
       </p>
-      <h3 style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </h3>
+      <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
       <ul>
+        <li><code>_id:</code> unique id for each lyric</li>
         <li>
-          lyrics</code> - the bad lyric of the song
+          <code>lyrics: </code>the bad lyric of the song
           <i>(text)</i>
-
         </li>
         <li>
-          artist</code> - the rapper who said the lyrics
+         <code>artist: </code>the rapper who said the lyrics
           <i>(text)</i>
-
         </li>
         <li>
-          song</code> - the song in which the lyrics were
+          <code>song: </code>the song in which the lyrics were
           said
           <i>(text)</i>
-
         </li>
         <li>
-          release_date</code> - the date on which the song
+          <code>release_date: </code>the date on which the song
           was released
           <i>(text)</i>
-
-
         </li>
         <li>
-          explicit</code> - whether or not song contains
+          <code>explicit: </code>whether or not song contains
           cuss words
           <i>(boolean)</i>
-
-
         </li>
       </ul>
     </div>
@@ -177,7 +171,7 @@
     </h2>
     <div style="padding: 15px">
       <p style="margin-bottom: 50px;">
-        This endpoint will fetch all songs that match current query. Endpoint must contain at least one
+        This endpoint will fetch one random song that matches query. Endpoint must contain at least one
         query.
       </p>
       <h3 style='font-weight: normal; font-size: 16px;'><u>Valid queries</u></h3>
@@ -233,37 +227,35 @@
         get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a
           href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a>
       </p>
-      <h3 style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </h3>
+      <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
       <ul>
-        <li>total_results - the amount of songs that match the current url query <i>(integer)</i></li>
-        <li>data - the information of each song <i>(array)</i></li>
-        <ul>
+        <li><code>_id:</code> unique id for each lyric</li>
           <li>
-            lyrics</code> - the bad lyric of the song
+            <code>lyrics: </code>the bad lyric of the song
             <i>(text)</i>
           </li>
           <li>
-            artist</code> - the rapper who said the lyrics
+           <code>artist: </code>the rapper who said the lyrics
             <i>(text)</i>
           </li>
           <li>
-            song</code> - the song in which the lyrics were
+            <code>song: </code>the song in which the lyrics were
             said
             <i>(text)</i>
           </li>
           <li>
-            release_date</code> - the date on which the song
+            <code>release_date: </code>the date on which the song
             was released
             <i>(text)</i>
           </li>
           <li>
-            explicit</code> - whether or not song contains
+            <code>explicit: </code>whether or not song contains
             cuss words
             <i>(boolean)</i>
           </li>
-          <li>artist_query - used to uniquely identify artists in database <i>(text)</i></li>
-          <li>date_added - the date in which the lyric was added to database in ISO format <i>(date format)</i></li>
-        </ul>
+          <li><code>artist_query: </code>used to uniquely identify artists in database <i>(text)</i></li>
+          <li><code>date_added: </code>the date in which the lyric was added to database in ISO format <i>(date format)</i></li>
+   
       </ul>
     </div>
     <hr>

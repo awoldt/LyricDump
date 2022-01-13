@@ -59,7 +59,8 @@ router.get("/api/filter", async (req, res) => {
         //200
       } else {
         res.status(200);
-        res.json({ total_results: results.length, data: results });
+        const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
+        res.json(results[randomPick]);
       }
       //EXPLICIT
     } else if (query.hasOwnProperty("explicit")) {
@@ -91,13 +92,12 @@ router.get("/api/filter", async (req, res) => {
           //200
         } else {
           res.status(200);
-          res.json({ total_results: results.length, data: results });
+          const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
+          res.json(results[randomPick]);
         }
       }
       //YEAR
     } else if (query.hasOwnProperty("year")) {
-      res.status(200);
-
       const results = await SongModel.find({ release_date: query.year });
 
       //404
@@ -109,7 +109,9 @@ router.get("/api/filter", async (req, res) => {
       }
       //200
       else {
-        res.json({ total_results: results.length, data: results });
+        res.status(200);
+        const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
+        res.json(results[randomPick]);
       }
     } else {
       res.status(400);
@@ -156,8 +158,8 @@ router.get("/api/filter", async (req, res) => {
           //200
           else {
             res.status(200);
-
-            res.json({ total_results: results.length, data: results });
+            const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
+            res.json(results[randomPick]);
           }
         }
       }
@@ -174,8 +176,8 @@ router.get("/api/filter", async (req, res) => {
         //200
         else {
           res.status(200);
-
-          res.json({ total_results: results.length, data: results });
+          const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
+          res.json(results[randomPick]);
         }
       }
     }
