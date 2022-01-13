@@ -83,6 +83,8 @@ router.get("/artists/:id", async (req, res) => {
     { date_added: -1 }
   );
 
+  console.log(artistData)
+
   //404
   if (artistData.length == 0) {
     res.status(404);
