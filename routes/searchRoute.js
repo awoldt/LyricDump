@@ -7,13 +7,20 @@ router.get("/api/search", async (req, res) => {
   const artistQuery = req.query.artist;
   const songs = await SongModel.find(); //obj to filter through
 
-  const fuse = new Fuse(songs, {
-    shouldSort: true,
-    threshold: 0,
-    keys: ["artist"]
-  });
+  //404
+  if (artistQuery == undefined) {
+    res.status(400);
+    res.json({ error: "invalid request" });
+  } else {
+    res.status(200);
+    const fuse = new Fuse(songs, {
+      shouldSort: true,
+      threshold: 0,
+      keys: ["artist"],
+    });
 
-  res.json(fuse.search(artistQuery));
+    res.json(fuse.search(artistQuery));
+  }
 });
 
 module.exports = router;

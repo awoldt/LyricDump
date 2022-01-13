@@ -71,7 +71,7 @@
             clearTimeout(timer);
             timer = setTimeout(() => {
               func.apply(this, args);
-            }, 700);
+            }, 500);
           };
         }
         const delaySearch = debounce(() => { searchArtist(document.getElementById('search-input').value) })
