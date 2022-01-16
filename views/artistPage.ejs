@@ -71,7 +71,7 @@
     <hr>
     <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px;'>
       <% for(var i=0; i<artist_data.length; ++i) { %>
-      <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+      <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;">
         <% if(artist_data[i].explicit) { %>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
           <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
@@ -81,6 +81,13 @@
         <% } %>
         <p style="display: inline; font-size: 18px;"><i>"<%= artist_data[i].lyrics %>"</i>
           -<%= artist_data[i].song %> (<%= artist_data[i].release_date %>)</p>
+
+          <% if(artist_data[i].explanation !== undefined) { %>
+            <div style="padding: 10px; background-color: rgb(255, 255, 0, .5); margin-top: 10px;">
+            <span><u>Explanation:</u></span>
+              <p style="margin-bottom: 0px;"><%= artist_data[i].explanation %></p>
+            </div>
+          <% } %>
 
       </div>
       <% } %>
