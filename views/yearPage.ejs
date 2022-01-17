@@ -63,13 +63,6 @@
         </svg>
         <% } %>
         <p style='margin-bottom: 0px; display: inline; font-size: 18px;'><i>"<%= song_data[i].lyrics %>"</i> (<b><%= song_data[i].artist %></b>, <%= song_data[i].song %>)</p>
-      
-        <% if(song_data[i].explanation !== undefined) { %>
-          <div style="padding: 10px; background-color: rgb(255, 255, 0, .5); margin-top: 10px;">
-          <span><u>Explanation:</u></span>
-            <p style="margin-bottom: 0px;"><%= song_data[i].explanation %></p>
-          </div>
-        <% } %>
       </div>
       <% } %>
     </div>
