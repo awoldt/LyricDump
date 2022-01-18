@@ -49,6 +49,7 @@
     <% } %>
 
 
+
     <div class="row">
       <% for(var i=0; i<data.length; ++i) { %>
       <% var addedArtists = new Array() %>
@@ -57,14 +58,17 @@
         <a href='/year/<%=  data[i].year %>'>
           <h2 id='<%= data[i].year %>'><%= data[i].year %></h2>
         </a>
-        <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
+        <div>
+          <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
         <% if(addedArtists.indexOf(data[i].songs_in_year[y].artist) == -1) { %>
         <% addedArtists.push(data[i].songs_in_year[y].artist) %>
-        <div>
-          <span><%= data[i].songs_in_year[y].artist %></span>
-        </div>
+       
+          <span style='display: block;'><%= data[i].songs_in_year[y].artist %></span>
+       
         <% } %>
         <%  } %>
+        </div>
+        
         <% if(data[i].songs_in_year.length == 1) { %>
         <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyric from <%= addedArtists.length %> artist</b></p>
         <% } else { %>
