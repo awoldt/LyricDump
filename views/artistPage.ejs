@@ -61,7 +61,7 @@
 
 
 
-      <div class="col-md-5" id='parent-profile-div'>
+      <div class="col-lg-5" id='parent-profile-div'>
         <div id='profile-div'>
          <% if(hasProfileImg != undefined) { %>
           <div class="text-center">
@@ -103,7 +103,7 @@
 
 
         window.onload = () => {
-          if (window.innerWidth >= 768) {
+          if (window.innerWidth >= 992) {
             x.style.position = 'fixed'
             x.style.width = initialpW.clientWidth - 50 + 'px';
           } else {
@@ -115,7 +115,7 @@
         window.addEventListener('resize', () => {
           const pw = document.getElementById('parent-profile-div');
 
-          if (window.innerWidth >= 768) {
+          if (window.innerWidth >= 992) {
             x.style.position = 'fixed'
             x.style.width = pw.clientWidth - 50 + 'px';
           } else {
@@ -127,7 +127,7 @@
 
 
 
-      <div class="col-md-7">
+      <div class="col-lg-7">
         <% if(artist_data.length == 1) { %>
         <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
