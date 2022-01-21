@@ -30,20 +30,33 @@
     <p>
       <% if(most_lyrics.length > 1) { %>
       <% if(most_lyrics.length == 2) { %>
-    <p>Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code> </a>and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[1] %></code></a> have the most bad lyrics</p>
+    <div class="alert alert-warning">
+      <p style="margin-bottom: 0px;"> Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code> </a>and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[1] %></code></a> have the most bad lyrics</p>
+    </div>
+
     <% } else { %>
-    Currently
-    <% for(var i=0; i<most_lyrics.length; ++i) { %>
-    <% if(i == most_lyrics.length-1 ) { %>
-    and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>
-    <% } else { %>
-    <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>,
-    <% } %>
-    <% } %>
-    have the most bad lyrics stored
+    <div class="alert alert-warning">
+      <p style="margin-bottom: 0px;">
+        Currently
+        <% for(var i=0; i<most_lyrics.length; ++i) { %>
+        <% if(i == most_lyrics.length-1 ) { %>
+        and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>
+        <% } else { %>
+        <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>,
+        <% } %>
+        <% } %>
+        have the most bad lyrics stored
+      </p>
+    </div>
+
+
     <% } %>
     <% } else if(most_lyrics.length == 1) { %>
-    Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code></a> has the most bad lyrics stored
+    <div class="alert alert-warning">
+      <p style="margin-bottom: 0px;">Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code></a> has the most bad lyrics stored</p>
+    </div>
+
+
     <% } %>
     </p>
     <hr>

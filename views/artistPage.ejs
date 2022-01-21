@@ -82,12 +82,12 @@
 
           </div>
           <% } else { %>
-          <div class="text-center" style='margin-bottom: 50px;'>
+          <div class="text-center" style='margin-bottom: 10px;'>
             <code><%= artist_data.length %> lyrics</code>
 
           </div>
           <% } %>
-          <p class="text-center"><code style='color: black'>{Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data}</code></p>
+          <p class="text-center" style="margin-bottom: 50px;"><code style='color: black'>{Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data}</code></p>
         </div>
 
       </div>

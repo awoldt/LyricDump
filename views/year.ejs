@@ -33,21 +33,30 @@
     <% } %>
     <% } %>
 
-    <p>Easily sort through all the years of not the best rap lyrics. Each year showcases all the rappers who are currently featured having a bad lyric in that speicific year. Some rappers appear multiple times within a single year.</p>
+    <p>Easily sort through all the years of the worst rap lyrics. Each year showcases all the rappers who are currently featured having a bad lyric in that speicific year. Some rappers appear multiple times within a single year.</p>
 
     <% if(years_with_most_lyrics.length == 1) { %>
-    <p>Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %></code></a> is the year with the worst lyrics</p>
+    <div class="alert alert-warning">
+      <p style="margin-bottom: 0px;">Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %></code></a> is the year with the worst lyrics</p>
+    </div>
+
     <% } else if(years_with_most_lyrics.length == 2) { %>
-    <p>Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %> </code></a> and <a href='#<%= years_with_most_lyrics[1] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[1] %></code></a> are the years with the worst lyrics</p>
+    <div class="alert alert-warning">
+      <p style="margin-bottom: 0px;">Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %> </code></a> and <a href='#<%= years_with_most_lyrics[1] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[1] %></code></a> are the years with the worst lyrics</p>
+    </div>
+
     <% } else { %>
-    <p>Currently, <% for(var i=0; i<years_with_most_lyrics.length; ++i) { %>
-      <% if(i == years_with_most_lyrics.length-1) { %>
-      and <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>
-      <% } else { %>
-      <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>,
-      <% } %>
-      <% } %> are the years with the worst lyrics
-    </p>
+    <div class="alert alert-warning">
+      <p style="margin-bottom: 0px;">Currently, <% for(var i=0; i<years_with_most_lyrics.length; ++i) { %>
+        <% if(i == years_with_most_lyrics.length-1) { %>
+        and <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>
+        <% } else { %>
+        <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>,
+        <% } %>
+        <% } %> are the years with the worst lyrics
+      </p>
+    </div>
+
     <% } %>
 
 
@@ -57,7 +66,7 @@
     <hr>
     <div style='margin-bottom: 25px;'>
       <a href='/year/<%=  data[i].year %>'>
-        <h2 id='<%= data[i].year %>'><%= data[i].year %></h2>
+        <span id='<%= data[i].year %>' style='font-size: 30px;'><%= data[i].year %></span>
       </a>
 
       <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
@@ -77,11 +86,11 @@
       <% addedArtists = addedArtists.sort() %>
 
       <div>
-         <% addedArtists.forEach(x => { %>
-      <span style="display: block;"><%= x %></span>
-      <% }) %>
+        <% addedArtists.forEach(x => { %>
+        <span style="display: block;"><%= x %></span>
+        <% }) %>
       </div>
-     
+
     </div>
 
 
