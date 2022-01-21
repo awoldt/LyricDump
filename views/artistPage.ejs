@@ -57,12 +57,18 @@
 
 
 
-    <div class="row">
+    <div class="row mt-5">
 
 
 
       <div class="col-md-5" id='parent-profile-div'>
         <div id='profile-div'>
+         <% if(hasProfileImg != undefined) { %>
+          <div class="text-center">
+             <img alt='<%= hasProfileImg[0].artist_query %>' src='<%= hasProfileImg[0].img_href %>' />
+          </div>
+         
+         <% } %>
           <h1 class="text-center" style='margin-top: 25px;'>Bad <%= artist_data[0].artist %> lyrics</h1>
           <div class="text-center" style='margin-bottom: 10px;'>
             <a href="https://www.facebook.com/sharer/sharer.php?u=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-facebook" rel="noreferrer" target="_blank" title='share to facebook'></a>

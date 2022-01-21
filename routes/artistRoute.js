@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const SongModel = require("../SongModel");
+const ArtistProfile = require('../ArtistProfile');
 
 //fetches all songs and orders them by artists, num of songs by each artist, and link to each artistpage
 async function organizeAristList() {
@@ -65,6 +66,17 @@ async function getYearsRange(songs) {
   return x.sort();
 }
 
+async function getProfile(a) {
+  const x = await ArtistProfile.find({artist_query: a.artist_query});
+
+  if(x.length == 0) {
+    return undefined
+  }
+  else {
+    return x;
+  }
+}
+
 router.get("/artists", async (req, res) => {
   res.status(200);
 
@@ -98,10 +110,13 @@ router.get("/artists/:id", async (req, res) => {
       explicit: true,
     });
 
+    const profileImg = await getProfile(artistData[0]);
+
     res.render("artistPage", {
       artist_data: artistData,
       has_explicit_song: hasExplicitSong,
       lyrics_years_range: yearsRange,
+      hasProfileImg: profileImg
     });
   }
 });
