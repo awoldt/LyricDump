@@ -131,29 +131,34 @@
       </p>
       <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
       <ul>
-        <li><code>_id:</code> unique id for each lyric</li>
+        <li><p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p></li>
         <li>
-          <code>lyrics: </code>the bad lyric of the song
-          <i>(text)</i>
+          <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
+          <i>(text)</i></p>
+          
         </li>
         <li>
-         <code>artist: </code>the rapper who said the lyrics
-          <i>(text)</i>
+          <p style="display: inline;"><code>artist: </code>the rapper who said the lyrics
+          <i>(text)</i></p>
+         
         </li>
         <li>
-          <code>song: </code>the song in which the lyrics were
+          <p style="display: inline;"><code>song: </code>the song in which the lyrics were
           said
-          <i>(text)</i>
+          <i>(text)</i></p>
+          
         </li>
         <li>
-          <code>release_date: </code>the date on which the song
+          <p style="display: inline;"> <code>release_date: </code>the date on which the song
           was released
-          <i>(text)</i>
+          <i>(text)</i></p>
+         
         </li>
         <li>
-          <code>explicit: </code>whether or not song contains
+          <p style="display: inline;"><code>explicit: </code>whether or not song contains
           cuss words
-          <i>(boolean)</i>
+          <i>(boolean)</i></p>
+          
         </li>
       </ul>
     </div>
@@ -185,16 +190,17 @@
           </h4>
         </li>
         <ul>
-          <li>This will filter requests by artist</li>
-          <li>Artist query must be all lowercase with no special characters</li>
+          <li><p style="display: inline;">This will filter requests by artist</p></li>
+          <li><p style="display: inline;">Artist query must be all lowercase with no special characters</p></li>
           <ul>
-            <li>Dr. Dre = drdre</li>
-            <li>Jay-Z = jayz</li>
-            <li>Andre 3000 = andre3000</li>
+            <li><p style="display: inline;">Dr. Dre = drdre</p></li>
+            <li><p style="display: inline;">Jay-Z = jayz</p></li>
+            <li><p style="display: inline;">Andre 3000 = andre3000</p></li>
           </ul>
           <li>
-            example: <a href='/api/filter?artist=jayz' style='text-decoration: none;'><code
-                class="text-secondary">/api/filter?artist=jayz</code></a>
+            <p style="display: inline;">example: <a href='/api/filter?artist=jayz' style='text-decoration: none;'><code
+                class="text-secondary">/api/filter?artist=jayz</code></a></p>
+            
           </li>
         </ul>
         <li>
@@ -203,11 +209,12 @@
           </h4>
         </li>
         <ul>
-          <li>Returns songs that either have explicit language or not</li>
-          <li>Can only be true or false</li>
+          <li><p style="display: inline;">Returns songs that either have explicit language or not</p></li>
+          <li><p style="display: inline;">Can only be true or false</p></li>
           <li>
-            example: <a href='/api/filter?explicit=false' style='text-decoration: none;'><code
-                class="text-secondary">/api/filter?explicit=false</code></a>
+            <p style="display: inline;">example: <a href='/api/filter?explicit=false' style='text-decoration: none;'><code
+                class="text-secondary">/api/filter?explicit=false</code></a></p>
+            
           </li>
         </ul>
         <li>
@@ -216,10 +223,10 @@
           </h4>
         </li>
         <ul>
-          <li>Will filter out songs by year it came out</li>
-          <li>Value is in year format, do not need month or day</li>
-          <li>example: <a href='/api/filter?year=1985' style='text-decoration: none;'><code
-                class="text-secondary">/api/filter?year=1985</code></a></li>
+          <li><p style="display: inline;">Will filter out songs by year it came out</p></li>
+          <li><p style="display: inline;">Value is in year format, do not need month or day</p></li>
+          <li><p style="display: inline;">example: <a href='/api/filter?year=1985' style='text-decoration: none;'><code
+                class="text-secondary">/api/filter?year=1985</code></a></p></li>
         </ul>
       </ul>
       <p style='max-width: 550px; background-color: rgb(242, 242, 242); padding: 10px;'>Keep in mind that all filter
@@ -229,33 +236,38 @@
       </p>
       <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
       <ul>
-        <li><code>_id:</code> unique id for each lyric</li>
+        <li><p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p></li>
           <li>
-            <code>lyrics: </code>the bad lyric of the song
-            <i>(text)</i>
+            <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
+            <i>(text)</i></p>
+            
           </li>
           <li>
-           <code>artist: </code>the rapper who said the lyrics
-            <i>(text)</i>
+            <p style="display: inline;"><code>artist: </code>the rapper who said the lyrics
+            <i>(text)</i></p>
+           
           </li>
           <li>
-            <code>song: </code>the song in which the lyrics were
+            <p style="display: inline;"> <code>song: </code>the song in which the lyrics were
             said
-            <i>(text)</i>
+            <i>(text)</i></p>
+           
           </li>
           <li>
-            <code>release_date: </code>the date on which the song
+            <p style="display: inline;"><code>release_date: </code>the date on which the song
             was released
-            <i>(text)</i>
+            <i>(text)</i></p>
+            
           </li>
           <li>
-            <code>explicit: </code>whether or not song contains
+            <p style="display: inline;"><code>explicit: </code>whether or not song contains
             cuss words
-            <i>(boolean)</i>
+            <i>(boolean)</i></p>
+            
           </li>
-          <li><code>artist_query: </code>used to uniquely identify artists in database <i>(text)</i></li>
-          <li><code>date_added: </code>the date in which the lyric was added to database in ISO format <i>(date format)</i></li>
-          <li><code>explanation: </code>the reason as to why said lyric is bad <i>(text)</i></li>
+          <li><p style="display: inline;"><code>artist_query: </code>used to uniquely identify artists in database <i>(text)</i></p></li>
+          <li><p style="display: inline;"><code>date_added: </code>the date in which the lyric was added to database in ISO format <i>(date format)</i></p></li>
+          <li><p style="display: inline;"><code>explanation: </code>the reason as to why said lyric is bad, only lyrics that have to be explained return this field <i>(text)</i></p></li>
       </ul>
     </div>
     <hr>
