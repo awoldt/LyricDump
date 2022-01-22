@@ -65,18 +65,31 @@
 
       <div class="col-lg-5" id='parent-profile-div'>
         <div id='profile-div'>
-          <% if(hasProfileImg != undefined) { %>
+          <% if(artist_profile != undefined) { %>
           <div class="text-center">
-            <img alt='<%= artist_data[0].artist %>' src='<%= hasProfileImg[0].img_href %>' />
+            <img alt='<%= artist_data[0].artist %>' src='<%= artist_profile[0].img_href %>' />
           </div>
 
           <% } %>
           <h1 class="text-center" style='margin-top: 25px;'><%= artist_data[0].artist %>'s Worst Lyrics</h1>
-          <div class="text-center" style='margin-bottom: 10px;'>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-facebook" rel="noreferrer" target="_blank" title='share to facebook'></a>
-            <a href="https://twitter.com/share?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-twitter" rel="noreferrer" target="_blank" title='share to twitter'></a>
-            <a href="https://www.reddit.com/submit?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-reddit" rel="noreferrer" target="_blank" title='share to reddit'></a>
-          </div>
+          <% if(artist_profile[0].nicknames.length !== 0) { %>
+          <p class='text-secondary text-center'>Also know as <% if(artist_profile[0].nicknames.length == 1) { %>
+            <i><%= artist_profile[0].nicknames[0] %></i>
+            <% } else if(artist_profile[0].nicknames.length == 2) { %>
+            <i><%= artist_profile[0].nicknames[0] %></i> or <i><%= artist_profile[0].nicknames[1] %></i>
+            <% } else { %>
+            <% for(var i=0; i<artist_profile[0].nicknames.length; ++i) { %>
+            <% if(i == artist_profile[0].nicknames.length-1) { %>
+            or <i><%= artist_profile[0].nicknames[i]  %></i>
+            <% } else { %>
+            <i><%=  artist_profile[0].nicknames[i] %></i>,
+            <% } %>
+            <% } %>
+            <% } %>
+
+          </p>
+          <% } %>
+          
 
           <% if(artist_data.length==1) { %>
           <div class="text-center" style='margin-bottom: 50px;'>
@@ -90,6 +103,11 @@
           </div>
           <% } %>
           <p class="text-center" style="margin-bottom: 50px;"><code style='color: black'>{Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data}</code></p>
+          <div class="text-center" style='margin-bottom: 10px;'>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-facebook" rel="noreferrer" target="_blank" title='share to facebook'></a>
+            <a href="https://twitter.com/share?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-twitter" rel="noreferrer" target="_blank" title='share to twitter'></a>
+            <a href="https://www.reddit.com/submit?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-reddit" rel="noreferrer" target="_blank" title='share to reddit'></a>
+          </div>
         </div>
       </div>
 

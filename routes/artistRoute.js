@@ -130,7 +130,7 @@ router.get("/artists/:id", async (req, res) => {
       explicit: true,
     });
 
-    const profileImg = await getProfile(artistData[0]);
+    const profile = await getProfile(artistData[0]);
 
     const relatedRappers = await getRelatedArtists(req.params.id);
 
@@ -138,7 +138,7 @@ router.get("/artists/:id", async (req, res) => {
       artist_data: artistData,
       has_explicit_song: hasExplicitSong,
       lyrics_years_range: yearsRange,
-      hasProfileImg: profileImg,
+      artist_profile: profile,
       related_artists: relatedRappers,
     });
   }
