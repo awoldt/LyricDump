@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const SongModel = require("../SongModel");
-const ArtistProfile = require('../ArtistProfile');
+const ArtistProfile = require("../ArtistProfile");
 
 //fetches all songs and orders them by artists, num of songs by each artist, and link to each artistpage
 async function organizeAristList() {
@@ -67,14 +67,34 @@ async function getYearsRange(songs) {
 }
 
 async function getProfile(a) {
-  const x = await ArtistProfile.find({artist_query: a.artist_query});
+  const x = await ArtistProfile.find({ artist_query: a.artist_query });
 
-  if(x.length == 0) {
-    return undefined
-  }
-  else {
+  if (x.length == 0) {
+    return undefined;
+  } else {
     return x;
   }
+}
+
+async function getRelatedArtists(current_artist) {
+  //only grab artists that have profiles in database
+  const x = await ArtistProfile.find();
+  //randomly pick 3 artists
+  const y = new Array();
+  const indexs = new Array();
+  while (y.length !== 3) {
+    const randomIndex = Math.floor(Math.random() * x.length); //0 and length of artists with profiles
+
+    if (indexs.indexOf(randomIndex) == -1) {
+      indexs.push(randomIndex);
+      //make sure not same artist as page viewing
+      if (x[randomIndex].artist_query !== current_artist) {
+        y.push(x[randomIndex]);
+      }
+    }
+  }
+
+  return y;
 }
 
 router.get("/artists", async (req, res) => {
@@ -112,11 +132,14 @@ router.get("/artists/:id", async (req, res) => {
 
     const profileImg = await getProfile(artistData[0]);
 
+    const relatedRappers = await getRelatedArtists(req.params.id);
+
     res.render("artistPage", {
       artist_data: artistData,
       has_explicit_song: hasExplicitSong,
       lyrics_years_range: yearsRange,
-      hasProfileImg: profileImg
+      hasProfileImg: profileImg,
+      related_artists: relatedRappers,
     });
   }
 });

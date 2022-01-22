@@ -1,0 +1,16 @@
+<div class="text-center">
+  <hr>
+  <p>Other artists you might be interested in</p>
+
+  <div>
+    <% for(var i=0; i<related_data.length; ++i) { %>
+    <a href='/artists/<%= related_data[i].artist_query %>' style='text-decoration: none;'>
+      <div style="display: inline-block; margin-right: 25px; cursor: pointer;">
+        <img src="<%= related_data[i].img_href %>" style='width: 125px; height: 100px; border-radius: 50%;' alt="<%= related_data[i].name %>"/>
+        <p><%= related_data[i].name %></p>
+      </div>
+    </a>
+    <% } %>
+  </div>
+
+</div>
