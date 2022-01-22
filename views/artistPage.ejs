@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>
-    <%= artist_data[0].artist %>'s Worst Rap Lyrics | BadRapApi
+    <%= artist_data[0].artist %>'s Worst Rap Lyrics
   </title>
   <meta name="description" content="Discover some of <%= artist_data[0].artist %>'s worst rap lyrics">
   <meta property="og:title" content="<%= artist_data[0].artist %>'s Worst Rap Lyrics" />
@@ -72,6 +72,8 @@
 
           <% } %>
           <h1 class="text-center" style='margin-top: 25px;'><%= artist_data[0].artist %>'s Worst Lyrics</h1>
+
+          <% if(artist_profile !== undefined) { %>
           <% if(artist_profile[0].nicknames.length !== 0) { %>
           <p class='text-secondary text-center'>Also know as <% if(artist_profile[0].nicknames.length == 1) { %>
             <i><%= artist_profile[0].nicknames[0] %></i>
@@ -89,7 +91,9 @@
 
           </p>
           <% } %>
-          
+          <% } %>
+
+
 
           <% if(artist_data.length==1) { %>
           <div class="text-center" style='margin-bottom: 50px;'>
@@ -102,8 +106,8 @@
 
           </div>
           <% } %>
-          <p class="text-center" style="margin-bottom: 50px;"><code style='color: black'>{Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data}</code></p>
-          <div class="text-center" style='margin-bottom: 10px;'>
+          <p class="text-center"><code style='color: black'>{Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data}</code></p>
+          <div class="text-center" style="margin-bottom: 50px;">
             <a href="https://www.facebook.com/sharer/sharer.php?u=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-facebook" rel="noreferrer" target="_blank" title='share to facebook'></a>
             <a href="https://twitter.com/share?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-twitter" rel="noreferrer" target="_blank" title='share to twitter'></a>
             <a href="https://www.reddit.com/submit?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-reddit" rel="noreferrer" target="_blank" title='share to reddit'></a>
@@ -147,6 +151,17 @@
       </script>
 
       <div class="col-lg-7">
+
+
+        <hr>
+
+        <% if(has_explicit_song.length !==0) { %>
+        <div class="alert alert-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+            <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
+            <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
+          </svg> <span>Some songs contain explicit lyrics</span></div>
+
+        <% } %>
         <% if(artist_data.length == 1) { %>
         <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
@@ -162,15 +177,6 @@
           <% } %>
           <% } %>
         </p>
-        <% } %>
-
-        <hr>
-        <% if(has_explicit_song.length !==0) { %>
-        <div class="alert alert-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
-            <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
-            <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
-          </svg> <span>Some songs contain explicit lyrics</span></div>
-
         <% } %>
         <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px;'>
           <% for(var i=0; i<artist_data.length; ++i) { %>
