@@ -99,14 +99,20 @@ async function getRelatedArtists(current_artist) {
 
 router.get("/artists", async (req, res) => {
   res.status(200);
-
   const allArtistData = await organizeAristList();
-
   const mostLyrics = await rapperWithMostLyrics(allArtistData);
+  const n = [...allArtistData];
+
+  const popularArtists = n.sort(
+    ({ artist_num_of_songs: a }, { artist_num_of_songs: b }) => b - a
+  );
+
+  popularArtists.length = 5;
 
   res.render("artists", {
     artist_data: allArtistData,
     most_lyrics: mostLyrics,
+    popular_artists: popularArtists,
   });
 });
 

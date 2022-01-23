@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rappers with the Worst Lyrics | BadRapApi</title>
+  <title>List of Rappers with the Worst Lyrics</title>
   <meta name="description" content="List of rappers with the worst rap lyrics in no particular order.">
   <meta property="og:title" content="Rappers with the Worst Lyrics" />
   <meta property="og:description" content="Discover a constanly growing list of rappers who have the worst lyrics to date" />
@@ -30,35 +30,53 @@
     <p>
       <% if(most_lyrics.length > 1) { %>
       <% if(most_lyrics.length == 2) { %>
-    <div class="alert alert-warning">
-      <p style="margin-bottom: 0px;"> Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code> </a>and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[1] %></code></a> have the most bad lyrics</p>
-    </div>
+
+    <p style="margin-bottom: 0px;"> Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code> </a>and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[1] %></code></a> have the most bad lyrics</p>
+
 
     <% } else { %>
-    <div class="alert alert-warning">
-      <p style="margin-bottom: 0px;">
-        Currently
-        <% for(var i=0; i<most_lyrics.length; ++i) { %>
-        <% if(i == most_lyrics.length-1 ) { %>
-        and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>
-        <% } else { %>
-        <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>,
-        <% } %>
-        <% } %>
-        have the most bad lyrics stored
-      </p>
-    </div>
+
+    <p style="margin-bottom: 0px;">
+      Currently
+      <% for(var i=0; i<most_lyrics.length; ++i) { %>
+      <% if(i == most_lyrics.length-1 ) { %>
+      and <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>
+      <% } else { %>
+      <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[i] %></code></a>,
+      <% } %>
+      <% } %>
+      have the most bad lyrics stored
+    </p>
+
 
 
     <% } %>
     <% } else if(most_lyrics.length == 1) { %>
-    <div class="alert alert-warning">
-      <p style="margin-bottom: 0px;">Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code></a> has the most bad lyrics stored</p>
-    </div>
+
+    <p style="margin-bottom: 0px;">Currently <a href='#<%= most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= most_lyrics[0] %></code></a> has the most bad lyrics stored</p>
+
 
 
     <% } %>
     </p>
+
+    <div class="alert alert-warning">
+      <div class="row" style="padding: 10px">
+        <p class="text-center">Popular rappers</p>
+        <% for(var i=0; i<popular_artists.length; ++i) { %>
+        <div class="col text-center">
+          <a href='/artists/<%= popular_artists[i].artist_href.split('/')[2] %>' style='text-decoration: none; color: black'>
+            <img src='/imgs/<%= popular_artists[i].artist_href.split('/')[2] %>.png' style='width: 70px; height: 60px; display: block; border-radius: 50%;' alt="<%= popular_artists[i].artist_name %>" class='mx-auto d-block' />
+            <span><%= popular_artists[i].artist_name %></span>
+          </a>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+
+
+
     <hr>
     <p><b><%= artist_data.length %> artists total</b></p>
     <div style='margin-bottom: 25px;' class="row">

@@ -60,6 +60,7 @@
 
 
     <h1 style="margin-top: 25px; font-size: 50px; " class="text-center">The Worst Rap Lyrics of <%= year %></h1>
+    <p class="text-center"><code style='color: black;'>Send a GET request to <a href='/api/filter?year=<%= year %>' style='text-decoration: none;'>/api/filter?year=<%= year %></a> for lyrics from the year <%= year %></code></p>
 
     <% if(song_data.length !== 1) { %>
     <div class="text-center" style="margin-bottom: 50px; display: inline;"><code><%= song_data.length %> lyrics </code></div>
