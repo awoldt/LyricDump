@@ -68,6 +68,39 @@
     <p class="text-center"><code><%= song_data.length %> lyric </code> </p>
     <% } %>
 
+    <div class="row" style="margin-bottom: 25px; margin-top: 50px;">
+      <div class="text-center" style="margin-bottom: 10px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+        </svg> <span><b>Featured artists</b></span>
+      </div>
+
+      <%for(var i=0; i<featured_artists.length; ++i) { %>
+      <% if(i == featured_artists.length-1) { %>
+      <div class="col text-center">
+        <a href='/artists/<%= featured_artists[i].artist_query  %>'>
+          <img src='/imgs/<%= featured_artists[i].artist_query %>.png' style='width: 100px; display: block; height: 100px;  border-radius: 50%;' onerror="this.src = '/no-img.png'; this.alt = 'no image'" class="mx-auto d-block" alt="<%= featured_artists[i].artist_name %>" />
+          <span><%= featured_artists[i].artist_name %></span>
+        </a>
+
+      </div>
+
+      <% } else { %>
+      <div class="col text-center mb-4">
+        <a href='/artists/<%= featured_artists[i].artist_query  %>'>
+
+          <img src='/imgs/<%= featured_artists[i].artist_query %>.png' style='width: 100px; display: block; height: 100px; border-radius: 50%;' onerror="this.src = '/no-img.png'; this.alt = 'no image'" class="mx-auto d-block" alt="<%= featured_artists[i].artist_name %>" />
+          <span><%= featured_artists[i].artist_name %></span>
+
+        </a>
+      </div>
+
+
+
+      <% } %>
+
+      <% } %>
+    </div>
 
     <hr>
     <% if(contains_explicit_lyrics) { %>
@@ -77,17 +110,7 @@
       </svg> <span>Some songs contain explicit lyrics</span></div>
 
     <% } %>
-    <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-      </svg> Featured artists: <%for(var i=0; i<featured_artists.length; ++i) { %>
-      <% if(i == featured_artists.length-1) { %>
-      <a href='/artists/<%= featured_artists[i].artist_query  %>'><%= featured_artists[i].artist_name %></a>
-      <% } else { %>
-      <a href='/artists/<%= featured_artists[i].artist_query  %>'><%= featured_artists[i].artist_name %></a> &middot
-      <% } %>
 
-      <% } %>
-    </p>
     <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px;'>
       <% for(var i=0; i<song_data.length; ++i) { %>
       <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;">
