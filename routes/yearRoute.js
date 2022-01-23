@@ -45,10 +45,28 @@ function featuresArtists(lyrics) {
       obj.artist_query = lyrics[i].artist_query;
       obj.artist_name = lyrics[i].artist;
       artists.push(obj);
-    } 
+    }
   }
   artists.sort(alphabetize);
   return artists;
+}
+
+function generateYearNavigation(years, currentYear) {
+  //find where year is in data
+  var indexAt = years.indexOf(currentYear);
+
+  //first year
+  if (indexAt == 0) {
+    return new Array(null, indexAt + 1);
+  }
+  //last
+  else if (indexAt == years.length - 1) {
+    return new Array(indexAt - 1, null);
+  }
+  //everyyear inbetween
+  else {
+    return new Array((indexAt -= 1), (indexAt += 2));
+  }
 }
 
 router.get("/year", async (req, res) => {
@@ -108,11 +126,24 @@ router.get("/year/:id", async (req, res) => {
   }
   //200
   else {
+    const u = await SongModel.find();
+
+    var yearsAdded = new Array();
+
+    for (i = 0; i < u.length; ++i) {
+      if (yearsAdded.indexOf(u[i].release_date) == -1) {
+        yearsAdded.push(u[i].release_date);
+      }
+    }
+
+    var yearIndexes = generateYearNavigation(yearsAdded.sort(), req.params.id);
+
     res.render("yearPage", {
       year: req.params.id,
       song_data: songs,
       contains_explicit_lyrics: hasExplicitLyrics,
       featured_artists: featuredArtist,
+      year_navigation: new Array(yearsAdded.sort(), yearIndexes),
     });
   }
 });
