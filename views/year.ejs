@@ -53,53 +53,29 @@
 
     <% } %>
 
-
-    <% for(var i=0; i<data.length; ++i) { %>
-    <% var addedArtists = new Array() %>
-    <% var addedArtistQueries = new Array() %>
+    <% for(var i=0; i<organized_data.length; ++i) { %>
     <hr>
-    <div style='margin-bottom: 25px;'>
-      <a href='/year/<%=  data[i].year %>'>
-        <span id='<%= data[i].year %>' style='font-size: 30px;'><%= data[i].year %></span>
-      </a>
+    <a href='/year/<%= organized_data[i].year %>'>
+      <span style="font-size: 30px;" id='<%= organized_data[i].year %>'><%= organized_data[i].year %></span>
+    </a>
 
-      <% for(var y=0; y<data[i].songs_in_year.length; ++y) { %>
-      <% if(addedArtists.indexOf(data[i].songs_in_year[y].artist) == -1) { %>
-      <% addedArtists.push(data[i].songs_in_year[y].artist) %>
-      <% addedArtistQueries.push(data[i].songs_in_year[y].artist_query) %>
-      <% } %>
-      <%  } %>
+    <div class="row p-2">
+      <% for(var y=0; y<organized_data[i].artist_data.length; ++y) { %>
 
+      <div class="col-3 mb-3">
+        <a href='/artists/<%= organized_data[i].artist_data[y].artist_query %>' style="text-decoration: none; color: black;">
+          <% if(organized_data[i].artist_data[y].artist_img == null) { %>
+          <img src='/no-img.png' style='width: 50px; height: 50px; border-radius: 50%;' class="mx-auto d-block" />
+          <% } else { %>
+          <img src="<%= organized_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data[i].artist_data[y].artist_name %>" style='width: 50px; height: 50px; border-radius: 50%;' class="mx-auto d-block" />
+          <% } %>
+          <span style="display: block;" class="text-center"><%= organized_data[i].artist_data[y].artist_name %></span>
+        </a>
 
-      <% if(data[i].songs_in_year.length == 1) { %>
-      <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyric from <%= addedArtists.length %> artist</b></p>
-      <% } else { %>
-      <p style='margin-top: 10px'><b><%= data[i].songs_in_year.length %> lyrics total across <%= addedArtists.length %> different artists</b></p>
-      <% } %>
-
-      <% addedArtists = addedArtists.sort() %>
-      <% addedArtistQueries = addedArtistQueries.sort() %>
-
-      <div class="row">
-        <% addedArtists.forEach((x, index) => { %>
-        <div class="col-2 mb-5">
-          <a href='/artists/<%= addedArtistQueries[index] %>' style='text-decoration: none; color: black'>
-            <img src="/imgs/<%= addedArtistQueries[index] %>.png" onerror="this.src = 'no-img.png'; this.alt = 'no image'" style='border-radius: 50%; width: 75px; height: 75px;' alt='<%= x %>' class="mx-auto d-block" />
-            <span style="display: block;" class="text-center"><%= x %></span>
-          </a>
-
-        </div>
-
-
-
-
-
-        <% }) %>
       </div>
 
+      <% } %>
     </div>
-
-
 
     <% } %>
     <div class="text-center" style='font-size: 10px; margin-bottom: 50px; margin-top: 50px;'>Icons made by <a href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

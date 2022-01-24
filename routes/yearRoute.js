@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const SongModel = require("../SongModel");
+const ArtistProfile = require("../ArtistProfile");
 
 function yearsWithMostLyrics(songs) {
   var years = new Array();
@@ -69,6 +70,55 @@ function generateYearNavigation(years, currentYear) {
   }
 }
 
+async function organizeYearData(yearData) {
+  const alex = await Promise.all(
+    yearData.map(async (year, yearIndex) => {
+      var addedArtists = new Array();
+      var added = new Array();
+
+      year.songs_in_year.forEach((songs) => {
+        if (added.indexOf(songs.artist_query) == -1) {
+          added.push(songs.artist_query);
+          addedArtists.push({
+            artist_name: songs.artist,
+            artist_query: songs.artist_query,
+          });
+        }
+      });
+
+      const asdf = new Array();
+
+      const dataWithImages = await Promise.all(
+        addedArtists.map(async (x) => {
+          var img = await ArtistProfile.find({ artist_query: x.artist_query });
+
+          if (img.length == 0) {
+            asdf.push({
+              artist_name: x.artist_name,
+              artist_query: x.artist_query,
+              artist_img: null,
+            });
+          } else {
+            asdf.push({
+              artist_name: x.artist_name,
+              artist_query: x.artist_query,
+              artist_img: img[0].img_href,
+            });
+          }
+
+          return null;
+        })
+      );
+
+      return { year: year.year, artist_data: asdf };
+    })
+  );
+
+  return alex;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 router.get("/year", async (req, res) => {
   res.status(200);
 
@@ -94,11 +144,12 @@ router.get("/year", async (req, res) => {
     })
   );
 
+  const organizedData = await organizeYearData(returnData);
   const mostLyrics = yearsWithMostLyrics(returnData);
 
   res.render("year", {
-    data: returnData,
     years_with_most_lyrics: mostLyrics,
+    organized_data: organizedData,
   });
 });
 
