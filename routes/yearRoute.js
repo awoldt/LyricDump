@@ -23,32 +23,43 @@ function yearsWithMostLyrics(songs) {
   return years;
 }
 
-function featuresArtists(lyrics) {
+function alphabetize(a, b) {
+  if (a.artist_query < b.artist_query) {
+    return -1;
+  }
+  if (a.artist_query > b.artist_query) {
+    return 1;
+  }
+
+  return 0;
+}
+
+async function featuresArtists(lyrics) {
   var artists = new Array();
   var artistsAdded = new Array();
 
-  function alphabetize(a, b) {
-    if (a.artist_query < b.artist_query) {
-      return -1;
-    }
-    if (a.artist_query > b.artist_query) {
-      return 1;
-    }
+  await Promise.all(
+    lyrics.map(async (x) => {
+      var obj = new Object();
+      if (artistsAdded.indexOf(x.artist_query) == -1) {
+        artistsAdded.push(x.artist_query);
+        obj.artist_query = x.artist_query;
+        obj.artist_name = x.artist;
 
-    return 0;
-  }
+        var img = await ArtistProfile.find({ artist_query: x.artist_query });
+        if (img.length == 0) {
+          obj.artist_img = null;
+        } else {
+          obj.artist_img = img[0].img_href;
+        }
 
-  for (i = 0; i < lyrics.length; ++i) {
-    var obj = new Object();
-    //artist is already stored
-    if (artistsAdded.indexOf(lyrics[i].artist) == -1) {
-      artistsAdded.push(lyrics[i].artist);
-      obj.artist_query = lyrics[i].artist_query;
-      obj.artist_name = lyrics[i].artist;
-      artists.push(obj);
-    }
-  }
+        artists.push(obj);
+      }
+    })
+  );
+
   artists.sort(alphabetize);
+
   return artists;
 }
 
@@ -88,7 +99,7 @@ async function organizeYearData(yearData) {
 
       const asdf = new Array();
 
-      const dataWithImages = await Promise.all(
+      await Promise.all(
         addedArtists.map(async (x) => {
           var img = await ArtistProfile.find({ artist_query: x.artist_query });
 
@@ -105,8 +116,6 @@ async function organizeYearData(yearData) {
               artist_img: img[0].img_href,
             });
           }
-
-          return null;
         })
       );
 
@@ -158,7 +167,7 @@ router.get("/year/:id", async (req, res) => {
     date_added: -1,
   });
 
-  const featuredArtist = featuresArtists(songs);
+  const featuredArtist = await featuresArtists(songs);
 
   var hasExplicitLyrics = false;
 
