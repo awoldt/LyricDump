@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BadRapApi | Collection of the Worst Rap Lyrics</title>
-  <meta name="description"
-    content="API for bad rap lyrics. Free to use with unlimited requests. Featuring lyrics from all of your favorite rappers.">
+  <meta name="description" content="API for bad rap lyrics. Free to use with unlimited requests. Featuring lyrics from all of your favorite rappers.">
   <meta property="og:title" content="Bad Rap Lyrics API" />
   <meta property="og:description" content="Send GET requests and get back JSON data. Simple and free to use." />
   <meta property="og:type" content="website" />
@@ -15,8 +14,7 @@
   <link rel="canonical" href="https://badrapapi.com" />
 
   <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
 
@@ -24,7 +22,7 @@
 
   <nav class="navbar navbar-expand-md navbar-dark bg-primary p-4">
     <a class="navbar-brand" href="/" title="Home">
-      <img src='/logo.png' alt="logo" width='150px' height='50px'/>
+      <img src='/logo.png' alt="logo" width='150px' height='50px' />
     </a>
   </nav>
 
@@ -39,8 +37,7 @@
 
     <div class="text-center mb-5">
       <div class="row justify-content-center">
-        <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input'
-          style='margin-bottom: 10px; width: 400px;' class="form-control text-center" />
+        <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='margin-bottom: 10px; width: 400px;' class="form-control text-center" />
       </div>
       <div id='search-results-div'></div>
 
@@ -48,20 +45,25 @@
         const resultsDiv = document.getElementById('search-results-div')
         //search function
         async function searchArtist(q) {
-
           resultsDiv.innerText = '';
+
           var data = await fetch('/api/search?artist=' + q);
           var artistAdded = new Array();
           data = await data.json();
-          for (var i = 0; i < data.length; ++i) {
-            if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
-              artistAdded.push(data[i].item.artist_query)
-              var link = document.createElement('a');
-              link.setAttribute('href', '/artists/' + data[i].item.artist_query);
-              link.style.textDecoration = 'none';
-              link.innerText = data[i].item.artist + '\n';
-              resultsDiv.appendChild(link)
+          if (data.length !== 0) {
+            for (var i = 0; i < data.length; ++i) {
+              if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
+                artistAdded.push(data[i].item.artist_query)
+                var link = document.createElement('a');
+                link.setAttribute('href', '/artists/' + data[i].item.artist_query);
+                link.style.textDecoration = 'none';
+                link.innerText = data[i].item.artist + '\n';
+                resultsDiv.appendChild(link)
+              }
             }
+          } 
+          else {
+            resultsDiv.innerText = 'no results :(';
           }
         }
         //debounce function 
@@ -74,27 +76,25 @@
             }, 500);
           };
         }
-        const delaySearch = debounce(() => { searchArtist(document.getElementById('search-input').value) })
+        const delaySearch = debounce(() => {
+          searchArtist(document.getElementById('search-input').value)
+        })
       </script>
     </div>
 
     <div class="text-center" style="margin-bottom: 25px;">
       <a href='/artists' style="text-decoration: none;">
         <div class="btn btn-warning">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
-            viewBox="0 0 16 16">
-            <path
-              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
           </svg> <span>All rappers</span>
         </div>
       </a>
 
       <a href='/year' style="text-decoration: none;">
         <div class="btn btn-warning">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar"
-            viewBox="0 0 16 16">
-            <path
-              d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
           </svg> <span>Worst of Year</span>
         </div>
       </a>
@@ -103,8 +103,7 @@
 
 
     <div style="margin-bottom: 25px; margin-top: 25px;" class="text-center">
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform"
-        rel="noreferrer" target="_blank">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform" rel="noreferrer" target="_blank">
         <div class=" btn btn-light">Submit Rap Lyrics</div>
       </a>
     </div>
@@ -114,13 +113,9 @@
 
     </hr>
     <h2>
-      <a href='/api' style="text-decoration: none; color: #d63384;"> <code><b>/api</b></code> <svg
-          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right"
-          viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-          <path fill-rule="evenodd"
-            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+      <a href='/api' style="text-decoration: none; color: #d63384;"> <code><b>/api</b></code> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+          <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
         </svg></a>
     </h2>
 
@@ -131,47 +126,50 @@
       </p>
       <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
       <ul>
-        <li><p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p></li>
+        <li>
+          <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
+        </li>
         <li>
           <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
-          <i>(text)</i></p>
-          
+            <i>(text)</i>
+          </p>
+
         </li>
         <li>
           <p style="display: inline;"><code>artist: </code>the rapper who said the lyrics
-          <i>(text)</i></p>
-         
+            <i>(text)</i>
+          </p>
+
         </li>
         <li>
           <p style="display: inline;"><code>song: </code>the song in which the lyrics were
-          said
-          <i>(text)</i></p>
-          
+            said
+            <i>(text)</i>
+          </p>
+
         </li>
         <li>
           <p style="display: inline;"> <code>release_date: </code>the date on which the song
-          was released
-          <i>(text)</i></p>
-         
+            was released
+            <i>(text)</i>
+          </p>
+
         </li>
         <li>
           <p style="display: inline;"><code>explicit: </code>whether or not song contains
-          cuss words
-          <i>(boolean)</i></p>
-          
+            cuss words
+            <i>(boolean)</i>
+          </p>
+
         </li>
       </ul>
     </div>
     <hr>
     </hr>
     <h2>
-      <a href='/api/filter?explicit=false' style='text-decoration: none; color: #d63384'><code><b>/api/filter</b></code> <svg
-          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right"
-          viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-          <path fill-rule="evenodd"
-            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+      <a href='/api/filter?explicit=false' style='text-decoration: none; color: #d63384'><code><b>/api/filter</b></code> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+          <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
         </svg></a>
     </h2>
     <div style="padding: 15px">
@@ -190,17 +188,26 @@
           </h4>
         </li>
         <ul>
-          <li><p style="display: inline;">This will filter requests by artist</p></li>
-          <li><p style="display: inline;">Artist query must be all lowercase with no special characters</p></li>
+          <li>
+            <p style="display: inline;">This will filter requests by artist</p>
+          </li>
+          <li>
+            <p style="display: inline;">Artist query must be all lowercase with no special characters</p>
+          </li>
           <ul>
-            <li><p style="display: inline;">Dr. Dre = drdre</p></li>
-            <li><p style="display: inline;">Jay-Z = jayz</p></li>
-            <li><p style="display: inline;">Andre 3000 = andre3000</p></li>
+            <li>
+              <p style="display: inline;">Dr. Dre = drdre</p>
+            </li>
+            <li>
+              <p style="display: inline;">Jay-Z = jayz</p>
+            </li>
+            <li>
+              <p style="display: inline;">Andre 3000 = andre3000</p>
+            </li>
           </ul>
           <li>
-            <p style="display: inline;">example: <a href='/api/filter?artist=jayz' style='text-decoration: none;'><code
-                class="text-secondary">/api/filter?artist=jayz</code></a></p>
-            
+            <p style="display: inline;">example: <a href='/api/filter?artist=jayz' style='text-decoration: none;'><code class="text-secondary">/api/filter?artist=jayz</code></a></p>
+
           </li>
         </ul>
         <li>
@@ -209,12 +216,15 @@
           </h4>
         </li>
         <ul>
-          <li><p style="display: inline;">Returns songs that either have explicit language or not</p></li>
-          <li><p style="display: inline;">Can only be true or false</p></li>
           <li>
-            <p style="display: inline;">example: <a href='/api/filter?explicit=false' style='text-decoration: none;'><code
-                class="text-secondary">/api/filter?explicit=false</code></a></p>
-            
+            <p style="display: inline;">Returns songs that either have explicit language or not</p>
+          </li>
+          <li>
+            <p style="display: inline;">Can only be true or false</p>
+          </li>
+          <li>
+            <p style="display: inline;">example: <a href='/api/filter?explicit=false' style='text-decoration: none;'><code class="text-secondary">/api/filter?explicit=false</code></a></p>
+
           </li>
         </ul>
         <li>
@@ -223,59 +233,74 @@
           </h4>
         </li>
         <ul>
-          <li><p style="display: inline;">Will filter out songs by year it came out</p></li>
-          <li><p style="display: inline;">Value is in year format, do not need month or day</p></li>
-          <li><p style="display: inline;">example: <a href='/api/filter?year=1985' style='text-decoration: none;'><code
-                class="text-secondary">/api/filter?year=1985</code></a></p></li>
+          <li>
+            <p style="display: inline;">Will filter out songs by year it came out</p>
+          </li>
+          <li>
+            <p style="display: inline;">Value is in year format, do not need month or day</p>
+          </li>
+          <li>
+            <p style="display: inline;">example: <a href='/api/filter?year=1985' style='text-decoration: none;'><code class="text-secondary">/api/filter?year=1985</code></a></p>
+          </li>
         </ul>
       </ul>
       <p style='max-width: 550px; background-color: rgb(242, 242, 242); padding: 10px;'>Keep in mind that all filter
         queries can be used at once. Different combinations can
-        get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a
-          href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a>
+        get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a>
       </p>
       <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
       <ul>
-        <li><p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p></li>
-          <li>
-            <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
-            <i>(text)</i></p>
-            
-          </li>
-          <li>
-            <p style="display: inline;"><code>artist: </code>the rapper who said the lyrics
-            <i>(text)</i></p>
-           
-          </li>
-          <li>
-            <p style="display: inline;"> <code>song: </code>the song in which the lyrics were
+        <li>
+          <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
+        </li>
+        <li>
+          <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
+            <i>(text)</i>
+          </p>
+
+        </li>
+        <li>
+          <p style="display: inline;"><code>artist: </code>the rapper who said the lyrics
+            <i>(text)</i>
+          </p>
+
+        </li>
+        <li>
+          <p style="display: inline;"> <code>song: </code>the song in which the lyrics were
             said
-            <i>(text)</i></p>
-           
-          </li>
-          <li>
-            <p style="display: inline;"><code>release_date: </code>the date on which the song
+            <i>(text)</i>
+          </p>
+
+        </li>
+        <li>
+          <p style="display: inline;"><code>release_date: </code>the date on which the song
             was released
-            <i>(text)</i></p>
-            
-          </li>
-          <li>
-            <p style="display: inline;"><code>explicit: </code>whether or not song contains
+            <i>(text)</i>
+          </p>
+
+        </li>
+        <li>
+          <p style="display: inline;"><code>explicit: </code>whether or not song contains
             cuss words
-            <i>(boolean)</i></p>
-            
-          </li>
-          <li><p style="display: inline;"><code>artist_query: </code>used to uniquely identify artists in database <i>(text)</i></p></li>
-          <li><p style="display: inline;"><code>date_added: </code>the date in which the lyric was added to database in ISO format <i>(date format)</i></p></li>
-          <li><p style="display: inline;"><code>explanation: </code>the reason as to why said lyric is bad, only lyrics that have to be explained return this field <i>(text)</i></p></li>
+            <i>(boolean)</i>
+          </p>
+
+        </li>
+        <li>
+          <p style="display: inline;"><code>artist_query: </code>used to uniquely identify artists in database <i>(text)</i></p>
+        </li>
+        <li>
+          <p style="display: inline;"><code>date_added: </code>the date in which the lyric was added to database in ISO format <i>(date format)</i></p>
+        </li>
+        <li>
+          <p style="display: inline;"><code>explanation: </code>the reason as to why said lyric is bad, only lyrics that have to be explained return this field <i>(text)</i></p>
+        </li>
       </ul>
     </div>
     <hr>
     </hr>
 
-    <div class="text-center" style='font-size: 10px; margin-bottom: 50px;'>Icons made by <a
-        href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a
-        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div class="text-center" style='font-size: 10px; margin-bottom: 50px;'>Icons made by <a href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </div>
 </body>
 
