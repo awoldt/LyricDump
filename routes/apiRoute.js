@@ -14,6 +14,7 @@ function ifValidQuery(obj) {
 
 router.get("/api", async (req, res) => {
   res.status(200);
+  res.set("X-Robots-Tag", "noindex");
   const songData = await SongModel.find({});
 
   const randomPick = Math.floor(Math.random() * songData.length); //0 to length of how many songs
@@ -59,6 +60,7 @@ router.get("/api/filter", async (req, res) => {
         //200
       } else {
         res.status(200);
+        res.set("X-Robots-Tag", "noindex");
         const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
         res.json(results[randomPick]);
       }
@@ -92,6 +94,7 @@ router.get("/api/filter", async (req, res) => {
           //200
         } else {
           res.status(200);
+          res.set("X-Robots-Tag", "noindex");
           const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
           res.json(results[randomPick]);
         }
@@ -110,6 +113,8 @@ router.get("/api/filter", async (req, res) => {
       //200
       else {
         res.status(200);
+        res.set("X-Robots-Tag", "noindex");
+
         const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
         res.json(results[randomPick]);
       }
@@ -158,6 +163,7 @@ router.get("/api/filter", async (req, res) => {
           //200
           else {
             res.status(200);
+            res.set("X-Robots-Tag", "noindex");
             const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
             res.json(results[randomPick]);
           }
@@ -176,26 +182,14 @@ router.get("/api/filter", async (req, res) => {
         //200
         else {
           res.status(200);
+          res.set("X-Robots-Tag", "noindex");
+
           const randomPick = Math.floor(Math.random() * results.length); //0 to length of how many songs
           res.json(results[randomPick]);
         }
       }
     }
   }
-});
-
-//updates artists feed on frontend
-router.get("/api/getartistfeed", async (req, res) => {
-  res.status(200);
-
-  const feed = await SongModel.find({
-    artist_query: req.query.artist,
-    explicit: req.query.explicit,
-  });
-
-  res.json({
-    artist_feed: feed,
-  });
 });
 
 module.exports = router;
