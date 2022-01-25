@@ -82,8 +82,8 @@ function generateYearNavigation(years, currentYear) {
 }
 
 async function organizeYearData(yearData) {
-  const alex = await Promise.all(
-    yearData.map(async (year, yearIndex) => {
+  const o = await Promise.all(
+    yearData.map(async (year) => {
       var addedArtists = new Array();
       var added = new Array();
 
@@ -116,14 +116,20 @@ async function organizeYearData(yearData) {
               artist_img: img[0].img_href,
             });
           }
+
+          asdf.sort(alphabetize);
         })
       );
 
-      return { year: year.year, artist_data: asdf };
+      return {
+        year: year.year,
+        total_lyrics: year.songs_in_year,
+        artist_data: asdf,
+      };
     })
   );
 
-  return alex;
+  return o;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////

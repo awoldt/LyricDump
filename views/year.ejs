@@ -30,51 +30,81 @@
     <p>Easily sort through all the years of the worst rap lyrics. Each year showcases all the rappers who are currently featured having a bad lyric in that speicific year. Some rappers appear multiple times within a single year.</p>
 
     <% if(years_with_most_lyrics.length == 1) { %>
-   
-      <p style="margin-bottom: 0px;">Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %></code></a> is the year with the worst lyrics</p>
-  
+
+    <p style="margin-bottom: 0px;">Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %></code></a> is the year with the worst lyrics</p>
+
 
     <% } else if(years_with_most_lyrics.length == 2) { %>
-  
-      <p style="margin-bottom: 0px;">Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %> </code></a> and <a href='#<%= years_with_most_lyrics[1] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[1] %></code></a> are the years with the worst lyrics</p>
-   
+
+    <p style="margin-bottom: 0px;">Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %> </code></a> and <a href='#<%= years_with_most_lyrics[1] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[1] %></code></a> are the years with the worst lyrics</p>
+
 
     <% } else { %>
-   
-      <p style="margin-bottom: 0px;">Currently, <% for(var i=0; i<years_with_most_lyrics.length; ++i) { %>
-        <% if(i == years_with_most_lyrics.length-1) { %>
-        and <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>
-        <% } else { %>
-        <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>,
-        <% } %>
-        <% } %> are the years with the worst lyrics
-      </p>
-   
+
+    <p style="margin-bottom: 0px;">Currently, <% for(var i=0; i<years_with_most_lyrics.length; ++i) { %>
+      <% if(i == years_with_most_lyrics.length-1) { %>
+      and <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>
+      <% } else { %>
+      <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>,
+      <% } %>
+      <% } %> are the years with the worst lyrics
+    </p>
+
 
     <% } %>
 
     <% for(var i=0; i<organized_data.length; ++i) { %>
     <hr>
-    <a href='/year/<%= organized_data[i].year %>'>
-      <span style="font-size: 30px;" id='<%= organized_data[i].year %>'><%= organized_data[i].year %></span>
-    </a>
+    <div>
+      <div class="row mb-4">
+        <div class="col align-self-start">
+          <a href='/year/<%= organized_data[i].year %>'>
+            <span style="font-size: 30px;" id='<%= organized_data[i].year %>'><%= organized_data[i].year %></span>
+          </a>
+        </div>
 
-    <div class="row p-2">
-      <% for(var y=0; y<organized_data[i].artist_data.length; ++y) { %>
+        <div class="col align-self-end text-end">
+          <p>
+            <code>
+              <% if(organized_data[i].total_lyrics.length == 1) { %>
+              1 lyric <% if(organized_data[i].artist_data.length == 1) { %>
+              from 1 artist
+              <% } else { %>
+              1 lyric across <%= organized_data[i].artist_data.length %> artists
+              <% } %>
 
-      <div class="col-3 mb-3">
-        <a href='/artists/<%= organized_data[i].artist_data[y].artist_query %>' style="text-decoration: none; color: black;">
-          <% if(organized_data[i].artist_data[y].artist_img == null) { %>
-          <img src='/no-img.png' style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
-          <% } else { %>
-          <img src="<%= organized_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data[i].artist_data[y].artist_name %>" style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
-          <% } %>
-          <span style="display: block;" class="text-center"><%= organized_data[i].artist_data[y].artist_name %></span>
-        </a>
+              <% } else { %>
+              <%= organized_data[i].total_lyrics.length %> lyrics <%if(organized_data[i].artist_data.length == 1) { %>
+              from 1 artist
+              <% } else { %>
+              across <%= organized_data[i].artist_data.length %> artists
+              <% }%>
+              <% } %>
+            </code>
+          </p>
 
+
+        </div>
       </div>
 
-      <% } %>
+
+      <div class="row p-2">
+        <% for(var y=0; y<organized_data[i].artist_data.length; ++y) { %>
+
+        <div class="col-3 mb-3">
+          <a href='/artists/<%= organized_data[i].artist_data[y].artist_query %>' style="text-decoration: none; color: black;">
+            <% if(organized_data[i].artist_data[y].artist_img == null) { %>
+            <img src='/no-img.png' style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
+            <% } else { %>
+            <img src="<%= organized_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data[i].artist_data[y].artist_name %>" style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
+            <% } %>
+            <span style="display: block;" class="text-center"><%= organized_data[i].artist_data[y].artist_name %></span>
+          </a>
+
+        </div>
+
+        <% } %>
+      </div>
     </div>
 
     <% } %>
