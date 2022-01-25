@@ -30,17 +30,17 @@
     <p>Easily sort through all the years of the worst rap lyrics. Each year showcases all the rappers who are currently featured having a bad lyric in that speicific year. Some rappers appear multiple times within a single year.</p>
 
     <% if(years_with_most_lyrics.length == 1) { %>
-    <div class="alert alert-warning">
+   
       <p style="margin-bottom: 0px;">Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %></code></a> is the year with the worst lyrics</p>
-    </div>
+  
 
     <% } else if(years_with_most_lyrics.length == 2) { %>
-    <div class="alert alert-warning">
+  
       <p style="margin-bottom: 0px;">Currently, <a href='#<%= years_with_most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[0] %> </code></a> and <a href='#<%= years_with_most_lyrics[1] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[1] %></code></a> are the years with the worst lyrics</p>
-    </div>
+   
 
     <% } else { %>
-    <div class="alert alert-warning">
+   
       <p style="margin-bottom: 0px;">Currently, <% for(var i=0; i<years_with_most_lyrics.length; ++i) { %>
         <% if(i == years_with_most_lyrics.length-1) { %>
         and <a href='#<%= years_with_most_lyrics[i] %>' style="text-decoration: none; color: #d63384;"><code><%= years_with_most_lyrics[i] %></code></a>
@@ -49,7 +49,7 @@
         <% } %>
         <% } %> are the years with the worst lyrics
       </p>
-    </div>
+   
 
     <% } %>
 
@@ -65,9 +65,9 @@
       <div class="col-3 mb-3">
         <a href='/artists/<%= organized_data[i].artist_data[y].artist_query %>' style="text-decoration: none; color: black;">
           <% if(organized_data[i].artist_data[y].artist_img == null) { %>
-          <img src='/no-img.png' style='width: 50px; height: 50px; border-radius: 50%;' class="mx-auto d-block" />
+          <img src='/no-img.png' style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
           <% } else { %>
-          <img src="<%= organized_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data[i].artist_data[y].artist_name %>" style='width: 50px; height: 50px; border-radius: 50%;' class="mx-auto d-block" />
+          <img src="<%= organized_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data[i].artist_data[y].artist_name %>" style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
           <% } %>
           <span style="display: block;" class="text-center"><%= organized_data[i].artist_data[y].artist_name %></span>
         </a>
