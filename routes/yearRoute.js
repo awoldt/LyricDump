@@ -3,25 +3,7 @@ const router = express.Router();
 const SongModel = require("../SongModel");
 const ArtistProfile = require("../ArtistProfile");
 
-function yearsWithMostLyrics(songs) {
-  var years = new Array();
-  var currentHighestNum = 0;
-
-  songs.forEach((x) => {
-    //only want years with more than 1 lyric
-    if (x.songs_in_year.length > 1) {
-      if (x.songs_in_year.length == currentHighestNum) {
-        years.push(x.year);
-      } else if (x.songs_in_year.length > currentHighestNum) {
-        years.length = 0;
-        currentHighestNum = x.songs_in_year.length;
-        years.push(x.year);
-      }
-    }
-  });
-
-  return years;
-}
+const { Storage } = require("@google-cloud/storage");
 
 function alphabetize(a, b) {
   if (a.artist_query < b.artist_query) {
@@ -81,91 +63,34 @@ function generateYearNavigation(years, currentYear) {
   }
 }
 
-async function organizeYearData(yearData) {
-  const o = await Promise.all(
-    yearData.map(async (year) => {
-      var addedArtists = new Array();
-      var added = new Array();
-
-      year.songs_in_year.forEach((songs) => {
-        if (added.indexOf(songs.artist_query) == -1) {
-          added.push(songs.artist_query);
-          addedArtists.push({
-            artist_name: songs.artist,
-            artist_query: songs.artist_query,
-          });
-        }
-      });
-
-      const asdf = new Array();
-
-      await Promise.all(
-        addedArtists.map(async (x) => {
-          var img = await ArtistProfile.find({ artist_query: x.artist_query });
-
-          if (img.length == 0) {
-            asdf.push({
-              artist_name: x.artist_name,
-              artist_query: x.artist_query,
-              artist_img: null,
-            });
-          } else {
-            asdf.push({
-              artist_name: x.artist_name,
-              artist_query: x.artist_query,
-              artist_img: img[0].img_href,
-            });
-          }
-
-          asdf.sort(alphabetize);
-        })
-      );
-
-      return {
-        year: year.year,
-        total_lyrics: year.songs_in_year,
-        artist_data: asdf,
-      };
-    })
-  );
-
-  return o;
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 router.get("/year", async (req, res) => {
-  res.status(200);
+  try {
+    const googleCloudStorage = new Storage({
+      keyFilename: "bad-rap-api-v2-c3bb8ce441f7.json",
+    });
 
-  const allSongs = await SongModel.find();
+    const bucketData = await googleCloudStorage
+      .bucket("year-json-data")
+      .file("year.json")
+      .createReadStream();
+    var buffer = "";
+    bucketData
+      .on("data", (x) => {
+        buffer += x;
+      })
+      .on("end", () => {
+        res.status(200);
 
-  var y = new Array();
-  allSongs.forEach((x) => {
-    if (y.indexOf(x.release_date) == -1) {
-      y.push(x.release_date);
-    }
-  });
-
-  y = y.sort();
-
-  const returnData = await Promise.all(
-    y.map(async (x) => {
-      const songsInYear = await SongModel.find({ release_date: x });
-
-      return {
-        year: x,
-        songs_in_year: songsInYear,
-      };
-    })
-  );
-
-  const organizedData = await organizeYearData(returnData);
-  const mostLyrics = yearsWithMostLyrics(returnData);
-
-  res.render("year", {
-    years_with_most_lyrics: mostLyrics,
-    organized_data: organizedData,
-  });
+        res.render("year", {
+          organized_data: JSON.parse(buffer),
+        });
+      });
+  } catch (e) {
+    res.status(500);
+    res.send("error getting data :(");
+  }
 });
 
 router.get("/year/:id", async (req, res) => {

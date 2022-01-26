@@ -16,7 +16,7 @@ const apiRoutes = require("./routes/apiRoute");
 const artistRoutes = require("./routes/artistRoute");
 const yearRoutes = require("./routes/yearRoute");
 const searchRoute = require("./routes/searchRoute");
-const cronRoute = require('./routes/cronRoute');
+const cronRoute = require("./routes/cronRoute");
 
 app.get("/", (req, res) => {
   res.status(200);
