@@ -15,10 +15,18 @@
   <meta property="og:url" content="https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" />
 
   <% if(artist_profile != undefined) { %>
-    <meta property="og:image" content="https://badrapapi.com<%= artist_profile[0].img_href %>" />
+  <meta property="og:image" content="https://badrapapi.com<%= artist_profile[0].img_href %>" />
   <% } else { %>
-    <meta property="og:image" content="https://badrapapi.com/no-img.png" />
+  <meta property="og:image" content="https://badrapapi.com/no-img.png" />
   <% } %>
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 
 
   <link rel="canonical" href="https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" />
@@ -209,7 +217,6 @@
           </div>
           <% } %>
         </div>
-        <div class="text-center" style='font-size: 10px; margin-bottom: 50px;'>Icons made by <a href="https://www.flaticon.com/authors/sumberrejeki" title="SumberRejeki">SumberRejeki</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
         <%- include('./relatedArtists', {related_data: related_artists}) %>
       </div>
 
