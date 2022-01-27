@@ -89,7 +89,7 @@ router.get("/year", async (req, res) => {
       });
   } catch (e) {
     res.status(500);
-    res.send("error getting data :(");
+    res.send(null);
   }
 });
 

@@ -3,56 +3,7 @@ const router = express.Router();
 const SongModel = require("../SongModel");
 const ArtistProfile = require("../ArtistProfile");
 
-//fetches all songs and orders them by artists, num of songs by each artist, and link to each artistpage
-async function organizeAristList() {
-  const allSongs = await SongModel.find();
-
-  var artistQueries = new Array();
-  allSongs.forEach((x) => {
-    if (artistQueries.indexOf(x.artist) == -1) {
-      artistQueries.push(x.artist);
-    }
-  });
-
-  artistQueries = artistQueries.sort(); //artist A-Z by order of display name, not query name
-
-  const returnData = await Promise.all(
-    artistQueries.map(async (x) => {
-      const y = await SongModel.find({ artist: x });
-
-      return {
-        artist_name: y[0].artist,
-        artist_href: "/artists/" + y[0].artist_query,
-        artist_num_of_songs: y.length,
-      };
-    })
-  );
-
-  return returnData;
-}
-
-//will display the rappers who have the most lyrics stored in the database
-//LOOPS THROUGH THE RETURNDATA ARRAY FROM ABOVE FUNCTION
-async function rapperWithMostLyrics(x) {
-  var rappers = new Array();
-  var currentHighestNum = 0;
-
-  x.forEach((artist) => {
-    //only want artists with more than 1 lyric
-    if (artist.artist_num_of_songs > 1) {
-      if (artist.artist_num_of_songs == currentHighestNum) {
-        rappers.push(artist.artist_name);
-        //rapper has same amount of lyrics as recent hightest, also add
-      } else if (artist.artist_num_of_songs > currentHighestNum) {
-        rappers.length = 0;
-        currentHighestNum = artist.artist_num_of_songs;
-        rappers.push(artist.artist_name);
-      }
-    }
-  });
-
-  return rappers;
-}
+const { Storage } = require("@google-cloud/storage");
 
 //gets all years featured in lyrics
 async function getYearsRange(songs) {
@@ -98,22 +49,32 @@ async function getRelatedArtists(current_artist) {
 }
 
 router.get("/artists", async (req, res) => {
-  res.status(200);
-  const allArtistData = await organizeAristList();
-  const mostLyrics = await rapperWithMostLyrics(allArtistData);
-  const n = [...allArtistData];
+  try {
+    const googleCloudStorage = new Storage({
+      keyFilename: "bad-rap-api-v2-c3bb8ce441f7.json",
+    });
 
-  const popularArtists = n.sort(
-    ({ artist_num_of_songs: a }, { artist_num_of_songs: b }) => b - a
-  );
+    const bucketData = await googleCloudStorage
+      .bucket("year-json-data")
+      .file("artists.json")
+      .createReadStream();
+    var buffer = "";
+    bucketData
+      .on("data", (x) => {
+        buffer += x;
+      })
+      .on("end", () => {
+        res.status(200);
+        console.log("FROMMMM BUICKETTTT");
 
-  popularArtists.length = 5;
-
-  res.render("artists", {
-    artist_data: allArtistData,
-    most_lyrics: mostLyrics,
-    popular_artists: popularArtists,
-  });
+        res.render("artists", {
+          organized_data: JSON.parse(buffer),
+        });
+      });
+  } catch (e) {
+    res.status(500);
+    res.send(null);
+  }
 });
 
 router.get("/artists/:id", async (req, res) => {

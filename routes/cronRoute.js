@@ -72,6 +72,59 @@ async function organizeYearData(yearData) {
   return o;
 }
 
+//fetches all songs and orders them by artists, num of songs by each artist, and link to each artistpage
+async function organizeAristList() {
+  const allSongs = await SongModel.find();
+
+  var artistQueries = new Array();
+  allSongs.forEach((x) => {
+    if (artistQueries.indexOf(x.artist) == -1) {
+      artistQueries.push(x.artist);
+    }
+  });
+
+  artistQueries = artistQueries.sort(); //artist A-Z by order of display name, not query name
+
+  const returnData = await Promise.all(
+    artistQueries.map(async (x) => {
+      const y = await SongModel.find({ artist: x });
+
+      return {
+        artist_name: y[0].artist,
+        artist_href: "/artists/" + y[0].artist_query,
+        artist_num_of_songs: y.length,
+      };
+    })
+  );
+
+  return returnData;
+}
+
+//will display the rappers who have the most lyrics stored in the database
+//LOOPS THROUGH THE RETURNDATA ARRAY FROM ABOVE FUNCTION
+async function rapperWithMostLyrics(x) {
+  var rappers = new Array();
+  var currentHighestNum = 0;
+
+  x.forEach((artist) => {
+    //only want artists with more than 1 lyric
+    if (artist.artist_num_of_songs > 1) {
+      if (artist.artist_num_of_songs == currentHighestNum) {
+        rappers.push(artist.artist_name);
+        //rapper has same amount of lyrics as recent hightest, also add
+      } else if (artist.artist_num_of_songs > currentHighestNum) {
+        rappers.length = 0;
+        currentHighestNum = artist.artist_num_of_songs;
+        rappers.push(artist.artist_name);
+      }
+    }
+  });
+
+  return rappers;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 router.get("/cron/year", async (req, res) => {
   console.log("generating new year json data!");
 
@@ -122,6 +175,51 @@ router.get("/cron/year", async (req, res) => {
       res.status(500);
       console.log("error updating year data at /cron/year");
       res.send("error");
+    }
+  }
+});
+
+router.get("/cron/artists", async (req, res) => {
+  //MAKE SURE ITS GOOGLE RUNNING THE CRON JOB
+  if (req.headers["user-agent"] !== "Google-Cloud-Scheduler") {
+    res.status(403);
+    res.send("access denied");
+  } else {
+    const allArtistData = await organizeAristList();
+    const mostLyrics = await rapperWithMostLyrics(allArtistData);
+
+    const n = [...allArtistData];
+
+    const popularArtists = n.sort(
+      ({ artist_num_of_songs: a }, { artist_num_of_songs: b }) => b - a
+    );
+
+    popularArtists.length = 5;
+
+    var returnData = new Object();
+    returnData.artist_data = allArtistData;
+    returnData.most_lyrics = mostLyrics;
+    returnData.popular_artists = popularArtists;
+
+    try {
+      await googleCloudStorage
+        .bucket("year-json-data")
+        .file("artists.json")
+        .save(JSON.stringify(returnData), (err) => {
+          if (err) {
+            res.status(500);
+            console.log(err);
+            res.send(null);
+          } else {
+            res.status(200);
+            console.log("added new artists!");
+            res.send(null);
+          }
+        });
+    } catch (e) {
+      res.status(500);
+      console.log(e);
+      res.send(null);
     }
   }
 });
