@@ -44,6 +44,6 @@ app.use((req, res) => {
   res.send("Page not found");
 });
 
-app.listen(8080, () => {
+app.listen(process.env.PORT, () => {
   console.log("App running on port 8080");
 });

@@ -123,6 +123,22 @@ async function rapperWithMostLyrics(x) {
   return rappers;
 }
 
+//will go through all the years stored in database and determine the worst
+//more than 1 year can be returned
+function yearWithMostLyrics(yearData) {
+  var yearWithMost = new Array();
+  var l = 0; //lyrics in each year
+  for (i = 0; i < yearData.length; ++i) {
+    if (yearData[i].total_lyrics.length >= l) {
+      yearWithMost = [];
+      l = yearData[i].total_lyrics.length;
+      yearWithMost.push(yearData[i].year);
+    }
+  }
+
+  return yearWithMost;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 router.get("/cron/year", async (req, res) => {
@@ -134,6 +150,7 @@ router.get("/cron/year", async (req, res) => {
     res.send("access denied");
   } else {
     const allSongs = await SongModel.find();
+
     var y = new Array(); //array of all unqiue years stored in database
     allSongs.forEach((x) => {
       if (y.indexOf(x.release_date) == -1) {
@@ -156,11 +173,18 @@ router.get("/cron/year", async (req, res) => {
 
     const organizedData = await organizeYearData(returnData);
 
+    const mostLyricsInYear = yearWithMostLyrics(organizedData);
+
+    const FINALRETURNASDFASD = {
+      year_data: organizedData,
+      year_with_most_lyrics: mostLyricsInYear,
+    };
+
     try {
       await googleCloudStorage
         .bucket("year-json-data")
         .file("year.json")
-        .save(JSON.stringify(organizedData), (err) => {
+        .save(JSON.stringify(FINALRETURNASDFASD), (err) => {
           if (err) {
             res.status(500);
             console.log(err);
