@@ -34,18 +34,18 @@
     <%- include('./searchBar') %>
 
 
-    <h1 class="mt-3">Supported Rappers</h1>
-    <p>Sort through all the rappers currently stored in the database. The list is alphabetized and shows how many lyrics are stored for each artist.</p>
+    <h1 class="mt-3">Featured Rappers</h1>
+    <p>Sort through all the rappers currently stored in the database. The list is alphabetized and shows how many lyrics are stored for each artist. Each bad lyric is hand selected for each rapper, only the worst-of-the-worst will be shown.</p>
     
       <% if(organized_data.most_lyrics.length > 1) { %>
       <% if(organized_data.most_lyrics.length == 2) { %>
 
-    <p style="margin-bottom: 0px;"> Currently <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code> </a>and <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[1] %></code></a> have the most bad lyrics</p>
+    <p> Currently <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code> </a>and <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[1] %></code></a> have the most bad lyrics</p>
 
 
     <% } else { %>
 
-    <p style="margin-bottom: 0px;">
+    <p>
       Currently
       <% for(var i=0; i<organized_data.most_lyrics.length; ++i) { %>
       <% if(i == organized_data.most_lyrics.length-1 ) { %>
@@ -62,7 +62,7 @@
     <% } %>
     <% } else if(organized_data.most_lyrics.length == 1) { %>
 
-    <p style="margin-bottom: 0px;">Currently <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code></a> has the most bad lyrics stored</p>
+    <p>Currently <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code></a> has the most bad lyrics stored</p>
 
 
 

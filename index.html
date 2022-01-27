@@ -37,15 +37,60 @@
   </nav>
 
   <div class="container">
-    <h1 class="text-center" style='margin-top: 50px; margin-bottom: 25px;'>Home of the Worst Rap Lyrics</h1>
-    <p class="text-center" style='margin-bottom: 50px'>
-      Easy-to-use API to get some of the <u>BEST</u> rap lyrics of all time. Rap lyrics that are so bad you can't stop
-      thinking about them. Send a GET request and get back a random bad lyric from a random rapper. Simple
-      and easy to use, unlimited requests. Browse some of the artists featured in the database and submit your own
-      favorite bad rap lyrics! Some songs may contain explicit lyrics.
-    </p>
+    <div class="row mb-5">
+      <div class="col-xl">
+        <h1 class="text-center" style='margin-top: 50px; margin-bottom: 25px;'>Discover Some of the Worst Rap Lyrics of
+          All Time</h1>
+      </div>
+      <div class="col-xl">
+        <p class="text-center" id='website-description-ptag'>
+          Easy-to-use API to get some of the <u>BEST</u> rap lyrics of all time. Rap lyrics that are so bad you can't
+          stop
+          thinking about them. Send a GET request and get back a random bad lyric from a random rapper. Simple
+          and easy to use, unlimited requests. Browse some of the artists featured in the database and submit your own
+          favorite bad rap lyrics! Some songs may contain explicit lyrics.
+        </p>
 
-    <div class="text-center mb-5">
+        <script>
+          window.onload = () => {
+          if (window.innerWidth <= 1200) {
+            console.log('less than xl window');
+          } else {
+            console.log('more than xl window');
+            document.getElementById('website-description-ptag').style.marginTop = '50px'
+          }
+        }
+
+        window.addEventListener('resize', () => {
+
+          if (window.innerWidth <= 1200) {
+            document.getElementById('website-description-ptag').style.marginTop = '0px'
+          } else {
+            document.getElementById('website-description-ptag').style.marginTop = '50px'
+          }
+        })
+
+        
+        
+        </script>
+
+        <p class="text-center" style="margin-top: 25px;">Featuring lyrics from some of your favorite artists such as <br> <a href='https://badrapapi.com/artists/drake'>Drake</a> <br>
+          <a href='https://badrapapi.com/artists/eminem'>Eminem</a> <br>
+          <a href="https://badrapapi.com/artists/lilwayne">Lil Wayne</a> <br>
+          <a href='https://badrapapi.com/artists/trippiered'>Trippie Red</a> <br>
+          <a href='https://badrapapi.com/artists/xxxtentacion'>XXXTENTACION</a> <br>
+          <a href='https://badrapapi.com/artists/youngthug'>Young Thug</a> <br>
+          and many more 
+        </p>
+
+
+
+      </div>
+    </div>
+
+
+
+    <div class="text-center">
       <div class="row justify-content-center">
         <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input'
           style='margin-bottom: 10px; width: 400px;' class="form-control text-center" />
@@ -54,6 +99,7 @@
 
       <script>
         const resultsDiv = document.getElementById('search-results-div')
+        resultsDiv.style.marginBottom = '25px'
         //search function
         async function searchArtist(q) {
           resultsDiv.innerText = '';
@@ -100,7 +146,7 @@
             viewBox="0 0 16 16">
             <path
               d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-          </svg> <span>All rappers</span>
+          </svg> <span>All artists</span>
         </div>
       </a>
 
@@ -117,12 +163,15 @@
 
 
 
-    <div style="margin-bottom: 25px; margin-top: 25px;" class="text-center">
+    <div class="text-center">
+      <div style="margin-bottom: 25px;" class="text-center btn btn-danger">
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform"
-        rel="noreferrer" target="_blank">
-        <div class=" btn btn-light">Submit Rap Lyrics</div>
+        rel="noreferrer" target="_blank" style="text-decoration: none; color: white;">
+        Submit Rap Lyrics
       </a>
     </div>
+    </div>
+    
 
 
     <hr>
@@ -141,7 +190,7 @@
 
     <div style="padding: 15px">
 
-      <p style="margin-bottom: 50px;">
+      <p style="margin-bottom: 50px; font-size: 20px;">
         This endpoint will randomly fetch one single lyric from database
       </p>
       <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
@@ -150,13 +199,13 @@
           <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
         </li>
         <li>
-          <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
+          <p style="display: inline;"><code>lyrics: </code>the bad lyric 
             <i>(text)</i>
           </p>
 
         </li>
         <li>
-          <p style="display: inline;"><code>artist: </code>the rapper who said the lyrics
+          <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
             <i>(text)</i>
           </p>
 
@@ -169,15 +218,15 @@
 
         </li>
         <li>
-          <p style="display: inline;"> <code>release_date: </code>the date on which the song
+          <p style="display: inline;"> <code>release_date: </code>the date the song
             was released
             <i>(text)</i>
           </p>
 
         </li>
         <li>
-          <p style="display: inline;"><code>explicit: </code>whether or not song contains
-            cuss words
+          <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
+            explicit language
             <i>(boolean)</i>
           </p>
 
@@ -197,7 +246,7 @@
         </svg></a>
     </h2>
     <div style="padding: 15px">
-      <p style="margin-bottom: 50px;">
+      <p style="margin-bottom: 50px; font-size: 20px;">
         This endpoint will fetch one random song that matches query. Endpoint must contain at least one
         query.
       </p>
@@ -242,7 +291,7 @@
         </li>
         <ul>
           <li>
-            <p style="display: inline;">Returns songs that either have explicit language or not</p>
+            <p style="display: inline;">Returns lyrics that either contain explicit language or not</p>
           </li>
           <li>
             <p style="display: inline;">Can only be true or false</p>
@@ -260,7 +309,7 @@
         </li>
         <ul>
           <li>
-            <p style="display: inline;">Will filter out songs by year it came out</p>
+            <p style="display: inline;">Will filter out lyrics by year it came out</p>
           </li>
           <li>
             <p style="display: inline;">Value is in year format, do not need month or day</p>
@@ -288,13 +337,13 @@
 
         </li>
         <li>
-          <p style="display: inline;"><code>artist: </code>the rapper who said the lyrics
+          <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
             <i>(text)</i>
           </p>
 
         </li>
         <li>
-          <p style="display: inline;"> <code>song: </code>the song in which the lyrics were
+          <p style="display: inline;"> <code>song: </code>the song in which the lyric were
             said
             <i>(text)</i>
           </p>
@@ -308,8 +357,8 @@
 
         </li>
         <li>
-          <p style="display: inline;"><code>explicit: </code>whether or not song contains
-            cuss words
+          <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
+            explicit language
             <i>(boolean)</i>
           </p>
 
@@ -325,11 +374,11 @@
         </li>
         <li>
           <p style="display: inline;"><code>explanation: </code>the reason as to why said lyric is bad, only lyrics that
-            have to be explained return this field <i>(text)</i></p>
+            are so dumb and easy to explain why they're dumb feature this field <i>(text)</i></p>
         </li>
       </ul>
     </div>
-    
+
   </div>
 </body>
 
