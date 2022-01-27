@@ -174,7 +174,7 @@ router.get("/cron/year", async (req, res) => {
     } catch (e) {
       res.status(500);
       console.log("error updating year data at /cron/year");
-      res.send("error");
+      res.send(null);
     }
   }
 });

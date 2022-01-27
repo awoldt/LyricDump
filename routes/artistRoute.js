@@ -65,7 +65,6 @@ router.get("/artists", async (req, res) => {
       })
       .on("end", () => {
         res.status(200);
-        console.log("FROMMMM BUICKETTTT");
 
         res.render("artists", {
           organized_data: JSON.parse(buffer),

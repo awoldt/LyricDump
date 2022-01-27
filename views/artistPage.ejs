@@ -13,6 +13,14 @@
   <meta property="og:description" content="A collection of <%= artist_data[0].artist %>'s worst rap lyrics" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" />
+
+  <% if(artist_profile != undefined) { %>
+    <meta property="og:image" content="https://badrapapi.com<%= artist_profile[0].img_href %>" />
+  <% } else { %>
+    <meta property="og:image" content="https://badrapapi.com/no-img.png" />
+  <% } %>
+
+
   <link rel="canonical" href="https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" />
   <!-- Social Buttons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
