@@ -113,10 +113,7 @@
 
         <script>
           window.onload = () => {
-          if (window.innerWidth <= 1200) {
-            console.log('less than xl window');
-          } else {
-            console.log('more than xl window');
+           if(window.innerWidth >= 1200) {
             document.getElementById('website-description-ptag').style.marginTop = '50px'
           }
         }
