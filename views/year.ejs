@@ -62,36 +62,33 @@
     <% for(var i=0; i<organized_data.year_data.length; ++i) { %>
     <hr>
     <div>
-      <div class="row mb-4">
-        <div class="col align-self-start">
+    
+        <div>
           <a href='/year/<%= organized_data.year_data[i].year %>'>
             <span style="font-size: 30px;" id='<%= organized_data.year_data[i].year %>'><%= organized_data.year_data[i].year %></span>
           </a>
-        </div>
-
-        <div class="col align-self-end text-end">
           <p>
-            <code>
+          
               <% if(organized_data.year_data[i].total_lyrics.length == 1) { %>
               1 lyric <% if(organized_data.year_data[i].artist_data.length == 1) { %>
               from 1 artist
               <% } else { %>
-              1 lyric across <%= organized_data.year_data[i].artist_data.length %> artists
+              1 lyric from <%= organized_data.year_data[i].artist_data.length %> artists
               <% } %>
 
               <% } else { %>
               <%= organized_data.year_data[i].total_lyrics.length %> lyrics <%if(organized_data.year_data[i].artist_data.length == 1) { %>
               from 1 artist
               <% } else { %>
-              across <%= organized_data.year_data[i].artist_data.length %> artists
+              from <%= organized_data.year_data[i].artist_data.length %> artists
               <% }%>
               <% } %>
-            </code>
+        
           </p>
-
-
         </div>
-      </div>
+
+       
+    
 
 
       <div class="row p-2">
