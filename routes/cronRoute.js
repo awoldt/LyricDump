@@ -129,9 +129,12 @@ function yearWithMostLyrics(yearData) {
   var yearWithMost = new Array();
   var l = 0; //lyrics in each year
   for (i = 0; i < yearData.length; ++i) {
-    if (yearData[i].total_lyrics.length >= l) {
+    if (yearData[i].total_lyrics.length > l) {
       yearWithMost = [];
       l = yearData[i].total_lyrics.length;
+      yearWithMost.push(yearData[i].year);
+    }
+    else if(yearData[i].total_lyrics.length == l) {
       yearWithMost.push(yearData[i].year);
     }
   }
