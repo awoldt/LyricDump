@@ -133,13 +133,103 @@ function yearWithMostLyrics(yearData) {
       yearWithMost = [];
       l = yearData[i].total_lyrics.length;
       yearWithMost.push(yearData[i].year);
-    }
-    else if(yearData[i].total_lyrics.length == l) {
+    } else if (yearData[i].total_lyrics.length == l) {
       yearWithMost.push(yearData[i].year);
     }
   }
 
   return yearWithMost;
+}
+
+//gets all artists to display on yearpage
+async function featuresArtists(lyrics) {
+  var artists = new Array();
+  var artistsAdded = new Array();
+
+  await Promise.all(
+    lyrics.map(async (x) => {
+      var obj = new Object();
+      if (artistsAdded.indexOf(x.artist_query) == -1) {
+        artistsAdded.push(x.artist_query);
+        obj.artist_query = x.artist_query;
+        obj.artist_name = x.artist;
+
+        var img = await ArtistProfile.find({ artist_query: x.artist_query });
+        if (img.length == 0) {
+          obj.artist_img = null;
+        } else {
+          obj.artist_img = img[0].img_href;
+        }
+
+        artists.push(obj);
+      }
+    })
+  );
+
+  artists.sort(alphabetize);
+
+  console.log(artists);
+
+  return artists;
+}
+
+//returns an array of all the years stored in database
+async function generateUniqueYearData(lyricData) {
+  var years = new Array();
+
+  for (i = 0; i < lyricData.length; ++i) {
+    if (years.indexOf(lyricData[i].release_date) == -1) {
+      years.push(lyricData[i].release_date);
+    }
+  }
+
+  const returnData = await Promise.all(
+    years.sort().map(async (y) => {
+      const data = await SongModel.find({ release_date: y }).sort({
+        date_added: -1,
+      });
+
+      //get all the unique artists in each year
+      var uniqueArtists = new Array();
+      for (i = 0; i < data.length; ++i) {
+        if (uniqueArtists.indexOf(data[i].artist_query) == -1) {
+          uniqueArtists.push(data[i].artist_query);
+        }
+      }
+
+      //get the artist_query and artist_name for each unique artist in each year
+      //then check to see if artist currently has img stored
+      const returnArtistData = await Promise.all(
+        uniqueArtists.sort().map(async (aa) => {
+          var artistNameData = await SongModel.findOne({ artist_query: aa });
+
+          var artistImg = await ArtistProfile.find({ artist_query: aa });
+
+          if (artistImg.length == 0) {
+            return {
+              artist_name: artistNameData.artist,
+              artist_query: aa,
+              artist_img: null,
+            };
+          } else {
+            return {
+              artist_name: artistNameData.artist,
+              artist_query: aa,
+              artist_img: artistImg[0].img_href,
+            };
+          }
+        })
+      );
+
+      return {
+        year: y,
+        lyric_data: data,
+        artist_data: returnArtistData,
+      };
+    })
+  );
+
+  return returnData;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -240,6 +330,40 @@ router.get("/cron/artists", async (req, res) => {
           } else {
             res.status(200);
             console.log("added new artists!");
+            res.send(null);
+          }
+        });
+    } catch (e) {
+      res.status(500);
+      console.log(e);
+      res.send(null);
+    }
+  }
+});
+
+router.get("/cron/yearpage", async (req, res) => {
+  //MAKE SURE ITS GOOGLE RUNNING THE CRON JOB
+  if (req.headers["user-agent"] !== "Google-Cloud-Scheduler") {
+    res.status(403);
+    res.send("access denied");
+  } else {
+    const lyrics = await SongModel.find();
+
+    //get all the unqiue years stored in database
+    const returnData = await generateUniqueYearData(lyrics);
+
+    try {
+      await googleCloudStorage
+        .bucket("year-json-data")
+        .file("yearPage.json")
+        .save(JSON.stringify(returnData), (err) => {
+          if (err) {
+            res.status(500);
+            console.log(err);
+            res.send(null);
+          } else {
+            res.status(200);
+            console.log("added new yearPage data!");
             res.send(null);
           }
         });
