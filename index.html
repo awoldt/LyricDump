@@ -48,414 +48,487 @@
     </a>
   </nav>
 
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-xl">
-        <h1 class="text-center" style='margin-top: 50px; margin-bottom: 50px;'><u>Discover Some of the Worst Rap Lyrics
-            of
-            All Time</u></h1>
+  <div class="container-fluid" style="padding: 20px;">
+    <div class="container" style="background-color: white;">
+      <div class="row mb-5">
+        <div class="col-xl">
+          <h1 class="text-center" style='margin-top: 50px; margin-bottom: 50px;'>API for the worst rap lyrics of all
+            time</h1>
+          <p class="text-center" id='website-description-ptag' style="font-size: 20px; margin-bottom: 50px;">
+            Easy-to-use REST API to get some of the <u>best</u> rap lyrics of all time. Rap lyrics so bad they make you
+            laugh
+            out loud. Send a GET request and get back a random lyric from database. Simple
+            and easy to use, unlimited requests. Browse some of the artists featured in the database and submit your own
+            favorite bad rap lyrics! Some songs may contain explicit lyrics.
+          </p>
 
-        <div id="carouselExampleIndicators" class="carousel slide mt-5">
-          <div class="carousel-indicators mt-3">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-              aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-              aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-              aria-label="Slide 3"></button>
+          <div style='background-color: rgb(242, 242, 242, .5); padding: 2vw; border-radius: 10px;'>
+            <div class="btn btn-danger" role="button" id='getbtn' style="margin-bottom: 10px;">GET</div> <span style="margin-left: 5px">(non-explicit lyrics)</span>
+
+
+            <div
+              style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;">
+
+
+
+              <p style="display: inline; font-size: 14px;">
+                <i style="font-size: 20px;" id='displaylyric'>
+                  "Picture that
+                  with a Kodak, or, better yet, go to Times Square, take a picture of me with a Kodak"
+                  (Pitbull, Give Me Everything)
+                </i>
+                
+              </p>
+            </div>
+
           </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <a href='/artists/future' style="text-decoration: none; color: black">
-                <p style="font-size: 20px;" class="text-center"><i>"I invented doors"</i></p>
 
-                <img src="/imgs/future.png" alt="Future" class="mx-auto d-block"
-                  style="margin-bottom: 5px; height: 350px; width: 350px;" />
-                <p class="text-secondary text-center mb-5">Future, 2017</p>
-              </a>
 
-            </div>
-            <div class="carousel-item">
-              <a href='/artists/drake' style="text-decoration: none; color: black">
-                <p style="font-size: 20px;" class="text-center"><i>"My Mount Rushmore is me with 4 different
-                    expressions"</i></p>
+          <script>
+            const btn = document.getElementById('getbtn')
+            const p = document.getElementById('displaylyric')
+            p.style.fontSize = '20px'
+            btn.addEventListener('click', async () => {
+              let x = await fetch('/api/filter?explicit=false');
+              x = await x.json();
 
-                <img src="/imgs/drake.png" alt="Drake" class="mx-auto d-block"
-                  style="margin-bottom: 5px; height: 350px;; width: 350px;" />
-                <p class="text-secondary text-center mb-5">Drake, 2018</p>
-              </a>
-            </div>
-            <div class="carousel-item">
-              <a href='/artists/lilwayne' style="text-decoration: none; color: black">
-                <p style="font-size: 20px;" class="text-center"><i>"Imma go so opposite of soft"</i></p>
 
-                <img src="/imgs/lilwayne.png" alt="Lil Wayne" class="mx-auto d-block"
-                  style="margin-bottom: 5px; height: 350px;; width: 350px;;" />
-                <p class="text-secondary text-center mb-5">Lil Wayne, 2008</p>
-              </a>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+
+              p.innerText = '"' + x.lyrics + '" (' + x.artist + ', ' + x.release_date + ')'
+
+
+            })
+          </script>
+
+          <span style="font-size: 20px;">There are 2 endpoints to fetch for rap data:</span>
+          <ul>
+            <li>/api</li>
+            <li>/api/filter</li>
+          </ul>
+          <p style='font-size: 20px;'>All data returned is JSON formated.</p>
+
+
+
+
+
+          <style>
+            .carousel-control-next-icon {
+              background-color: black;
+            }
+
+            .carousel-control-prev-icon {
+              background-color: black;
+            }
+          </style>
+
         </div>
+        <div class="col-xl">
+          <div id="carouselExampleIndicators" class="carousel slide mt-5">
+            <div class="carousel-indicators mt-3">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <a href='/artists/future' style="text-decoration: none; color: black">
+                  <p style="font-size: 20px;" class="text-center"><i>"I invented doors"</i></p>
+
+                  <img src="/imgs/future.png" alt="Future" class="mx-auto d-block"
+                    style="margin-bottom: 5px; height: 350px; width: 350px;" />
+                  <p class="text-secondary text-center mb-5">Future, 2017</p>
+                </a>
+
+              </div>
+              <div class="carousel-item">
+                <a href='/artists/drake' style="text-decoration: none; color: black">
+                  <p style="font-size: 20px;" class="text-center"><i>"My Mount Rushmore is me with 4 different
+                      expressions"</i></p>
+
+                  <img src="/imgs/drake.png" alt="Drake" class="mx-auto d-block"
+                    style="margin-bottom: 5px; height: 350px;; width: 350px;" />
+                  <p class="text-secondary text-center mb-5">Drake, 2018</p>
+                </a>
+              </div>
+              <div class="carousel-item">
+                <a href='/artists/lilwayne' style="text-decoration: none; color: black">
+                  <p style="font-size: 20px;" class="text-center"><i>"Imma go so opposite of soft"</i></p>
+
+                  <img src="/imgs/lilwayne.png" alt="Lil Wayne" class="mx-auto d-block"
+                    style="margin-bottom: 5px; height: 350px;; width: 350px;;" />
+                  <p class="text-secondary text-center mb-5">Lil Wayne, 2008</p>
+                </a>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
 
 
 
-        <style>
-          .carousel-control-next-icon {
-            background-color: black;
-          }
-
-          .carousel-control-prev-icon {
-            background-color: black;
-          }
-        </style>
-
-      </div>
-      <div class="col-xl">
-        <p class="text-center" id='website-description-ptag'>
-          Easy-to-use API to get some of the <u>BEST</u> rap lyrics of all time. Rap lyrics that are so bad you can't
-          stop
-          thinking about them. Send a GET request and get back a random bad lyric from a random rapper. Simple
-          and easy to use, unlimited requests. Browse some of the artists featured in the database and submit your own
-          favorite bad rap lyrics! Some songs may contain explicit lyrics.
-        </p>
-
-        <script>
-          window.onload = () => {
-            if (window.innerWidth >= 1200) {
-              document.getElementById('website-description-ptag').style.marginTop = '50px'
-            }
-          }
-
-          window.addEventListener('resize', () => {
-
-            if (window.innerWidth <= 1200) {
-              document.getElementById('website-description-ptag').style.marginTop = '0px'
-            } else {
-              document.getElementById('website-description-ptag').style.marginTop = '50px'
-            }
-          })
-
-
-
-        </script>
-
-        <p class="text-center" style="margin-top: 25px;">Featuring lyrics from some of your favorite artists such as
-          <br> <a href='/artists/drake'>Drake</a> <br>
-          <a href='/artists/eminem'>Eminem</a> <br>
-          <a href="/artists/lilwayne">Lil Wayne</a> <br>
-          <a href='/artists/trippiered'>Trippie Red</a> <br>
-          <a href='/artists/xxxtentacion'>XXXTENTACION</a> <br>
-          <a href='/artists/youngthug'>Young Thug</a> <br>
-          and many more
-        </p>
-
-
-
-      </div>
-    </div>
-
-
-
-    <div class="text-center">
-      <div class="row justify-content-center">
-        <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input'
-          style='margin-bottom: 10px; width: 400px;' class="form-control text-center" />
-      </div>
-      <div id='search-results-div'></div>
-
-      <script>
-        const resultsDiv = document.getElementById('search-results-div')
-        resultsDiv.style.marginBottom = '25px'
-        //search function
-        async function searchArtist(q) {
-          resultsDiv.innerText = '';
-
-          var data = await fetch('/api/search?artist=' + q);
-          var artistAdded = new Array();
-          data = await data.json();
-          if (data.length !== 0) {
-            for (var i = 0; i < data.length; ++i) {
-              if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
-                artistAdded.push(data[i].item.artist_query)
-                var link = document.createElement('a');
-                link.setAttribute('href', '/artists/' + data[i].item.artist_query);
-                link.style.textDecoration = 'none';
-                link.innerText = data[i].item.artist + '\n';
-                resultsDiv.appendChild(link)
+          <script>
+            window.onload = () => {
+              if (window.innerWidth >= 1200) {
+                document.getElementById('website-description-ptag').style.marginTop = '50px'
               }
             }
-          }
-          else {
-            resultsDiv.innerText = 'no results :(';
-          }
-        }
-        //debounce function 
-        const debounce = (func) => {
-          let timer = null;
-          return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-              func.apply(this, args);
-            }, 500);
-          };
-        }
-        const delaySearch = debounce(() => {
-          searchArtist(document.getElementById('search-input').value)
-        })
-      </script>
-    </div>
 
-    <div class="text-center" style="margin-bottom: 25px;">
-      <a href='/artists' style="text-decoration: none;">
-        <div class="btn btn-warning">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
-            viewBox="0 0 16 16">
-            <path
-              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-          </svg> <span>All artists</span>
+            window.addEventListener('resize', () => {
+
+              if (window.innerWidth <= 1200) {
+                document.getElementById('website-description-ptag').style.marginTop = '0px'
+              } else {
+                document.getElementById('website-description-ptag').style.marginTop = '50px'
+              }
+            })
+
+
+
+          </script>
+
+
+
+
+
+
+
+
+
+
+
         </div>
-      </a>
-
-      <a href='/year' style="text-decoration: none;">
-        <div class="btn btn-warning">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar"
-            viewBox="0 0 16 16">
-            <path
-              d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-          </svg> <span>Worst of Year</span>
-        </div>
-      </a>
-    </div>
-
-
-
-    <div class="text-center">
-      <div style="margin-bottom: 25px;" class="text-center btn btn-danger">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform"
-          rel="noreferrer" target="_blank" style="text-decoration: none; color: white;">
-          Submit Rap Lyrics
-        </a>
       </div>
-    </div>
 
 
 
-    <hr>
+      <div class="text-center">
+        <div class="row justify-content-center">
+          <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input'
+            style='margin-bottom: 10px; width: 400px;' class="form-control text-center" />
+        </div>
+        <div id='search-results-div'></div>
 
-    </hr>
-    <h2>
-      <a href='/api' style="text-decoration: none; color: #d63384;"> <code><b>/api</b></code> <svg
-          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right"
-          viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-          <path fill-rule="evenodd"
-            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
-        </svg></a>
-    </h2>
+        <script>
+          const resultsDiv = document.getElementById('search-results-div')
+          resultsDiv.style.marginBottom = '25px'
+          //search function
+          async function searchArtist(q) {
+            resultsDiv.innerText = '';
 
-    <div style="padding: 15px">
+            var data = await fetch('/api/search?artist=' + q);
+            var artistAdded = new Array();
+            data = await data.json();
+            if (data.length !== 0) {
+              for (var i = 0; i < data.length; ++i) {
+                if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
+                  artistAdded.push(data[i].item.artist_query)
+                  var link = document.createElement('a');
+                  link.setAttribute('href', '/artists/' + data[i].item.artist_query);
+                  link.style.textDecoration = 'none';
+                  link.innerText = data[i].item.artist + '\n';
+                  resultsDiv.appendChild(link)
+                }
+              }
+            }
+            else {
+              resultsDiv.innerText = 'no results :(';
+            }
+          }
+          //debounce function 
+          const debounce = (func) => {
+            let timer = null;
+            return (...args) => {
+              clearTimeout(timer);
+              timer = setTimeout(() => {
+                func.apply(this, args);
+              }, 500);
+            };
+          }
+          const delaySearch = debounce(() => {
+            searchArtist(document.getElementById('search-input').value)
+          })
+        </script>
+      </div>
 
-      <p style="margin-bottom: 50px; font-size: 20px;">
-        This endpoint will randomly fetch one single lyric from database
-      </p>
-      <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
-      <ul>
-        <li>
-          <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
-        </li>
-        <li>
-          <p style="display: inline;"><code>lyrics: </code>the bad lyric
-            <i>(text)</i>
-          </p>
+      <div class="text-center" style="margin-bottom: 100px;">
+        <div class="row">
 
-        </li>
-        <li>
-          <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
-            <i>(text)</i>
-          </p>
+          <div class="col">
+            <h2>Artists
 
-        </li>
-        <li>
-          <p style="display: inline;"><code>song: </code>the song in which the lyrics were
-            said
-            <i>(text)</i>
-          </p>
+            </h2>
+            <p>Browse through all rappers featured</p>
+            <a href='/artists' style="text-decoration: none;">
+              <div class="btn btn-warning" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                </svg> <span>Browse Artists</span>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <h2>Worst by Year</h2>
+            <p>Discover the worst lyrics from each year</p>
+            <a href='/year' style="text-decoration: none;">
 
-        </li>
-        <li>
-          <p style="display: inline;"> <code>release_date: </code>the date the song
-            was released
-            <i>(text)</i>
-          </p>
+              <div class="btn btn-warning" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-calendar" viewBox="0 0 16 16">
+                  <path
+                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                </svg> <span>Worst Years</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
 
-        </li>
-        <li>
-          <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
-            explicit language
-            <i>(boolean)</i>
-          </p>
 
-        </li>
-      </ul>
-    </div>
-    <hr>
-    </hr>
-    <h2>
-      <a href='/api/filter?explicit=false' style='text-decoration: none; color: #d63384'><code><b>/api/filter</b></code>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-          class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-          <path fill-rule="evenodd"
-            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
-        </svg></a>
-    </h2>
-    <div style="padding: 15px">
-      <p style="margin-bottom: 50px; font-size: 20px;">
-        This endpoint will fetch one random song that matches query. Endpoint must contain at least one
-        query.
-      </p>
-      <h3 style='font-weight: normal; font-size: 16px;'><u>Valid queries</u></h3>
-      <p style='max-width: 550px;'>Below are all the queries that can be used in the url. Any query used other than the
-        ones indicated below will
-        result in a 400 response code.</p>
-      <ul style='margin-bottom: 25px;'>
-        <li>
-          <h4>
-            <code style='color: #d63384'>?artist</code>
-          </h4>
-        </li>
+
+      <h2 class="text-center">Submit</h2>
+      <p class="text-center">Submit your favorite bad rap lyrics. Please be sure to include the artists name and the
+        actual lyric itself.</p>
+      <div class="text-center">
+        <div style="margin-bottom: 25px;" class="text-center btn btn-danger" role="button">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform"
+            rel="noreferrer" target="_blank" style="text-decoration: none; color: white;">
+            Submit Rap Lyrics
+          </a>
+        </div>
+      </div>
+
+
+
+      <hr>
+
+      </hr>
+      <h3>
+        <a href='/api' style="text-decoration: none; color: #d63384;"> <code><b>/api</b></code> <svg
+            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+            <path fill-rule="evenodd"
+              d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+          </svg></a>
+      </h3>
+
+      <div style="padding: 15px">
+
+        <p style="margin-bottom: 50px; font-size: 20px;">
+          This endpoint will randomly fetch one single lyric from database
+        </p>
+        <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
         <ul>
           <li>
-            <p style="display: inline;">This will filter requests by artist</p>
+            <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
           </li>
           <li>
-            <p style="display: inline;">Artist query must be all lowercase with no special characters</p>
+            <p style="display: inline;"><code>lyrics: </code>the bad lyric
+              <i>(text)</i>
+            </p>
+
+          </li>
+          <li>
+            <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
+              <i>(text)</i>
+            </p>
+
+          </li>
+          <li>
+            <p style="display: inline;"><code>song: </code>the song in which the lyrics were
+              said
+              <i>(text)</i>
+            </p>
+
+          </li>
+          <li>
+            <p style="display: inline;"> <code>release_date: </code>the date the song
+              was released
+              <i>(text)</i>
+            </p>
+
+          </li>
+          <li>
+            <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
+              explicit language
+              <i>(boolean)</i>
+            </p>
+
+          </li>
+        </ul>
+      </div>
+      <hr>
+      </hr>
+      <h3>
+        <a href='/api/filter?explicit=false'
+          style='text-decoration: none; color: #d63384'><code><b>/api/filter</b></code>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+            <path fill-rule="evenodd"
+              d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+          </svg></a>
+      </h3>
+      <div style="padding: 15px">
+        <p style="margin-bottom: 50px; font-size: 20px;">
+          This endpoint will fetch one random song that matches query. Endpoint must contain at least one
+          query.
+        </p>
+        <h4 style='font-weight: normal; font-size: 16px;'><u>Valid queries</u></h4>
+        <p style='max-width: 550px;'>Below are all the queries that can be used in the url. Any query used other than
+          the
+          ones indicated below will
+          result in a 400 response code.</p>
+        <ul style='margin-bottom: 25px;'>
+          <li>
+            <h5>
+              <code style='color: #d63384'>?artist</code>
+            </h5>
           </li>
           <ul>
             <li>
-              <p style="display: inline;">Dr. Dre = drdre</p>
+              <p style="display: inline;">This will filter requests by artist</p>
             </li>
             <li>
-              <p style="display: inline;">Jay-Z = jayz</p>
+              <p style="display: inline;">Artist query must be all lowercase with no special characters</p>
             </li>
+            <ul>
+              <li>
+                <p style="display: inline;">Dr. Dre = drdre</p>
+              </li>
+              <li>
+                <p style="display: inline;">Jay-Z = jayz</p>
+              </li>
+              <li>
+                <p style="display: inline;">Andre 3000 = andre3000</p>
+              </li>
+            </ul>
             <li>
-              <p style="display: inline;">Andre 3000 = andre3000</p>
+              <p style="display: inline;">example: <a href='/api/filter?artist=jayz'
+                  style='text-decoration: none;'><code class="text-secondary">/api/filter?artist=jayz</code></a></p>
+
             </li>
           </ul>
           <li>
-            <p style="display: inline;">example: <a href='/api/filter?artist=jayz' style='text-decoration: none;'><code
-                  class="text-secondary">/api/filter?artist=jayz</code></a></p>
-
+            <h5>
+              <code style='color: #d63384'>?explicit</code>
+            </h5>
           </li>
+          <ul>
+            <li>
+              <p style="display: inline;">Returns lyrics that either contain explicit language or not</p>
+            </li>
+            <li>
+              <p style="display: inline;">Can only be true or false</p>
+            </li>
+            <li>
+              <p style="display: inline;">example: <a href='/api/filter?explicit=false'
+                  style='text-decoration: none;'><code class="text-secondary">/api/filter?explicit=false</code></a></p>
+
+            </li>
+          </ul>
+          <li>
+            <h5>
+              <code style='color: #d63384'>?year</code>
+            </h5>
+          </li>
+          <ul>
+            <li>
+              <p style="display: inline;">Will filter out lyrics by year it came out</p>
+            </li>
+            <li>
+              <p style="display: inline;">Value is in year format, do not need month or day</p>
+            </li>
+            <li>
+              <p style="display: inline;">example: <a href='/api/filter?year=1985' style='text-decoration: none;'><code
+                    class="text-secondary">/api/filter?year=1985</code></a></p>
+            </li>
+          </ul>
         </ul>
-        <li>
-          <h4>
-            <code style='color: #d63384'>?explicit</code>
-          </h4>
-        </li>
+
+        <p style="max-width: 550px;">Keep in mind all filter
+          queries can be used at once. Different combinations can
+          get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a
+            href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a>
+        </p>
+
+
+
+
+        <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
         <ul>
           <li>
-            <p style="display: inline;">Returns lyrics that either contain explicit language or not</p>
+            <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
           </li>
           <li>
-            <p style="display: inline;">Can only be true or false</p>
-          </li>
-          <li>
-            <p style="display: inline;">example: <a href='/api/filter?explicit=false'
-                style='text-decoration: none;'><code class="text-secondary">/api/filter?explicit=false</code></a></p>
+            <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
+              <i>(text)</i>
+            </p>
 
+          </li>
+          <li>
+            <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
+              <i>(text)</i>
+            </p>
+
+          </li>
+          <li>
+            <p style="display: inline;"> <code>song: </code>the song in which the lyric were
+              said
+              <i>(text)</i>
+            </p>
+
+          </li>
+          <li>
+            <p style="display: inline;"><code>release_date: </code>the date on which the song
+              was released
+              <i>(text)</i>
+            </p>
+
+          </li>
+          <li>
+            <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
+              explicit language
+              <i>(boolean)</i>
+            </p>
+
+          </li>
+          <li>
+            <p style="display: inline;"><code>artist_query: </code>used to uniquely identify artists in database
+              <i>(text)</i>
+            </p>
+          </li>
+          <li>
+            <p style="display: inline;"><code>date_added: </code>the date in which the lyric was added to database in
+              ISO
+              format <i>(date format)</i></p>
+          </li>
+          <li>
+            <p style="display: inline;"><code>explanation: </code>the reason as to why said lyric is bad, only lyrics
+              that
+              are so dumb and easy to explain why they're dumb feature this field <i>(text)</i></p>
           </li>
         </ul>
-        <li>
-          <h4>
-            <code style='color: #d63384'>?year</code>
-          </h4>
-        </li>
-        <ul>
-          <li>
-            <p style="display: inline;">Will filter out lyrics by year it came out</p>
-          </li>
-          <li>
-            <p style="display: inline;">Value is in year format, do not need month or day</p>
-          </li>
-          <li>
-            <p style="display: inline;">example: <a href='/api/filter?year=1985' style='text-decoration: none;'><code
-                  class="text-secondary">/api/filter?year=1985</code></a></p>
-          </li>
-        </ul>
-      </ul>
-      <p style='max-width: 550px; background-color: rgb(242, 242, 242); padding: 10px;'>Keep in mind that all filter
-        queries can be used at once. Different combinations can
-        get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a
-          href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a>
-      </p>
-      <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
-      <ul>
-        <li>
-          <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
-        </li>
-        <li>
-          <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
-            <i>(text)</i>
-          </p>
+      </div>
 
-        </li>
-        <li>
-          <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
-            <i>(text)</i>
-          </p>
-
-        </li>
-        <li>
-          <p style="display: inline;"> <code>song: </code>the song in which the lyric were
-            said
-            <i>(text)</i>
-          </p>
-
-        </li>
-        <li>
-          <p style="display: inline;"><code>release_date: </code>the date on which the song
-            was released
-            <i>(text)</i>
-          </p>
-
-        </li>
-        <li>
-          <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
-            explicit language
-            <i>(boolean)</i>
-          </p>
-
-        </li>
-        <li>
-          <p style="display: inline;"><code>artist_query: </code>used to uniquely identify artists in database
-            <i>(text)</i>
-          </p>
-        </li>
-        <li>
-          <p style="display: inline;"><code>date_added: </code>the date in which the lyric was added to database in ISO
-            format <i>(date format)</i></p>
-        </li>
-        <li>
-          <p style="display: inline;"><code>explanation: </code>the reason as to why said lyric is bad, only lyrics that
-            are so dumb and easy to explain why they're dumb feature this field <i>(text)</i></p>
-        </li>
-      </ul>
     </div>
-
   </div>
+
 </body>
 
 </html>
