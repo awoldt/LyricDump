@@ -232,6 +232,46 @@ async function generateUniqueYearData(lyricData) {
   return returnData;
 }
 
+async function mostRecentSongsAdded() {
+  //fetches the last 5 songs and displayes to user
+  const data = await SongModel.find().sort({ date_added: -1 });
+  var addedArtists = new Array();
+  var lyrics = new Array();
+  var iteration = 0;
+  //need to make sure that we get the UNQIUE last 5 artists for lyrics
+  while (addedArtists.length !== 5) {
+    if (addedArtists.indexOf(data[iteration].artist_query) == -1) {
+      addedArtists.push(data[iteration].artist_query);
+      lyrics.push(data[iteration]);
+    }
+    iteration += 1;
+  }
+
+  const returnData = await Promise.all(
+    lyrics.map(async (x) => {
+      const y = await ArtistProfile.find({ artist_query: x.artist_query });
+
+      if (y.length !== 0) {
+        return {
+          artist_name: x.artist,
+          artist_query: x.artist_query,
+          artist_img: y[0].img_href,
+          lyric: x.lyrics,
+        };
+      } else {
+        return {
+          artist_name: x.artist,
+          artist_query: x.artist_query,
+          artist_img: "../no-img.png",
+          lyric: x.lyrics,
+        };
+      }
+    })
+  );
+
+  return returnData;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 router.get("/cron/year", async (req, res) => {
@@ -302,6 +342,10 @@ router.get("/cron/artists", async (req, res) => {
     res.status(403);
     res.send("access denied");
   } else {
+    const recentLyricsAdded = await mostRecentSongsAdded();
+
+    console.log(recentLyricsAdded);
+
     const allArtistData = await organizeAristList();
     const mostLyrics = await rapperWithMostLyrics(allArtistData);
 
@@ -317,6 +361,7 @@ router.get("/cron/artists", async (req, res) => {
     returnData.artist_data = allArtistData;
     returnData.most_lyrics = mostLyrics;
     returnData.popular_artists = popularArtists;
+    returnData.recently_added_lyrics = recentLyricsAdded;
 
     try {
       await googleCloudStorage
