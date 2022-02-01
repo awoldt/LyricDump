@@ -117,7 +117,7 @@
           </div>
           <% } else { %>
           <div class="text-center" style='margin-bottom: 10px;'>
-            <code><%= artist_data.length %> lyrics</code>
+           
 
           </div>
           <% } %>
@@ -177,6 +177,13 @@
           </svg> <span>Some songs contain explicit lyrics</span></div>
 
         <% } %>
+
+       
+        <%  if(artist_data.length == 1) { %>
+ <h2 > <code style="color: black"><%= artist_data.length %> lyric</code></h2>
+        <% } else { %>
+          <h2 > <code style="color: black"><%= artist_data.length %> lyrics</code></h2>
+        <% }   %>
         <% if(artist_data.length == 1) { %>
         <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
@@ -193,6 +200,7 @@
           <% } %>
         </p>
         <% } %>
+       
         <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px;'>
           <% for(var i=0; i<artist_data.length; ++i) { %>
           <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;">

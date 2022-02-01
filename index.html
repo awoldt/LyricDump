@@ -110,31 +110,33 @@
         <div class="row" style="margin-top: 100px;">
 
           <div class="col">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person"
+            viewBox="0 0 16 16">
+            <path
+              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+          </svg>
             <h2>Artists
 
             </h2>
             <p>Browse through all rappers featured</p>
             <a href='/artists' style="text-decoration: none;">
               <div class="btn btn-warning" role="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
-                  viewBox="0 0 16 16">
-                  <path
-                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                </svg> <span>Browse Artists</span>
+                <span>Browse Artists</span>
               </div>
             </a>
           </div>
           <div class="col">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                  class="bi bi-calendar" viewBox="0 0 16 16">
+                  <path
+                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                </svg>
             <h2>Worst by Year</h2>
             <p>Discover the worst lyrics from each year</p>
             <a href='/year' style="text-decoration: none;">
 
               <div class="btn btn-warning" role="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                  class="bi bi-calendar" viewBox="0 0 16 16">
-                  <path
-                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                </svg> <span>Worst Years</span>
+                 <span>Worst Years</span>
               </div>
             </a>
           </div>
@@ -234,16 +236,16 @@
           This endpoint will fetch one random song that matches query. Endpoint must contain at least one
           query.
         </p>
-        <h4 style='font-weight: normal; font-size: 16px;'><u>Valid queries</u></h4>
-        <p style='max-width: 550px;'>Below are all the queries that can be used in the url. Any query used other than
+        <p style='font-weight: normal; font-size: 16px; max-width: 600px;'><u>Valid queries</u> <br>Below are all the queries that can be used in the url. Any query used other than
           the
           ones indicated below will
           result in a 400 response code.</p>
+     
         <ul style='margin-bottom: 25px;'>
           <li>
-            <h5>
+            <h4>
               <code style='color: #d63384'>?artist</code>
-            </h5>
+            </h4>
           </li>
           <ul>
             <li>
@@ -270,9 +272,9 @@
             </li>
           </ul>
           <li>
-            <h5>
+            <h4>
               <code style='color: #d63384'>?explicit</code>
-            </h5>
+            </h4>
           </li>
           <ul>
             <li>
@@ -288,9 +290,9 @@
             </li>
           </ul>
           <li>
-            <h5>
+            <h4>
               <code style='color: #d63384'>?year</code>
-            </h5>
+            </h4>
           </li>
           <ul>
             <li>
