@@ -141,38 +141,6 @@ function yearWithMostLyrics(yearData) {
   return yearWithMost;
 }
 
-//gets all artists to display on yearpage
-async function featuresArtists(lyrics) {
-  var artists = new Array();
-  var artistsAdded = new Array();
-
-  await Promise.all(
-    lyrics.map(async (x) => {
-      var obj = new Object();
-      if (artistsAdded.indexOf(x.artist_query) == -1) {
-        artistsAdded.push(x.artist_query);
-        obj.artist_query = x.artist_query;
-        obj.artist_name = x.artist;
-
-        var img = await ArtistProfile.find({ artist_query: x.artist_query });
-        if (img.length == 0) {
-          obj.artist_img = null;
-        } else {
-          obj.artist_img = img[0].img_href;
-        }
-
-        artists.push(obj);
-      }
-    })
-  );
-
-  artists.sort(alphabetize);
-
-  console.log(artists);
-
-  return artists;
-}
-
 //returns an array of all the years stored in database
 async function generateUniqueYearData(lyricData) {
   var years = new Array();
@@ -257,6 +225,7 @@ async function mostRecentSongsAdded() {
           artist_query: x.artist_query,
           artist_img: y[0].img_href,
           lyric: x.lyrics,
+          explicit: x.explicit,
         };
       } else {
         return {
@@ -264,6 +233,7 @@ async function mostRecentSongsAdded() {
           artist_query: x.artist_query,
           artist_img: "../no-img.png",
           lyric: x.lyrics,
+          explicit: x.explicit,
         };
       }
     })
@@ -344,8 +314,6 @@ router.get("/cron/artists", async (req, res) => {
   } else {
     const recentLyricsAdded = await mostRecentSongsAdded();
 
-    console.log(recentLyricsAdded);
-
     const allArtistData = await organizeAristList();
     const mostLyrics = await rapperWithMostLyrics(allArtistData);
 
@@ -355,7 +323,7 @@ router.get("/cron/artists", async (req, res) => {
       ({ artist_num_of_songs: a }, { artist_num_of_songs: b }) => b - a
     );
 
-    popularArtists.length = 5;
+    popularArtists.length = 6;
 
     var returnData = new Object();
     returnData.artist_data = allArtistData;
