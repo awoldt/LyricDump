@@ -34,7 +34,8 @@
     <%- include('./searchBar') %>
 
 
-    <h1 class="mt-3">Worst Rap Lyrics by Year</h1>
+    <div>
+      <h1 class="mt-3">Worst Rap Lyrics by Year</h1>
 
 
 
@@ -58,9 +59,11 @@
       <% }%>
       <% } %>
     </p>
+    </div>
 
 
-    <% for(var i=0; i<organized_data.year_data.length; ++i) { %>
+    <div>
+      <% for(var i=0; i<organized_data.year_data.length; ++i) { %>
     <hr>
     <div>
 
@@ -102,7 +105,7 @@
             <% } else { %>
             <img src="<%= organized_data.year_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data.year_data[i].artist_data[y].artist_name %>" style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
             <% } %>
-            <span style="display: block;" class="text-center"><%= organized_data.year_data[i].artist_data[y].artist_name %></span>
+            <p style="display: block;" class="text-center"><%= organized_data.year_data[i].artist_data[y].artist_name %></p>
           </a>
 
         </div>
@@ -112,6 +115,8 @@
     </div>
 
     <% } %>
+    </div>
+    
   </div>
 </body>
 

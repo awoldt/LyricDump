@@ -187,7 +187,9 @@
         <% } %>
 
        
-        <%  if(artist_data.length == 1) { %>
+
+          <div>
+            <%  if(artist_data.length == 1) { %>
  <h2 > <code style="color: black"><%= artist_data.length %> lyric</code></h2>
         <% } else { %>
           <h2 > <code style="color: black"><%= artist_data.length %> lyrics</code></h2>
@@ -232,6 +234,9 @@
           </div>
           <% } %>
         </div>
+          </div>
+
+        
         <%- include('./relatedArtists', {related_data: related_artists}) %>
       </div>
 
