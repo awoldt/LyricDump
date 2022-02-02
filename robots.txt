@@ -4,4 +4,7 @@ Disallow: /api
 User-agent: AhrefsBot
 Crawl-Delay: 86400
 
+User-agent: SemrushBot
+Crawl-Delay: 86400
+
 Sitemap: https://badrapapi.com/sitemap.xml
