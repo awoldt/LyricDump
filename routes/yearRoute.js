@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { Storage } = require("@google-cloud/storage");
+const { config } = require("dotenv");
 
 function generateYearNavigation(years, currentYear) {
   //find where year is in data
@@ -69,7 +70,19 @@ router.get("/year/:id", async (req, res) => {
       .on("end", async () => {
         res.status(200);
 
+
+
+
+        
+
+
+
+
+
+
+
         const u = await JSON.parse(buffer);
+
 
         var yearsAdded = new Array(); //all the unique years in database
         for (i = 0; i < u.length; ++i) {
@@ -85,11 +98,21 @@ router.get("/year/:id", async (req, res) => {
           (i) => i.year == req.params.id
         );
 
+        var explicit = false;
+        for(i=0; i<u[oraganizedYearDataToUse].lyric_data.length; ++i) {
+          if( u[oraganizedYearDataToUse].lyric_data[i].explicit ) {
+            explicit = true
+            console.log('bad lyric at ' + i);
+            break;
+          }
+        }
+
         res.render("yearPage", {
           year: req.params.id,
           year_index: oraganizedYearDataToUse,
           organized_data: JSON.parse(buffer),
           year_navigation: new Array(yearsAdded, yearIndexes),
+          explicit_lyrics: explicit
         });
       });
   } catch (e) {
