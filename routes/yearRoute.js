@@ -102,7 +102,6 @@ router.get("/year/:id", async (req, res) => {
         for(i=0; i<u[oraganizedYearDataToUse].lyric_data.length; ++i) {
           if( u[oraganizedYearDataToUse].lyric_data[i].explicit ) {
             explicit = true
-            console.log('bad lyric at ' + i);
             break;
           }
         }

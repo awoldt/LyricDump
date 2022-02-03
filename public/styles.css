@@ -1,0 +1,6 @@
+@media only screen and (max-width: 600px) {
+  .artist-profile-imgs {
+    width: 1000px;
+    height: 1000px;
+  }
+}
