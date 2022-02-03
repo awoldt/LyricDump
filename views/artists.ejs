@@ -111,7 +111,7 @@
               <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
             </svg>
             <% } %>
-            <p style="display: inline;" class="mt-3"><i style="font-size: 20px;">"<%= organized_data.recently_added_lyrics[i].lyric %>"</i>, <%= organized_data.recently_added_lyrics[i].artist_name %></p>
+            <p style="display: inline;" class="mt-3"><i style="font-size: 20px;">"<%= organized_data.recently_added_lyrics[i].lyric %>"</i>, <a href='/artists/<%=  organized_data.recently_added_lyrics[i].artist_query %>'><%= organized_data.recently_added_lyrics[i].artist_name %></a></p>
           </div>
           <% } %>
 
