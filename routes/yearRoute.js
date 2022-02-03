@@ -68,21 +68,7 @@ router.get("/year/:id", async (req, res) => {
         buffer += x;
       })
       .on("end", async () => {
-        res.status(200);
-
-
-
-
-        
-
-
-
-
-
-
-
         const u = await JSON.parse(buffer);
-
 
         var yearsAdded = new Array(); //all the unique years in database
         for (i = 0; i < u.length; ++i) {
@@ -91,28 +77,37 @@ router.get("/year/:id", async (req, res) => {
           }
         }
 
-        var yearIndexes = generateYearNavigation(yearsAdded, req.params.id);
+        //404
+        if (yearsAdded.indexOf(req.params.id) == -1) {
+          res.status(404);
+          res.send("no data for current year");
+        //200 OK
+        } else {
+          res.status(200);
 
-        //need to give the index of the year the frontend needs to use
-        var oraganizedYearDataToUse = u.findIndex(
-          (i) => i.year == req.params.id
-        );
+          var yearIndexes = generateYearNavigation(yearsAdded, req.params.id);
 
-        var explicit = false;
-        for(i=0; i<u[oraganizedYearDataToUse].lyric_data.length; ++i) {
-          if( u[oraganizedYearDataToUse].lyric_data[i].explicit ) {
-            explicit = true
-            break;
+          //need to give the index of the year the frontend needs to use
+          var oraganizedYearDataToUse = u.findIndex(
+            (i) => i.year == req.params.id
+          );
+
+          var explicit = false;
+          for (i = 0; i < u[oraganizedYearDataToUse].lyric_data.length; ++i) {
+            if (u[oraganizedYearDataToUse].lyric_data[i].explicit) {
+              explicit = true;
+              break;
+            }
           }
-        }
 
-        res.render("yearPage", {
-          year: req.params.id,
-          year_index: oraganizedYearDataToUse,
-          organized_data: JSON.parse(buffer),
-          year_navigation: new Array(yearsAdded, yearIndexes),
-          explicit_lyrics: explicit
-        });
+          res.render("yearPage", {
+            year: req.params.id,
+            year_index: oraganizedYearDataToUse,
+            organized_data: JSON.parse(buffer),
+            year_navigation: new Array(yearsAdded, yearIndexes),
+            explicit_lyrics: explicit,
+          });
+        }
       });
   } catch (e) {
     res.status(500);
