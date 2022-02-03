@@ -27,27 +27,6 @@ async function getProfile(a) {
   }
 }
 
-async function getRelatedArtists(current_artist) {
-  //only grab artists that have profiles in database
-  const x = await ArtistProfile.find();
-  //randomly pick 3 artists
-  const y = new Array();
-  const indexs = new Array();
-  while (y.length !== 3) {
-    const randomIndex = Math.floor(Math.random() * x.length); //0 and length of artists with profiles
-
-    if (indexs.indexOf(randomIndex) == -1) {
-      indexs.push(randomIndex);
-      //make sure not same artist as page viewing
-      if (x[randomIndex].artist_query !== current_artist) {
-        y.push(x[randomIndex]);
-      }
-    }
-  }
-
-  return y;
-}
-
 router.get("/artists", async (req, res) => {
   try {
     const googleCloudStorage = new Storage({
@@ -98,14 +77,11 @@ router.get("/artists/:id", async (req, res) => {
 
     const profile = await getProfile(artistData[0]);
 
-    const relatedRappers = await getRelatedArtists(req.params.id);
-
     res.render("artistPage", {
       artist_data: artistData,
       has_explicit_song: hasExplicitSong,
       lyrics_years_range: yearsRange,
       artist_profile: profile,
-      related_artists: relatedRappers,
     });
   }
 });

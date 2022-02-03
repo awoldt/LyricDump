@@ -1,0 +1,37 @@
+<div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <div class="mx-auto d-block">
+    <canvas id="myChart"
+      >Your browser does not support the canvas tag. Cannot render chart.
+    </canvas>
+  </div>
+
+  <script>
+    var l = "<%= chart_data[0] %>";
+    var d = "<%= chart_data[1] %>";
+    l = l.split(",");
+    d = d.split(",");
+
+    const labels = l;
+
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "# of Lyrics",
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(255, 99, 132)",
+          data: d,
+        },
+      ],
+    };
+
+    const config = {
+      type: "bar",
+      data: data,
+      options: { responsive: true },
+    };
+
+    const myChart = new Chart(document.getElementById("myChart"), config);
+  </script>
+</div>

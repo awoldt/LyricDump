@@ -242,6 +242,19 @@ async function mostRecentSongsAdded() {
   return returnData;
 }
 
+async function getChartData(years) {
+  const numLyricsEachYear = await Promise.all(
+    years.map(async (x) => {
+      const data = await SongModel.find({ release_date: x });
+      return data.length;
+    })
+  );
+
+  //[0] is the labels
+  //[1] is data for each label
+  return [years, numLyricsEachYear];
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 router.get("/cron/year", async (req, res) => {
@@ -262,6 +275,8 @@ router.get("/cron/year", async (req, res) => {
     });
     y = y.sort();
 
+    const chartData = await getChartData(y);
+
     //will fetch lyric data for each year
     const returnData = await Promise.all(
       y.map(async (x) => {
@@ -281,6 +296,7 @@ router.get("/cron/year", async (req, res) => {
     const FINALRETURNASDFASD = {
       year_data: organizedData,
       year_with_most_lyrics: mostLyricsInYear,
+      chart_data: chartData,
     };
 
     try {
