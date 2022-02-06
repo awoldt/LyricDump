@@ -40,9 +40,9 @@
 
 
 
-    <p>Easily sort through all the years of the worst rap lyrics, each showcasing all the rappers who are currently featured having a bad lyric in that speicific year. Some rappers appear multiple times within a single year.</p>
+    <p style="margin-bottom: 100px;">Easily sort through decades of the worst rap lyrics, each showcasing all the rappers who are featured having a bad lyric in that speicific year</p>
 
-    <p>
+    <p class="text-center">
       <% if(organized_data.year_with_most_lyrics.length == 1) { %>
       <a href='#<%= organized_data.year_with_most_lyrics[0] %>' style='text-decoration: none; color: #d63384;'><code><%= organized_data.year_with_most_lyrics[0] %></code></a> is currently the year with the worst lyrics
       <% } else if(organized_data.year_with_most_lyrics.length == 2) { %>
@@ -103,7 +103,7 @@
         <div class="col-3 mb-3">
           <a href='/artists/<%= organized_data.year_data[i].artist_data[y].artist_query %>' style="text-decoration: none; color: black;">
             <% if(organized_data.year_data[i].artist_data[y].artist_img == null) { %>
-            <img src='/no-img.png' style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
+            <img src='/no-img.png' style='width: 75px; height: 75px;' class="mx-auto d-block" />
             <% } else { %>
             <img src="<%= organized_data.year_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data.year_data[i].artist_data[y].artist_name %>" style='width: 75px; height: 75px; border-radius: 50%;' class="mx-auto d-block" />
             <% } %>

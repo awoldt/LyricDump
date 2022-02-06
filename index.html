@@ -148,8 +148,11 @@
 
 <div>
    <h2 class="text-center">Submit</h2>
-      <p class="text-center">Submit your favorite bad rap lyrics. Please be sure to include the artists name and the
-        actual lyric itself.</p>
+   <div class="text-center">
+       <p style="max-width: 500px;" class='mx-auto d-block'>Submit your favorite bad rap lyrics. Please be sure to include the artists name and the
+        actual lyric itself. If approved will appear on site.</p>
+   </div>
+    
       <div class="text-center">
         <div style="margin-bottom: 25px;" class="text-center btn btn-danger" role="button">
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4AN_Y3E_aAsXYPmR18dEWcpBgSIETZWVffcDx3oNbV6bZug/viewform"
@@ -171,7 +174,7 @@
 
       <div style="padding: 15px">
         <h3>
-          <a href='/api' style="text-decoration: none; color: #d63384;"> <code><b>/api</b></code> <svg
+          <a href='/api' style="text-decoration: none;"> <code><b>/api</b></code> <svg
               xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
               <path fill-rule="evenodd"
@@ -187,36 +190,36 @@
         <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
         <ul>
           <li>
-            <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
+            <p style="display: inline;"><code  style="color: blue;">_id:</code> unique id for each lyric <i>(text)</i></p>
           </li>
           <li>
-            <p style="display: inline;"><code>lyrics: </code>the bad lyric
+            <p style="display: inline;"><code  style="color: blue;">lyrics: </code>the bad lyric
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
+            <p style="display: inline;"><code  style="color: blue;">artist: </code>the rapper who said the lyric
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code>song: </code>the song in which the lyrics were
+            <p style="display: inline;"><code  style="color: blue;">song: </code>the song in which the lyrics were
               said
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"> <code>release_date: </code>the date the song
+            <p style="display: inline;"> <code  style="color: blue;">release_date: </code>the date the song
               was released
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
+            <p style="display: inline;"><code  style="color: blue;">explicit: </code>whether or not the lyric contains
               explicit language
               <i>(boolean)</i>
             </p>
@@ -230,7 +233,7 @@
       <div style="padding: 15px">
         <h3>
           <a href='/api/filter?explicit=false'
-            style='text-decoration: none; color: #d63384'><code><b>/api/filter</b></code>
+            style='text-decoration: none;'><code><b>/api/filter</b></code>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
               <path fill-rule="evenodd"
@@ -251,7 +254,7 @@
         <ul style='margin-bottom: 25px;'>
           <li>
             <h4>
-              <code style='color: #d63384'>?artist</code>
+              <code style="color: black; font-weight: bold;" >?artist</code>
             </h4>
           </li>
           <ul>
@@ -280,7 +283,7 @@
           </ul>
           <li>
             <h4>
-              <code style='color: #d63384'>?explicit</code>
+              <code   style="color: black; font-weight: bold;">?explicit</code>
             </h4>
           </li>
           <ul>
@@ -298,7 +301,7 @@
           </ul>
           <li>
             <h4>
-              <code style='color: #d63384'>?year</code>
+              <code  style="color: black; font-weight: bold;">?year</code>
             </h4>
           </li>
           <ul>
@@ -327,53 +330,53 @@
         <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
         <ul>
           <li>
-            <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i></p>
+            <p style="display: inline;"><code  style="color: blue;">_id:</code> unique id for each lyric <i>(text)</i></p>
           </li>
           <li>
-            <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
+            <p style="display: inline;"><code  style="color: blue;">lyrics: </code>the bad lyric of the song
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
+            <p style="display: inline;"><code  style="color: blue;">artist: </code>the rapper who said the lyric
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"> <code>song: </code>the song in which the lyric were
+            <p style="display: inline;"> <code  style="color: blue;">song: </code>the song in which the lyric were
               said
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code>release_date: </code>the date on which the song
+            <p style="display: inline;"><code  style="color: blue;">release_date: </code>the date on which the song
               was released
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
+            <p style="display: inline;"><code  style="color: blue;">explicit: </code>whether or not the lyric contains
               explicit language
               <i>(boolean)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code>artist_query: </code>used to uniquely identify artists in database
+            <p style="display: inline;"><code  style="color: blue;">artist_query: </code>used to uniquely identify artists in database
               <i>(text)</i>
             </p>
           </li>
           <li>
-            <p style="display: inline;"><code>date_added: </code>the date in which the lyric was added to database in
+            <p style="display: inline;"><code  style="color: blue;">date_added: </code>the date in which the lyric was added to database in
               ISO
               format <i>(date format)</i></p>
           </li>
           <li>
-            <p style="display: inline;"><code>explanation: </code>the reason as to why said lyric is bad, only lyrics
+            <p style="display: inline;"><code  style="color: blue;">explanation: </code>the reason as to why said lyric is bad, only lyrics
               that
               are so dumb and easy to explain why they're dumb feature this field <i>(text)</i></p>
           </li>
