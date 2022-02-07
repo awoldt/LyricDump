@@ -8,7 +8,7 @@
   <title>List of Rappers with the Worst Lyrics</title>
   <meta name="description" content="List of rappers with the worst rap lyrics in no particular order.">
   <meta property="og:title" content="Rappers with the Worst Lyrics" />
-  <meta property="og:description" content="Discover a constanly growing list of rappers who have the worst lyrics to date" />
+  <meta property="og:description" content="Discover all of your favorite rapper's worst lyrics" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://badrapapi.com/artists" />
   <link rel="canonical" href="https://badrapapi.com/artists" />
@@ -35,48 +35,48 @@
     <%- include('./searchBar') %>
 
     <div>
-       <h1 class="mt-3">Featured Rappers</h1>
-    <p>Sort through all the rappers currently stored in the database. The list is alphabetized and shows how many
-      lyrics are stored for each artist. Each bad lyric is hand selected for each rapper, only the
-      worst-of-the-worst will be shown.</p>
+      <h1 class="mt-3">Featured Rappers</h1>
+      <p>Sort through all the rappers currently stored in the database. The list is alphabetized and shows how many
+        lyrics are stored for each artist. Each bad lyric is hand selected for each rapper, only the
+        worst-of-the-worst will be shown.</p>
 
-    <% if(organized_data.most_lyrics.length> 1) { %>
-    <% if(organized_data.most_lyrics.length==2) { %>
+      <% if(organized_data.most_lyrics.length> 1) { %>
+      <% if(organized_data.most_lyrics.length==2) { %>
 
-    <p> Currently <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code> </a>and
-      <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[1] %></code></a>
-      have the most bad lyrics
-    </p>
+      <p><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code> </a>and
+        <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[1] %></code></a>
+        have the most bad lyrics
+      </p>
 
 
-    <% } else { %>
-
-    <p>
-      Currently
-      <% for(var i=0; i<organized_data.most_lyrics.length; ++i) { %>
-      <% if(i==organized_data.most_lyrics.length-1 ) { %>
-      and <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[i] %></code></a>
       <% } else { %>
-      <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[i] %></code></a>,
+
+      <p>
+
+        <% for(var i=0; i<organized_data.most_lyrics.length; ++i) { %>
+        <% if(i==organized_data.most_lyrics.length-1 ) { %>
+        and <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[i] %></code></a>
+        <% } else { %>
+        <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[i] %></code></a>,
+        <% } %>
+        <% } %>
+        have the most bad lyrics stored
+      </p>
+
+
+
       <% } %>
+      <% } else if(organized_data.most_lyrics.length==1) { %>
+
+      <p><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code></a>
+        has the most bad lyrics stored</p>
+
+
+
       <% } %>
-      have the most bad lyrics stored
-    </p>
-
-
-
-    <% } %>
-    <% } else if(organized_data.most_lyrics.length==1) { %>
-
-    <p>Currently <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code></a>
-      has the most bad lyrics stored</p>
-
-
-
-    <% } %>
     </div>
 
-   
+
 
 
     <div class="alert" style="border-radius: 10px;">
@@ -126,11 +126,11 @@
 
 
     <hr>
-    
+
     <div style='margin-bottom: 25px;' class="row">
       <p><b>
-        <%= organized_data.artist_data.length %> artists total
-      </b></p>
+          <%= organized_data.artist_data.length %> artists total
+        </b></p>
       <% for(var i=0; i<organized_data.artist_data.length; ++i) { %>
       <div class="col-md-3"><span style='display: block; margin-bottom: 5px;' id='<%= organized_data.artist_data[i].artist_name %>'>
           <% if(organized_data.most_lyrics.indexOf(organized_data.artist_data[i].artist_name) !==-1) { %>
@@ -139,7 +139,7 @@
             <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
           </svg>
           <% } %><a href='<%= organized_data.artist_data[i].artist_href %>'>
-          <%= organized_data.artist_data[i].artist_name %></a> (<%= organized_data.artist_data[i].artist_num_of_songs %>)
+            <%= organized_data.artist_data[i].artist_name %></a> (<%= organized_data.artist_data[i].artist_num_of_songs %>)
         </span></div>
       <% } %>
     </div>

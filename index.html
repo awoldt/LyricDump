@@ -93,13 +93,13 @@
         </script>
       </div>
       <div>
-        <h1 class="text-center" style='margin-top: 50px; margin-bottom: 75px;'>API for the Worst Rap Lyrics of All
+        <h1 class="text-center" style='margin-top: 50px; margin-bottom: 75px; font-family: Verdana, sans-serif; font-weight: bold;'>API for the Worst Rap Lyrics of All
           Time</h1>
 
 
 
         <div class="row">
-          <div class="col-lg mb-5">
+          <div class="col-lg-6 mb-5">
             <p class="text-center" style="font-size: 20px; margin: 0 auto;">
               Easy-to-use REST API to get some of the <u>best</u> rap lyrics from all your favorite rappers. Rap lyrics
               so bad they make you
@@ -110,7 +110,7 @@
               favorite bad rap lyrics! Some songs may contain explicit lyrics.
             </p>
           </div>
-          <div class="col-lg text-center" style="margin-bottom: 50px;">
+          <div class="col-lg-3 text-center mb-5" style="margin-bottom: 50px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person"
               viewBox="0 0 16 16">
               <path
@@ -126,7 +126,7 @@
               </div>
             </a>
           </div>
-          <div class="col-lg text-center mb-3">
+          <div class="col-lg-3 text-center mb-5">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-calendar"
               viewBox="0 0 16 16">
               <path
@@ -143,6 +143,28 @@
           </div>
         </div>
 
+        <div class="row justify-content-center" style="margin-top: 100px;">
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <img src='/imgs/2chainz.png' style="width: 100px; height: 100px;" alt="2 Chainz" class='mx-auto d-block'/>
+            <p class="text-center"><i>She got a big booty so I call her big booty</i></p>
+            <p class="text-secondary text-center"><a href="/artists/2chainz" style="text-decoration: none;">2 Chainz</a></p>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <img src='/imgs/drdre.png' style="width: 100px; height: 100px;" alt="Dr. Dre" class='mx-auto d-block'/>
+            <p class="text-center"><i>Never let me slip, ‘cause if I slip then I’m slippin</i></p>
+            <p class="text-secondary text-center"><a href="/artists/drdre" style="text-decoration: none;">Dr. Dre</a></p>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <img src='/imgs/drake.png' style="width: 100px; height: 100px;" alt="Drake" class='mx-auto d-block'/>
+            <p class="text-center"><i>Got so many chains they call me Chaining Tatum</i></p>
+            <p class="text-secondary text-center"><a href="/artists/drake" style="text-decoration: none;">Drake</a></p>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <img src='/imgs/lilpump.png' style="width: 100px; height: 100px;" alt="Lil Pump" class='mx-auto d-block'/>
+            <p class="text-center"><i>White rice, Fortnite, pew pew pew, red light</i></p>
+            <p class="text-secondary text-center"><a href="/artists/lilpump" style="text-decoration: none;">Lil Pump</a></p>
+          </div>
+   
 
 
 
@@ -161,7 +183,7 @@
 
       <div style="padding: 15px">
         <h3 style="font-size: 50px;">
-          <a href='/api'> <code><b>/api</b></code> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+          <a href='/api' style="color: rgb(218, 70, 143)"> <code><b>/api</b></code> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
               fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
               <path fill-rule="evenodd"
                 d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
@@ -176,37 +198,37 @@
         <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
         <ul>
           <li>
-            <p style="display: inline;"><code style="color: blue;">_id:</code> unique id for each lyric <i>(text)</i>
+            <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i>
             </p>
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">lyrics: </code>the bad lyric
+            <p style="display: inline;"><code>lyrics: </code>the bad lyric
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">artist: </code>the rapper who said the lyric
+            <p style="display: inline;"><code >artist: </code>the rapper who said the lyric
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">song: </code>the song in which the lyrics were
+            <p style="display: inline;"><code >song: </code>the song in which the lyrics were
               said
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"> <code style="color: blue;">release_date: </code>the date the song
-              was released
+            <p style="display: inline;"> <code >release_date: </code>the date the song
+              was released in year format
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">explicit: </code>whether or not the lyric contains
+            <p style="display: inline;"><code >explicit: </code>whether or not the lyric contains
               explicit language
               <i>(boolean)</i>
             </p>
@@ -219,7 +241,7 @@
 
       <div style="padding: 15px">
         <h3 style="font-size: 50px;">
-          <a href='/api/filter?explicit=false'><code><b>/api/filter</b></code>
+          <a href='/api/filter?explicit=false' style="color: rgb(218, 70, 143)"><code><b>/api/filter</b></code>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
               <path fill-rule="evenodd"
@@ -241,7 +263,7 @@
         <ul style='margin-bottom: 25px;'>
           <li>
             <h4>
-              <code style="color: black; font-weight: bold;">?artist</code>
+              <code style="color: rgb(218, 70, 143); font-weight: bold;">?artist</code>
             </h4>
           </li>
           <ul>
@@ -270,7 +292,7 @@
           </ul>
           <li>
             <h4>
-              <code style="color: black; font-weight: bold;">?explicit</code>
+              <code style="color: rgb(218, 70, 143); font-weight: bold;">?explicit</code>
             </h4>
           </li>
           <ul>
@@ -288,7 +310,7 @@
           </ul>
           <li>
             <h4>
-              <code style="color: black; font-weight: bold;">?year</code>
+              <code style="color: rgb(218, 70, 143); font-weight: bold;">?year</code>
             </h4>
           </li>
           <ul>
@@ -317,56 +339,56 @@
         <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
         <ul>
           <li>
-            <p style="display: inline;"><code style="color: blue;">_id:</code> unique id for each lyric <i>(text)</i>
+            <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i>
             </p>
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">lyrics: </code>the bad lyric of the song
+            <p style="display: inline;"><code >lyrics: </code>the bad lyric of the song
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">artist: </code>the rapper who said the lyric
+            <p style="display: inline;"><code >artist: </code>the rapper who said the lyric
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"> <code style="color: blue;">song: </code>the song in which the lyric were
+            <p style="display: inline;"> <code >song: </code>the song in which the lyric were
               said
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">release_date: </code>the date on which the song
-              was released
+            <p style="display: inline;"><code >release_date: </code>the date on which the song
+              was released in year format
               <i>(text)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">explicit: </code>whether or not the lyric contains
+            <p style="display: inline;"><code >explicit: </code>whether or not the lyric contains
               explicit language
               <i>(boolean)</i>
             </p>
 
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">artist_query: </code>used to uniquely identify
+            <p style="display: inline;"><code >artist_query: </code>used to uniquely identify
               artists in database
               <i>(text)</i>
             </p>
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">date_added: </code>the date in which the lyric was
+            <p style="display: inline;"><code >date_added: </code>the date in which the lyric was
               added to database in
               ISO
               format <i>(date format)</i></p>
           </li>
           <li>
-            <p style="display: inline;"><code style="color: blue;">explanation: </code>the reason as to why said lyric
+            <p style="display: inline;"><code >explanation: </code>the reason as to why said lyric
               is bad, only lyrics
               that
               are so dumb and easy to explain why they're dumb feature this field <i>(text)</i></p>
