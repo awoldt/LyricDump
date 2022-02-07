@@ -339,7 +339,7 @@ router.get("/cron/artists", async (req, res) => {
       ({ artist_num_of_songs: a }, { artist_num_of_songs: b }) => b - a
     );
 
-    popularArtists.length = 6;
+    popularArtists.length = 9;
 
     var returnData = new Object();
     returnData.artist_data = allArtistData;
