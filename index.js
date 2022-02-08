@@ -17,10 +17,34 @@ const artistRoutes = require("./routes/artistRoute");
 const yearRoutes = require("./routes/yearRoute");
 const searchRoute = require("./routes/searchRoute");
 const cronRoute = require("./routes/cronRoute");
+const { Storage } = require("@google-cloud/storage");
 
-app.get("/", (req, res) => {
-  res.status(200);
-  res.sendFile(path.join(__dirname + "/", "index.html"));
+app.get("/", async (req, res) => {
+  try {
+    const googleCloudStorage = new Storage({
+      keyFilename: "bad-rap-api-v2-c3bb8ce441f7.json",
+    });
+
+    const bucketData = await googleCloudStorage
+      .bucket("year-json-data")
+      .file("homepage.json")
+      .createReadStream();
+    var buffer = "";
+    bucketData
+      .on("data", (x) => {
+        buffer += x;
+      })
+      .on("end", () => {
+        res.status(200);
+
+        res.render("homepage.ejs", {
+          organized_data: JSON.parse(buffer),
+        });
+      });
+  } catch (e) {
+    res.status(500);
+    res.send(null);
+  }
 });
 
 app.use(artistRoutes);
@@ -39,6 +63,7 @@ app.get("/robots.txt", (req, res) => {
   res.sendFile(path.join(__dirname + "/", "robots.txt"));
 });
 
+//404
 app.use((req, res) => {
   res.status(404);
   res.send("Page not found");

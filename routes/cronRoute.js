@@ -9,6 +9,8 @@ const googleCloudStorage = new Storage({
   keyFilename: "bad-rap-api-v2-c3bb8ce441f7.json",
 });
 
+const fetch = require("node-fetch");
+
 //sorts array of objects
 function alphabetize(a, b) {
   if (a.artist_query < b.artist_query) {
@@ -255,7 +257,73 @@ async function getChartData(years) {
   return [years, numLyricsEachYear];
 }
 
+//gets 4 unique lyrics to show on homepage
+//all artists must have an profile image
+async function getHomepageDisplayLyrics() {
+  const idsUsed = new Array();
+  const returnData = new Array();
+
+  while (returnData.length != 4) {
+    //fetch random explicit lyric
+    var x = await fetch("https://badrapapi.com/api/filter?explicit=false");
+    x = await x.json();
+
+    //make sure lyric has not already been fetched
+    if (idsUsed.indexOf(x._id) == -1) {
+      //make sure artist has profile img
+      const p = await ArtistProfile.find({ artist_query: x.artist_query });
+
+      if (p.length !== 0) {
+        idsUsed.push(x._id);
+        returnData.push({
+          lyric: x.lyrics,
+          artist_img: p[0].img_href,
+          artist_name: x.artist,
+          artist_query: x.artist_query,
+        });
+      }
+    }
+  }
+
+  return returnData;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+router.get("/cron/homepage", async (req, res) => {
+  //MAKE SURE ITS GOOGLE RUNNING THE CRON JOB
+  if (req.headers["user-agent"] !== "Google-Cloud-Scheduler") {
+    res.status(403);
+    res.send("access denied");
+  } else {
+    const lyrics = await getHomepageDisplayLyrics();
+
+    const returnObj = {
+      data: lyrics,
+    };
+
+    try {
+      await googleCloudStorage
+        .bucket("year-json-data")
+        .file("homepage.json")
+        .save(JSON.stringify(returnObj), (err) => {
+          if (err) {
+            res.status(500);
+            console.log(err);
+            res.send(null);
+          } else {
+            res.status(200);
+            console.log("HOMEPAGE DATA SAVED!");
+            res.send(null);
+          }
+        });
+    } catch (e) {
+      res.status(500);
+      console.log("error updating year data at /cron/homepage");
+      res.send(null);
+    }
+  }
+});
 
 router.get("/cron/year", async (req, res) => {
   console.log("generating new year json data!");

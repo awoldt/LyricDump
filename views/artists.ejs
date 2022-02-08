@@ -87,7 +87,7 @@
             <% for(var i=0; i<organized_data.popular_artists.length; ++i) { %>
             <div class="col text-center mb-5">
               <a href='/artists/<%= organized_data.popular_artists[i].artist_href.split('/')[2] %>' style='text-decoration: none; color: black'>
-                <img src='/imgs/<%= organized_data.popular_artists[i].artist_href.split('/')[2] %>.png' style='width: 150px; height: 100px; display: block; border-radius: 50%;' alt="<%=
+                <img src='/imgs/<%= organized_data.popular_artists[i].artist_href.split('/')[2] %>.png' style='width: 150px; height: 100px; display: block;' alt="<%=
                                   organized_data.popular_artists[i].artist_name %>" class='mx-auto d-block' />
                 <span>
                   <%= organized_data.popular_artists[i].artist_name %>
