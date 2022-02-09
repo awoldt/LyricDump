@@ -79,10 +79,11 @@
 
 
       <div class="col-lg-5" id='parent-profile-div'>
-        <div id='profile-div'>
+
+        <div id='profile-div' itemscope itemtype="https://schema.org/Person">
           <% if(artist_profile != undefined) { %>
           <div class="text-center">
-            <img alt='<%= artist_data[0].artist %>' src='<%= artist_profile[0].img_href %>' />
+            <img alt='<%= artist_data[0].artist %>' src='<%= artist_profile[0].img_href %>' itemprop="image" />
           </div>
 
           <% } %>
@@ -90,60 +91,60 @@
 
 
           <div>
-            <h1 class="text-center" style='margin-top: 25px;'><%= artist_data[0].artist %>'s Worst Lyrics</h1>
+            <h1 class="text-center" style='margin-top: 25px;'><span itemprop="name"><%= artist_data[0].artist %></span>'s Worst Lyrics</h1>
 
-          <% if(artist_profile !== undefined) { %>
-          <% if(artist_profile[0].nicknames.length !== 0) { %>
-          <p class='text-secondary text-center'>Also know as <% if(artist_profile[0].nicknames.length == 1) { %>
-            <i><%= artist_profile[0].nicknames[0] %></i>
-            <% } else if(artist_profile[0].nicknames.length == 2) { %>
+            <% if(artist_profile !== undefined) { %>
+            <% if(artist_profile[0].nicknames.length !== 0) { %>
+            <p class='text-secondary text-center'>Also know as <% if(artist_profile[0].nicknames.length == 1) { %>
+             <i><%= artist_profile[0].nicknames[0] %></i>
+              <% } else if(artist_profile[0].nicknames.length == 2) { %>
             <i><%= artist_profile[0].nicknames[0] %></i> or <i><%= artist_profile[0].nicknames[1] %></i>
+              <% } else { %>
+              <% for(var i=0; i<artist_profile[0].nicknames.length; ++i) { %>
+              <% if(i == artist_profile[0].nicknames.length-1) { %>
+              or <i><%= artist_profile[0].nicknames[i]  %></i>
+              <% } else { %>
+          <i><%=  artist_profile[0].nicknames[i] %></i>,
+              <% } %>
+              <% } %>
+              <% } %>
+
+            </p>
+            <% } %>
+            <% } %>
+
+
+
+            <% if(artist_data.length==1) { %>
+            <div class="text-center" style='margin-bottom: 10px;'>
+              <code>1 lyric</code>
+
+            </div>
             <% } else { %>
-            <% for(var i=0; i<artist_profile[0].nicknames.length; ++i) { %>
-            <% if(i == artist_profile[0].nicknames.length-1) { %>
-            or <i><%= artist_profile[0].nicknames[i]  %></i>
-            <% } else { %>
-            <i><%=  artist_profile[0].nicknames[i] %></i>,
-            <% } %>
-            <% } %>
-            <% } %>
-
-          </p>
-          <% } %>
-          <% } %>
+            <div class="text-center" style='margin-bottom: 10px;'>
 
 
-
-          <% if(artist_data.length==1) { %>
-          <div class="text-center" style='margin-bottom: 10px;'>
-            <code>1 lyric</code>
-
-          </div>
-          <% } else { %>
-          <div class="text-center" style='margin-bottom: 10px;'>
-           
-
-          </div>
-          <% } %>
-          <p class="text-center"><code style='color: black'>Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data</code></p>
-          <div class="text-center" style="margin-bottom: 50px;">
-            <div style="display: inline-block;" role="button">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-facebook" rel="noreferrer" target="_blank" title='share to facebook'></a>
             </div>
-            <div  style="display: inline-block;" role="button">
-              <a href="https://twitter.com/share?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-twitter" rel="noreferrer" target="_blank" title='share to twitter'></a>
+            <% } %>
+            <p class="text-center"><code style='color: black'>Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data</code></p>
+            <div class="text-center" style="margin-bottom: 50px;">
+              <div style="display: inline-block;" role="button">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-facebook" rel="noreferrer" target="_blank" title='share to facebook'></a>
+              </div>
+              <div style="display: inline-block;" role="button">
+                <a href="https://twitter.com/share?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-twitter" rel="noreferrer" target="_blank" title='share to twitter'></a>
+              </div>
+              <div style="display: inline-block;" role="button">
+                <a href="https://www.reddit.com/submit?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-reddit" rel="noreferrer" target="_blank" title='share to reddit'></a>
+              </div>
+
+
             </div>
-            <div  style="display: inline-block;" role="button">
-              <a href="https://www.reddit.com/submit?url=https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" class="fa fa-reddit" rel="noreferrer" target="_blank" title='share to reddit'></a>
-            </div>
-            
-            
-          </div>
           </div>
 
 
 
-          
+
         </div>
       </div>
 
@@ -191,61 +192,63 @@
         <div class="alert alert-danger p-3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
             <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
             <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
-          </svg> <p class="m-0" style="display: inline;">Some songs contain explicit lyrics</p></div>
+          </svg>
+          <p class="m-0" style="display: inline;">Some songs contain explicit lyrics</p>
+        </div>
 
         <% } %>
 
-       
 
-          <div>
-            <%  if(artist_data.length == 1) { %>
- <h2 > <code style="color: black"><%= artist_data.length %> lyric</code></h2>
-        <% } else { %>
-          <h2 > <code style="color: black"><%= artist_data.length %> lyrics</code></h2>
-        <% }   %>
-        <% if(artist_data.length == 1) { %>
-        <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-          </svg> Lyric from <a href='/year/<%= lyrics_years_range[0] %>'><%= lyrics_years_range[0] %></a></p>
-        <% } else { %>
-        <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-          </svg> Lyrics from <% for(var i=0; i<lyrics_years_range.length; ++i) { %>
-          <% if(i == lyrics_years_range.length-1) { %>
-          <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a>
+
+        <div>
+          <%  if(artist_data.length == 1) { %>
+          <h2> <code style="color: black"><%= artist_data.length %> lyric</code></h2>
           <% } else { %>
-          <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a> &middot
-          <% } %>
-          <% } %>
-        </p>
-        <% } %>
-       
-        <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px;'>
-          <% for(var i=0; i<artist_data.length; ++i) { %>
-          <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;">
-            <% if(artist_data[i].explicit) { %>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
-              <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
-              <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
-            </svg>
-
+          <h2> <code style="color: black"> <%= artist_data.length %> of <%= artist_data[0].artist %>'s Worst lyrics</code></h2>
+          <% }   %>
+          <% if(artist_data.length == 1) { %>
+          <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+            </svg> Lyric from <a href='/year/<%= lyrics_years_range[0] %>'><%= lyrics_years_range[0] %></a></p>
+          <% } else { %>
+          <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+            </svg> Lyrics from <% for(var i=0; i<lyrics_years_range.length; ++i) { %>
+            <% if(i == lyrics_years_range.length-1) { %>
+            <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a>
+            <% } else { %>
+            <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a> &middot
             <% } %>
-            <p style="display: inline; font-size: 14px;"><i style="font-size: 20px;">"<%= artist_data[i].lyrics %>"</i>
-              (<%= artist_data[i].song %>, <%= artist_data[i].release_date %>)</p>
+            <% } %>
+          </p>
+          <% } %>
 
-            <% if(artist_data[i].explanation !== undefined) { %>
-            <div style="padding: 10px; background-color: rgb(255, 255, 0, .5); margin-top: 10px;">
-              <span><u>Explanation:</u></span>
-              <p style="margin-bottom: 0px;"><%= artist_data[i].explanation %></p>
+          <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px;'>
+            <% for(var i=0; i<artist_data.length; ++i) { %>
+            <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;"  itemscope itemtype="https://schema.org/CreativeWork">
+              <% if(artist_data[i].explicit) { %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+                <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
+                <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
+              </svg>
+
+              <% } %>
+              <p style="display: inline; font-size: 14px;"><i style="font-size: 20px;">"<span itemprop="lyrics"><%= artist_data[i].lyrics %></span>"</i>
+                (<span itemprop="name"><%= artist_data[i].song %></span>, <%= artist_data[i].release_date %>)</p>
+
+              <% if(artist_data[i].explanation !== undefined) { %>
+              <div style="padding: 10px; background-color: rgb(255, 255, 0, .5); margin-top: 10px;">
+                <span><u>Explanation:</u></span>
+                <p style="margin-bottom: 0px;" itemprop="comment"><%= artist_data[i].explanation %></p>
+              </div>
+              <% } %>
+
             </div>
             <% } %>
-
           </div>
-          <% } %>
         </div>
-          </div>
 
-        
+
       </div>
 
 
