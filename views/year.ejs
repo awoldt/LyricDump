@@ -100,14 +100,14 @@
       <div class="row p-2">
         <% for(var y=0; y<organized_data.year_data[i].artist_data.length; ++y) { %>
 
-        <div class="col-3 mb-3">
+        <div class="col-3 mb-3" itemscope itemtype="https://schema.org/Person">
           <a href='/artists/<%= organized_data.year_data[i].artist_data[y].artist_query %>' style="text-decoration: none; color: black;">
             <% if(organized_data.year_data[i].artist_data[y].artist_img == null) { %>
             <img src='/no-img.png' style='width: 50px; height: 50px;' class="mx-auto d-block" />
             <% } else { %>
-            <img src="<%= organized_data.year_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data.year_data[i].artist_data[y].artist_name %>" style='width: 50px; height: 50px; border-radius: 50%;' class="mx-auto d-block" />
+            <img src="<%= organized_data.year_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data.year_data[i].artist_data[y].artist_name %>" style='width: 50px; height: 50px; border-radius: 50%;' class="mx-auto d-block" itemprop="image"/>
             <% } %>
-            <p style="display: block;" class="text-center"><%= organized_data.year_data[i].artist_data[y].artist_name %></p>
+            <p style="display: block;" class="text-center" itemprop="name"><%= organized_data.year_data[i].artist_data[y].artist_name %></p>
           </a>
 
         </div>

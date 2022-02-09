@@ -86,16 +86,16 @@
 
       <%for(var i=0; i<organized_data[year_index].artist_data.length; ++i) { %>
 
-      <div class="col-3 mb-4">
+      <div class="col-3 mb-4" itemscope itemtype="https://schema.org/Person">
 
         <a href='/artists/<%= organized_data[year_index].artist_data[i].artist_query %>' style='text-decoration: none; color: black'>
           <% if(organized_data[year_index].artist_data[i].artist_img !== null) { %>
-          <img src='<%= organized_data[year_index].artist_data[i].artist_img %>' style="border-radius: 50%;" alt="<%= organized_data[year_index].artist_data[i].artist_name %>" class="artist-profile-imgs" />
+          <img src='<%= organized_data[year_index].artist_data[i].artist_img %>' style="border-radius: 50%;" alt="<%= organized_data[year_index].artist_data[i].artist_name %>" class="artist-profile-imgs" itemprop="image"/>
           <% } else { %>
           <img src='/no-img.png' style="border-radius: 50%;" class="noname-profile-img" />
           <% } %>
 
-          <p style="display: block;"><%= organized_data[year_index].artist_data[i].artist_name %></p>
+          <p style="display: block;" itemprop="name"><%= organized_data[year_index].artist_data[i].artist_name %></p>
         </a>
 
       </div>
