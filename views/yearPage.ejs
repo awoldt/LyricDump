@@ -88,7 +88,7 @@
 
       <div class="col-3 mb-4" itemscope itemtype="https://schema.org/Person">
 
-        <a href='/artists/<%= organized_data[year_index].artist_data[i].artist_query %>' style='text-decoration: none; color: black'>
+        <a href='/artists/<%= organized_data[year_index].artist_data[i].artist_query %>' style='text-decoration: none; color: black' itemprop="url">
           <% if(organized_data[year_index].artist_data[i].artist_img !== null) { %>
           <img src='<%= organized_data[year_index].artist_data[i].artist_img %>' style="border-radius: 50%;" alt="<%= organized_data[year_index].artist_data[i].artist_name %>" class="artist-profile-imgs" itemprop="image"/>
           <% } else { %>
@@ -236,7 +236,7 @@
             <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
           </svg>
           <% } %>
-          <p style='margin-bottom: 0px; display: inline; font-size: 14px;'><i style="font-size: 20px;">"<span itemprop="lyrics"><%= organized_data[year_index].lyric_data[i].lyrics %></span>"</i> (<span itemprop="author"><%= organized_data[year_index].lyric_data[i].artist %></span>, <span itemprop="name"><%= organized_data[year_index].lyric_data[i].song %></span>)</p>
+          <p style='margin-bottom: 0px; display: inline; font-size: 14px;'><i style="font-size: 20px;">"<span itemprop="lyrics"><%= organized_data[year_index].lyric_data[i].lyrics %></span>"</i> (<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><%= organized_data[year_index].lyric_data[i].artist %></span></span>, <span itemprop="name"><%= organized_data[year_index].lyric_data[i].song %></span>)</p>
         </div>
         <% } %>
       </div>
