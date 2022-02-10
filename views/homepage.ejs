@@ -110,11 +110,11 @@
             </svg>
             <p>
               <span style="font-weight: bold; font-size: 30px;">Artists</span>
-              
+
               <br>
               Browse all rappers featured
             </p>
-          
+
             <a href='/artists' style="text-decoration: none;">
               <div class="btn btn-warning" role="button">
                 <span>Browse Artists</span>
@@ -125,9 +125,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
               <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
             </svg>
-            <p>  <span style="font-weight: bold; font-size: 30px;">Worst of Year</span>
+            <p> <span style="font-weight: bold; font-size: 30px;">Worst of Year</span>
               <br>
-              Discover lyrics from each year</p>
+              Discover lyrics from each year
+            </p>
             <a href='/year' style="text-decoration: none;">
 
               <div class="btn btn-warning" role="button">
@@ -138,18 +139,60 @@
         </div>
 
         <div class="row justify-content-center" style="margin-top: 52px; margin-bottom: 100px; background-color: rgb(140, 140, 140, .1); padding: 50px; border: 5px solid #ffc107; border-radius: 10%;">
-    
-          <h2 class="text-center" style="margin-bottom: 25px;">Featured Lyrics</h2>
+
+          <div id="a">
+
+          </div>
+          <h2 class="text-center" style="margin-bottom: 25px; margin-bottom: 0px; font-family: Verdana, sans-serif; font-weight: bold;">Featured Lyrics</h2>
+          <p class="text-center" style="margin-bottom: 10px;"><code>List updates at 12AM EST</code></p>
+          <p class="text-center" style="margin-bottom: 75px;">Below are all lyrics that don't contain explicit language and be requested using API. <br> Send a simple GET request to <span id='copy-filter' class='btn btn-primary' style="padding: 10px; cursor: pointer; text-decoration: underline;"><code style="color: white;">/api/filter?explicit=false</code></span></p>
+
+
+
           <% for(var i=0; i<organized_data.data.length; ++i) { %>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <img src='<%= organized_data.data[i].artist_img %>' style="width: 100px; height: 100px; border-radius: 50%;" alt="<%= organized_data.data[i].artist_name %>" class='mx-auto d-block' />
-                <p class="text-center"><i><%= organized_data.data[i].lyric %></i></p>
-                <p class="text-secondary text-center"><a href="/artists/<%= organized_data.data[i].artist_query %>" style="text-decoration: none;"><%= organized_data.data[i].artist_name %></a></p>
-              </div>
-         <% } %>
+          <div class="col-lg-3 col-md-4 col-sm-6" itemscope itemtype="https://schema.org/MusicComposition">
+
+            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+              <a href="/artists/<%= organized_data.data[i].artist_query %>" style="text-decoration: none; color: blue;" itemprop="url">
+                <img src='<%= organized_data.data[i].artist_img %>' style="width: 100px; height: 100px; border-radius: 50%;" alt="<%= organized_data.data[i].artist_name %>" class='mx-auto d-block' itemprop="image" />
+
+           
+        
+                <p class="text-secondary text-center"><span itemprop="name"><%= organized_data.data[i].artist_name %></span></p>
+              </a>
+          
+
+            </span>
+
+      
+            
+              <p class="text-center"><i  itemprop="lyrics"><%= organized_data.data[i].lyric %></i></p>
+
+              
+          
+
+          </div>
+          <% } %>
 
 
         </div>
+
+        <script>
+          const b = document.getElementById('copy-filter');
+
+          b.addEventListener('click', () => {
+            navigator.clipboard.writeText('https://badrapapi.com/api/filter?explicit=false');
+            const a = document.getElementById('a');
+            const x = document.createElement('div');
+            x.setAttribute('class', 'alert alert-success');
+            x.innerText = 'Copied!';
+            a.appendChild(x);
+
+            setTimeout(() => {
+              x.remove();
+            }, 1000)
+          })
+        </script>
 
 
 
