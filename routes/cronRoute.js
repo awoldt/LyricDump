@@ -288,6 +288,19 @@ async function getHomepageDisplayLyrics() {
   return returnData;
 }
 
+async function getAllUnqiueArtists() {
+  const lyrics = await SongModel.find();
+
+  var artists = new Array();
+  lyrics.forEach((x) => {
+    if (artists.indexOf(x.artist_query) == -1) {
+      artists.push(x.artist_query);
+    }
+  });
+
+  return artists;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 router.get("/cron/homepage", async (req, res) => {
@@ -296,10 +309,27 @@ router.get("/cron/homepage", async (req, res) => {
     res.status(403);
     res.send("access denied");
   } else {
-    const lyrics = await getHomepageDisplayLyrics();
+    const displayLryics = await getHomepageDisplayLyrics();
+
+    const lyrics = await SongModel.find();
+
+    const uniqueArtists = await getAllUnqiueArtists();
+
+    //get all the unique years in database
+    var years = new Array();
+    for (i = 0; i < lyrics.length; ++i) {
+      if (years.indexOf(lyrics[i].release_date) == -1) {
+        years.push(lyrics[i].release_date);
+      }
+    }
+
+    years = years.sort();
 
     const returnObj = {
-      data: lyrics,
+      data: displayLryics,
+      numOfLyrics: lyrics.length,
+      numOfArtists: uniqueArtists.length,
+      year_range: [years[0], years[years.length - 1]],
     };
 
     try {

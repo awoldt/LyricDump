@@ -234,7 +234,7 @@
 
               <% } %>
               <p style="display: inline; font-size: 14px;"><i style="font-size: 20px;">"<span itemprop="lyrics"><%= artist_data[i].lyrics %></span>"</i>
-                (<span itemprop="name"><%= artist_data[i].song %></span>, <%= artist_data[i].release_date %>)</p>
+                (<span itemprop="name"><%= artist_data[i].song %></span>, <span itemprop="copyrightYear"><%= artist_data[i].release_date %></span>)</p>
 
               <% if(artist_data[i].explanation !== undefined) { %>
               <div style="padding: 10px; background-color: rgb(255, 255, 0, .5); margin-top: 10px;">
