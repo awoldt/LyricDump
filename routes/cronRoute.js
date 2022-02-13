@@ -217,31 +217,25 @@ async function mostRecentSongsAdded() {
     iteration += 1;
   }
 
+  var explicit = false;
+
   const returnData = await Promise.all(
     lyrics.map(async (x) => {
-      const y = await ArtistProfile.find({ artist_query: x.artist_query });
-
-      if (y.length !== 0) {
-        return {
-          artist_name: x.artist,
-          artist_query: x.artist_query,
-          artist_img: y[0].img_href,
-          lyric: x.lyrics,
-          explicit: x.explicit,
-        };
-      } else {
-        return {
-          artist_name: x.artist,
-          artist_query: x.artist_query,
-          artist_img: "../no-img.png",
-          lyric: x.lyrics,
-          explicit: x.explicit,
-        };
+      if (x.explicit) {
+        explicit = true;
       }
+
+      return {
+        artist_name: x.artist,
+        artist_query: x.artist_query,
+        lyric: x.lyrics,
+        explicit: x.explicit,
+      };
     })
   );
 
-  return returnData;
+  //returns 5 most recent lyrics [0], and if there should be explicit alert if any songs are explicit [1]
+  return [returnData, explicit];
 }
 
 async function getChartData(years) {
