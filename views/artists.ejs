@@ -36,14 +36,14 @@
 
     <div>
       <h1 class="mt-3">Your Favorite Rapper's Worst Lyrics</h1>
-      <p>Sort through all the rappers currently stored in the database. The list is alphabetized and shows how many
+      <p style="font-size: 20px;">Sort through all the rappers currently stored in the database. The list is alphabetized and shows how many
         lyrics are stored for each artist. Each bad lyric is hand selected for each rapper, only the
         worst-of-the-worst will be shown.</p>
 
       <% if(organized_data.most_lyrics.length > 1) { %>
       <% if(organized_data.most_lyrics.length == 2) { %>
 
-      <p><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code> </a>and
+      <p style="font-size: 20px;"><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code> </a>and
         <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[1] %></code></a>
         have the most bad lyrics
       </p>
@@ -51,7 +51,7 @@
 
       <% } else { %>
 
-      <p>
+      <p style="font-size: 20px;">
 
         <% for(var i=0; i<organized_data.most_lyrics.length; ++i) { %>
         <% if(i==organized_data.most_lyrics.length-1 ) { %>
@@ -68,7 +68,7 @@
       <% } %>
       <% } else if(organized_data.most_lyrics.length==1) { %>
 
-      <p><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code></a>
+      <p style="font-size: 20px;"><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code></a>
         has the most bad lyrics stored</p>
 
 

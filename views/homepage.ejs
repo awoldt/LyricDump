@@ -144,23 +144,43 @@
 
       <div class="container-fluid" style="background-color: white;">
         <div class="container " style="padding-top: 50px;">
-          <div class="row justify-content-center" style="margin-top: 52px; margin-bottom: 100px; background-color: rgb(140, 140, 140, .1); padding: 50px; border: 5px solid #ffc107; border-radius: 10%;">
+          <div class="row justify-content-center" style="margin-top: 52px; margin-bottom: 100px; padding: 50px; border: 5px solid #ffc107; border-radius: 10%;">
+            <div id="copy-alert">
 
-            <h2 class="text-center" style="margin-bottom: 25px;">Featured Lyrics</h2>
+            </div>
+            <h2 class="text-center">Featured Lyrics</h2>
+            <p class="text-center" style="margin-bottom: 75px; font-size: 20px;">Below are all lyrics from artists that do not contain explicit language. These can be fetched using the API. Send a request to <span id='copy' style="color: blue; text-decoration: underline; cursor: pointer;">/api/filter?explicit=false</span></p>
+            <script>
+              const x = document.getElementById('copy');
+              const z = document.getElementById('copy-alert')
+              x.addEventListener('click', () => {
+                navigator.clipboard.writeText('https://badrapapi.com/api/filter?explicit=false')
+                const y = document.createElement('div')
+                y.setAttribute('class', 'alert alert-success p-3')
+                y.innerText = 'Copied';
+
+                z.appendChild(y);
+
+                setTimeout(() => {
+                  y.remove();
+                }, 2000)
+              })
+            </script>
             <% for(var i=0; i<organized_data.data.length; ++i) { %>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-              <img src='<%= organized_data.data[i].artist_img %>' style="width: 100px; height: 100px; border-radius: 50%;" alt="<%= organized_data.data[i].artist_name %>" class='mx-auto d-block' />
-              <p class="text-center"><i><%= organized_data.data[i].lyric %></i></p>
-              <p class="text-secondary text-center"><a href="/artists/<%= organized_data.data[i].artist_query %>" style="text-decoration: none;"><%= organized_data.data[i].artist_name %></a></p>
+
+            <div class="col-lg-3 col-md-4 col-sm-6" itemscope itemtype="https://schema.org/MusicComposition">
+              <a href="/artists/<%= organized_data.data[i].artist_query %>" style="text-decoration: none;">
+                <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+                  <img src='<%= organized_data.data[i].artist_img %>' style="width: 100px; height: 100px; border-radius: 50%;" alt="<%= organized_data.data[i].artist_name %>" class='mx-auto d-block' itemprop="image" />
+                  <p class="text-secondary text-center" itemprop="name"><%= organized_data.data[i].artist_name %></p>
+                </div>
+                <div itemprop="lyrics">
+                  <p class="text-center" style="color: black;"><i><%= organized_data.data[i].lyric %></i></p>
+                </div>
+              </a>
             </div>
             <% } %>
-
-
           </div>
-
-
-
-
 
           <hr>
 

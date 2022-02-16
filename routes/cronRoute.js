@@ -255,6 +255,7 @@ async function getChartData(years) {
 //all artists must have an profile image
 async function getHomepageDisplayLyrics() {
   const idsUsed = new Array();
+  const artistsUsed = new Array();
   const returnData = new Array();
 
   while (returnData.length != 4) {
@@ -268,13 +269,17 @@ async function getHomepageDisplayLyrics() {
       const p = await ArtistProfile.find({ artist_query: x.artist_query });
 
       if (p.length !== 0) {
-        idsUsed.push(x._id);
-        returnData.push({
-          lyric: x.lyrics,
-          artist_img: p[0].img_href,
-          artist_name: x.artist,
-          artist_query: x.artist_query,
-        });
+        //make sure artist has not already had a lyrc been displayed
+        if (artistsUsed.indexOf(x.artist_query) == -1) {
+          artistsUsed.push(x.artist_query);
+          idsUsed.push(x._id);
+          returnData.push({
+            lyric: x.lyrics,
+            artist_img: p[0].img_href,
+            artist_name: x.artist,
+            artist_query: x.artist_query,
+          });
+        }
       }
     }
   }
