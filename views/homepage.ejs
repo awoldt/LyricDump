@@ -144,12 +144,24 @@
 
       <div class="container-fluid" style="background-color: white;">
         <div class="container " style="padding-top: 50px;">
+          <div class="text-center row">
+            <div class="col-sm">
+              <p style="font-size: 25px;">Over <code><%= organized_data.numOfLyrics %></code> lyrics</p>
+            </div>
+            <div class="col-sm">
+              <p style="font-size: 25px;">Lyrics from <code><%= organized_data.numOfArtists %></code> artists</p>
+            </div>
+            <div class="col-sm">
+              <p style="font-size: 25px;">Lyrics ranging from <code><%= organized_data.year_range[0] %>-<%= organized_data.year_range[1] %></code></p>
+            </div>
+
+          </div>
           <div class="row justify-content-center" style="margin-top: 52px; margin-bottom: 100px; padding: 50px; border: 5px solid #ffc107; border-radius: 10%;">
             <div id="copy-alert">
 
             </div>
             <h2 class="text-center">Featured Lyrics</h2>
-            <p class="text-center" style="margin-bottom: 75px; font-size: 20px;">Below are all lyrics from artists that do not contain explicit language. These can be fetched using the API. Send a request to <span id='copy' style="color: blue; text-decoration: underline; cursor: pointer;">/api/filter?explicit=false</span></p>
+            <p class="text-center" style="margin-bottom: 75px; font-size: 20px;">Below are all lyrics from artists that do not contain explicit language. These can be fetched using the API. Send a request to <span id='copy' style="color: rgb(13, 110, 253); text-decoration: underline; cursor: pointer;">/api/filter?explicit=false</span></p>
             <script>
               const x = document.getElementById('copy');
               const z = document.getElementById('copy-alert')

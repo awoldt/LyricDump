@@ -324,9 +324,15 @@ router.get("/cron/homepage", async (req, res) => {
 
     years = years.sort();
 
+    //get the num of lyrics dividded by 5 excluding the remander ex: 128 lyrics is 125 lyrics
+    var r = lyrics.length % 5;
+    if (r != 0) {
+      r = lyrics.length - (lyrics.length % 5);
+    }
+
     const returnObj = {
       data: displayLryics,
-      numOfLyrics: lyrics.length,
+      numOfLyrics: r,
       numOfArtists: uniqueArtists.length,
       year_range: [years[0], years[years.length - 1]],
     };

@@ -37,6 +37,8 @@ app.get("/", async (req, res) => {
       .on("end", () => {
         res.status(200);
 
+        console.log(buffer)
+
         res.render("homepage.ejs", {
           organized_data: JSON.parse(buffer),
         });
