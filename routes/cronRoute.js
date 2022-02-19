@@ -328,6 +328,8 @@ router.get("/cron/homepage", async (req, res) => {
     var r = lyrics.length % 5;
     if (r != 0) {
       r = lyrics.length - (lyrics.length % 5);
+    } else {
+      r = lyrics.length;
     }
 
     const returnObj = {
