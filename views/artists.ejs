@@ -43,7 +43,7 @@
       <% if(organized_data.most_lyrics.length > 1) { %>
       <% if(organized_data.most_lyrics.length == 2) { %>
 
-      <p style="font-size: 20px;"><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code> </a>and
+      <p style="font-size: 20px;"  class="text-center"><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code> </a>and
         <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[1] %></code></a>
         have the most bad lyrics
       </p>
@@ -51,7 +51,7 @@
 
       <% } else { %>
 
-      <p style="font-size: 20px;">
+      <p style="font-size: 20px;"  class="text-center">
 
         <% for(var i=0; i<organized_data.most_lyrics.length; ++i) { %>
         <% if(i==organized_data.most_lyrics.length-1 ) { %>
@@ -68,7 +68,7 @@
       <% } %>
       <% } else if(organized_data.most_lyrics.length==1) { %>
 
-      <p style="font-size: 20px;"><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code></a>
+      <p style="font-size: 20px;" class="text-center"><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><%= organized_data.most_lyrics[0] %></code></a>
         has the most bad lyrics stored</p>
 
 
@@ -79,7 +79,7 @@
 
 
 
-    <div style="border-radius: 10px; border:  5px solid #ffc107; border-radius: 10%; padding: 25px;">
+    <div style="border: 5px solid #ffc107; border-radius: 10%; padding: 25px;">
       <div class="row" style="padding: 10px">
         <div class="col-md-6">
           <h2 class="text-center mb-3"><b>Popular rappers</b></h2>

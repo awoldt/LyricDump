@@ -36,64 +36,10 @@
     </a>
   </nav>
 
-  <div class="container-fluid p-0" style="background-color: rgb(13, 110, 253)">
-
-
-    <div class="text-center" style="background-color: rgb(13, 110, 253); margin-bottom: 50px;">
-      <div class="row justify-content-center">
-        <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='margin-bottom: 10px; width: 400px;' class="form-control text-center" role="search" />
-      </div>
-      <div id='search-results-div' style="background-color: rgb(13, 110, 253);"></div>
-
-      <script>
-        const resultsDiv = document.getElementById('search-results-div')
-        //search function
-        async function searchArtist(q) {
-          resultsDiv.innerText = '';
-
-          var data = await fetch('/api/search?artist=' + q);
-          var artistAdded = new Array();
-          data = await data.json();
-          if (data.length !== 0) {
-            for (var i = 0; i < data.length; ++i) {
-              if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
-                artistAdded.push(data[i].item.artist_query)
-                var link = document.createElement('a');
-
-                link.setAttribute('href', '/artists/' + data[i].item.artist_query);
-                link.style.textDecoration = 'none';
-                link.style.color = 'white'
-                link.innerText = data[i].item.artist + '\n';
-                resultsDiv.appendChild(link)
-              }
-            }
-          } else {
-            resultsDiv.innerText = 'no results :(';
-          }
-        }
-        //debounce function 
-        const debounce = (func) => {
-          let timer = null;
-          return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-              func.apply(this, args);
-            }, 500);
-          };
-        }
-        const delaySearch = debounce(() => {
-          searchArtist(document.getElementById('search-input').value)
-        })
-      </script>
-    </div>
+  <div class="container-fluid p-0" style="background-color: rgb(13, 110, 253);">
     <div>
-      <div class="container-fluid" style="background-color: rgb(13, 110, 253);">
-        <h1 class="text-center" style='font-family: Verdana, sans-serif; font-weight: bold; color: white;'>API for the Worst Rap Lyrics of All
-          Time</h1>
-      </div>
-
-
-
+      <h1 class="text-center" style='font-family: Verdana, sans-serif; font-weight: bold; color: white; padding-top: 50px;'>API for the Worst Rap Lyrics of All
+        Time</h1>
       <div class="container" style="background-color: rgb(13, 110, 253); padding: 75px; padding-top: 50px;">
         <div class="row">
           <div class="col-lg-6 mb-5">
@@ -146,13 +92,13 @@
         <div class="container " style="padding-top: 50px;">
           <div class="text-center row">
             <div class="col-sm">
-              <p style="font-size: 25px;">Over <code><%= organized_data.numOfLyrics %></code> lyrics</p>
+              <p style="font-size: 35px;">Over <code><%= organized_data.numOfLyrics %></code> lyrics</p>
             </div>
             <div class="col-sm">
-              <p style="font-size: 25px;">Lyrics from <code><%= organized_data.numOfArtists %></code> artists</p>
+              <p style="font-size: 35px;">Lyrics across <code><%= organized_data.numOfArtists %></code> artists</p>
             </div>
             <div class="col-sm">
-              <p style="font-size: 25px;">Lyrics ranging from <code><%= organized_data.year_range[0] %>-<%= organized_data.year_range[1] %></code></p>
+              <p style="font-size: 35px;">Lyrics from <code><%= organized_data.year_range[0] %>-<%= organized_data.year_range[1] %></code></p>
             </div>
 
           </div>

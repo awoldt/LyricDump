@@ -42,41 +42,44 @@
 
       <p style="font-size: 20px;">Easily sort through decades of the worst rap lyrics, each showcasing all the rappers who are featured having a bad lyric in that speicific year. This catalogue features lyrics over the past <%= organized_data.year_data[organized_data.year_data.length-1].year - organized_data.year_data[0].year %> years, from <%= organized_data.year_data[0].year %> through <%= organized_data.year_data[organized_data.year_data.length-1].year %>.</p>
 
-      <div class="row" style="border-radius: 10px; border:  5px solid #ffc107; border-radius: 10%; padding: 25px;">
-        <div class="col-lg" style="margin-top: 50px;">
-          <p style="font-size: 25px; max-width: 500px; margin: 0 auto;" class="text-center">
-            <u>Click to jump to year</u> <br>
-            <% for(var i=0; i<organized_data.year_data.length; ++i) { %>
-            <%# if last itertation, dont put middot %>
-            <% if(i == organized_data.year_data.length-1) { %>
-            <a href="#<%= organized_data.year_data[i].year %>" style="color:rgb(13, 110, 253); text-decoration: none;"><%= organized_data.year_data[i].year %></a>
-            <% } else { %>
-            <a href="#<%= organized_data.year_data[i].year %>" style="color: rgb(13, 110, 253); text-decoration: none;"><%= organized_data.year_data[i].year %></a> &middot
-            <% } %>
+      <div style="border: 5px solid #ffc107; border-radius: 10%; padding: 25px;">
+        <div class="row">
+          <div class="col-lg" style="margin-top: 50px;">
+            <p style="font-size: 25px; max-width: 500px; margin: 0 auto;" class="text-center">
+              <u>Click to jump to year</u> <br>
+              <% for(var i=0; i<organized_data.year_data.length; ++i) { %>
+              <%# if last itertation, dont put middot %>
+              <% if(i == organized_data.year_data.length-1) { %>
+              <a href="#<%= organized_data.year_data[i].year %>" style="color:rgb(13, 110, 253); text-decoration: none;"><%= organized_data.year_data[i].year %></a>
+              <% } else { %>
+              <a href="#<%= organized_data.year_data[i].year %>" style="color: rgb(13, 110, 253); text-decoration: none;"><%= organized_data.year_data[i].year %></a> &middot
+              <% } %>
 
-            <% } %>
-          </p>
-        </div>
-        <div class="col-lg" style="margin-top: 50px;">
-          <p class="text-center" style="font-size: 20px;">
-            <% if(organized_data.year_with_most_lyrics.length == 1) { %>
-            <a href='#<%= organized_data.year_with_most_lyrics[0] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[0] %></code></a> is currently the year with the worst lyrics
-            <% } else if(organized_data.year_with_most_lyrics.length == 2) { %>
-            <a href='#<%= organized_data.year_with_most_lyrics[0] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[0] %></code></a> and <a href='#<%=  organized_data.year_with_most_lyrics[1] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[1] %></code></a> are currently the years with the worst lyrics
-            <% } else { %>
+              <% } %>
+            </p>
+          </div>
+          <div class="col-lg" style="margin-top: 50px;">
+            <p class="text-center" style="font-size: 20px;">
+              <% if(organized_data.year_with_most_lyrics.length == 1) { %>
+              <a href='#<%= organized_data.year_with_most_lyrics[0] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[0] %></code></a> is currently the year with the worst lyrics
+              <% } else if(organized_data.year_with_most_lyrics.length == 2) { %>
+              <a href='#<%= organized_data.year_with_most_lyrics[0] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[0] %></code></a> and <a href='#<%=  organized_data.year_with_most_lyrics[1] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[1] %></code></a> are currently the years with the worst lyrics
+              <% } else { %>
 
-            <% for(var i=0; i<organized_data.year_with_most_lyrics.length; ++i) { %>
-            <%# if on last year %>
-            <% if(i=organized_data.year_with_most_lyrics.length-1) { %>
-            and <a href='#<%= organized_data.year_with_most_lyrics[i] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[i] %></code></a> are the years with the worst rap lyrics
-            <% } else { %>
-            <a href='#<%= organized_data.year_with_most_lyrics[i] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[i] %></code></a>,
-            <% }%>
-            <% }%>
-            <% } %>
-          </p>
-          <%- include('./chart', {chart_data: organized_data.chart_data})%>
+              <% for(var i=0; i<organized_data.year_with_most_lyrics.length; ++i) { %>
+              <%# if on last year %>
+              <% if(i=organized_data.year_with_most_lyrics.length-1) { %>
+              and <a href='#<%= organized_data.year_with_most_lyrics[i] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[i] %></code></a> are the years with the worst rap lyrics
+              <% } else { %>
+              <a href='#<%= organized_data.year_with_most_lyrics[i] %>' style='text-decoration: none; color: rgb(13, 110, 253);'><code><%= organized_data.year_with_most_lyrics[i] %></code></a>,
+              <% }%>
+              <% }%>
+              <% } %>
+            </p>
+            <%- include('./chart', {chart_data: organized_data.chart_data})%>
+          </div>
         </div>
+
       </div>
     </div>
 
