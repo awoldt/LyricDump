@@ -203,24 +203,14 @@ async function generateUniqueYearData(lyricData) {
 }
 
 async function mostRecentSongsAdded() {
-  //fetches the last 5 songs and displayes to user
+  //fetches the last 9 lyrics and displayes to user
   const data = await SongModel.find().sort({ date_added: -1 });
-  var addedArtists = new Array();
-  var lyrics = new Array();
-  var iteration = 0;
-  //need to make sure that we get the UNQIUE last 5 artists for lyrics
-  while (addedArtists.length !== 5) {
-    if (addedArtists.indexOf(data[iteration].artist_query) == -1) {
-      addedArtists.push(data[iteration].artist_query);
-      lyrics.push(data[iteration]);
-    }
-    iteration += 1;
-  }
+  data.length = 9;
 
   var explicit = false;
 
   const returnData = await Promise.all(
-    lyrics.map(async (x) => {
+    data.map(async (x) => {
       if (x.explicit) {
         explicit = true;
       }
