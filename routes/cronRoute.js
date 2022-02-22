@@ -265,6 +265,8 @@ async function getHomepageDisplayLyrics() {
           idsUsed.push(x._id);
           returnData.push({
             lyric: x.lyrics,
+            song: x.song,
+            release_year: x.release_date,
             artist_img: p[0].img_href,
             artist_name: x.artist,
             artist_query: x.artist_query,
@@ -353,7 +355,6 @@ router.get("/cron/homepage", async (req, res) => {
 });
 
 router.get("/cron/year", async (req, res) => {
-  console.log("generating new year json data!");
 
   //MAKE SURE ITS GOOGLE RUNNING THE CRON JOB
   if (req.headers["user-agent"] !== "Google-Cloud-Scheduler") {
@@ -453,7 +454,7 @@ router.get("/cron/artists", async (req, res) => {
             res.send(null);
           } else {
             res.status(200);
-            console.log("added new artists!");
+            console.log("ADDED NEW ARTIST PAGE DATA!");
             res.send(null);
           }
         });
@@ -487,7 +488,7 @@ router.get("/cron/yearpage", async (req, res) => {
             res.send(null);
           } else {
             res.status(200);
-            console.log("added new yearPage data!");
+            console.log("ADDED NEW YEARPAGE DATA!");
             res.send(null);
           }
         });
