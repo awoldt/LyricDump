@@ -117,6 +117,12 @@
 
 
         <div class="row p-2">
+          <% if(organized_data.year_data[i].year_facts.length !== 0) { %>
+          <div class="alert alert-info" role="alert">
+            <p style="margin-bottom: 0px;"><%= organized_data.year_data[i].year_facts[0] %> <%= organized_data.year_data[i].year %></p>
+          </div>
+          <% } %>
+
           <% for(var y=0; y<organized_data.year_data[i].artist_data.length; ++y) { %>
 
           <div class="col-3 mb-3" itemscope itemtype="https://schema.org/Person">
@@ -128,11 +134,11 @@
               <% } %>
               <p style="display: block;" class="text-center" itemprop="name"><%= organized_data.year_data[i].artist_data[y].artist_name %><br>
                 <% if(organized_data.year_data[i].artist_data[y].num_of_lyrics_in_year == 1) { %>
-                  <span class="text-secondary"><%= organized_data.year_data[i].artist_data[y].num_of_lyrics_in_year %> lyric</span>
+                <span class="text-secondary"><%= organized_data.year_data[i].artist_data[y].num_of_lyrics_in_year %> lyric</span>
                 <% } else { %>
-                  <span class="text-secondary"><%= organized_data.year_data[i].artist_data[y].num_of_lyrics_in_year %> lyrics</span>
+                <span class="text-secondary"><%= organized_data.year_data[i].artist_data[y].num_of_lyrics_in_year %> lyrics</span>
                 <% } %>
-                
+
               </p>
             </a>
 

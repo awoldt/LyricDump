@@ -69,10 +69,35 @@ async function organizeYearData(yearData) {
         })
       );
 
+      const e = [...asdf];
+      e.sort((a, b) => {
+        if (a.num_of_lyrics_in_year > b.num_of_lyrics_in_year) {
+          return -1;
+        }
+
+        return 0;
+      });
+
+      const yearFacts = new Array();
+
+      //WHO HAS THE MOST LYRICS IN EACH YEAR
+      //num of lyrics rapper has in year must be more than 1
+      if (e[0].num_of_lyrics_in_year > 1) {
+        //2nd most lyrics cannot be same as 1st
+        if (e[1].num_of_lyrics_in_year !== e[0].num_of_lyrics_in_year) {
+          yearFacts.push(
+            "Currently, " +
+              e[0].artist_name +
+              " has the most lyrics in the year"
+          );
+        }
+      }
+
       return {
         year: year.year,
         total_lyrics: year.songs_in_year,
         artist_data: asdf,
+        year_facts: yearFacts, //may or may not be empty array, make sure to only display on frontend if length is greater than 1
       };
     })
   );
