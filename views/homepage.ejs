@@ -45,13 +45,9 @@
         <div class="row">
           <div class="col-lg-6 mb-5">
             <p class="text-center" style="font-size: 20px; margin: 0 auto; color: white;">
-              Easy-to-use REST API to get some of the funniest rap lyrics from all your favorite rappers. Rap lyrics
-              so bad they make you
-              laugh
-              out loud. Send a GET request and get back a random lyric from database. Simple
-              and easy to use, unlimited requests. Browse some of the artists featured in the database and submit your
-              own
-              favorite bad rap lyrics! Some songs may contain explicit lyrics.
+              Simple REST API to get some of the funniest rap lyrics from all your favorite rappers. Rap lyrics
+              so bad they will forever be cemented in rap history. Send a GET request and get back a random lyric from database. Free
+              and easy to use, unlimited requests. Browse some of the artists featured in the database and discover the trend of horrible lyrics over time. Some songs may contain explicit lyrics.
             </p>
           </div>
           <div class="col-lg-3 text-center mb-5" style="margin-bottom: 50px; cursor: pointer;">
@@ -102,7 +98,7 @@
 
             </div>
             <span class="text-center" style="font-size: 30px; font-weight: bold;">Featured Lyrics</span>
-            <p class="text-center" style="margin-bottom: 75px; font-size: 20px;">Below are all lyrics from artists that do not contain explicit language. These can be fetched using the API. Send a request to <span id='copy' style="color: rgb(13, 110, 253); text-decoration: underline; cursor: pointer;">/api/filter?explicit=false</span></p>
+            <p class="text-center" style="margin-bottom: 75px; font-size: 20px;">Below are lyrics from artists that do <u>not</u> contain explicit language. These can be fetched using the API by adding a query to the url. Send a request to <span id='copy' style="color: rgb(13, 110, 253); text-decoration: underline; cursor: pointer;">/api/filter?explicit=false</span></p>
             <script>
               const x = document.getElementById('copy');
               const z = document.getElementById('copy-alert')
@@ -139,7 +135,7 @@
 
           </hr>
 
-          <p>Below are all the endpoints that return lyric data. This API was designed to be as simple and easy to understand as possible and is suitable for beginning developers learning how APIs work. All data returned is in JSON format and contains minimal data points for the sake of simplicity. Any status code other than 200 indicates an error in the request. </p>
+          <p>Below are all the endpoints that return lyric data. This API was designed with beginner developers in mind, and focused more on showcasing how APIs work first hand. All data returned is in JSON format and contains minimal data points for the sake of simplicity. Any status code other than 200 indicates an error in the request. </p>
 
           <div style="padding: 25px; background-color: #f2f2f2; margin-bottom: 25px; border-radius: 10px;">
             <h2 style="font-size: 45px;">
