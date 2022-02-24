@@ -37,7 +37,8 @@
   </nav>
 
   <div class="container-fluid p-0" style="background-color: rgb(13, 110, 253);">
-    <div>
+    
+   
       <h1 class="text-center" style='font-family: Verdana, sans-serif; font-weight: bold; color: white; padding-top: 50px;'>API for the Worst Rap Lyrics of All
         Time</h1>
       <div class="container" style="background-color: rgb(13, 110, 253); padding: 75px; padding-top: 50px;">
@@ -90,18 +91,12 @@
 
       <div class="container-fluid" style="background-color: white;">
         <div class="container " style="padding-top: 50px;">
-          <div class="text-center row">
-            <div class="col-sm">
-              <p style="font-size: 35px;">Over <code><%= organized_data.numOfLyrics %></code> lyrics</p>
-            </div>
-            <div class="col-sm">
-              <p style="font-size: 35px;">Lyrics across <code><%= organized_data.numOfArtists %></code> artists</p>
-            </div>
-            <div class="col-sm">
-              <p style="font-size: 35px;">Lyrics from <code><%= organized_data.year_range[0] %>-<%= organized_data.year_range[1] %></code></p>
-            </div>
-
+          <p class="text-center" style="font-size: 40px;">Over <code><%= organized_data.numOfLyrics %></code> lyrics across <code><%= organized_data.numOfArtists %></code> artists from <code><%= organized_data.year_range[0] %>-<%= organized_data.year_range[1] %></code></p>
+         
+          <div class="container" style="padding: 0px 100px 0px 100px;">
+            <%- include('./searchBar') %>
           </div>
+
           <div class="row justify-content-center" style="margin-top: 52px; margin-bottom: 100px; padding: 50px; border: 5px solid #ffc107; border-radius: 50px;">
             <div id="copy-alert">
 
@@ -372,7 +367,7 @@
 
 
       </div>
-    </div>
+    
 
   </div>
 

@@ -1,11 +1,18 @@
 <div style='margin-bottom: 10px;' >
 
-  <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='width: 300px; margin-top: 10px; border: 1px solid black;' class="form-control text-center" role="search"/>
+  <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='border: 1px solid black; border-radius: 10px;' class="form-control text-center" role="search"/>
+  
 
   <div id='search-results-div'></div>
 
   <script>
     const resultsDiv = document.getElementById('search-results-div')
+    resultsDiv.style.backgroundColor = 'white'
+    resultsDiv.style.padding = '10px'
+    resultsDiv.style.marginTop = '3px'
+    resultsDiv.style.borderRadius = '10px'
+
+
     //search function
     async function searchArtist(q) {
       resultsDiv.innerText = '';
@@ -17,6 +24,8 @@
           if (artistAdded.indexOf(data[i].item.artist_query) == -1) {
             artistAdded.push(data[i].item.artist_query)
             var link = document.createElement('a');
+            link.style.fontSize = '30px'
+            link.style.color = '#d63384';
             link.setAttribute('href', '/artists/' + data[i].item.artist_query);
             link.style.textDecoration = 'none';
             link.innerText = data[i].item.artist + '\n';
