@@ -44,18 +44,24 @@ async function organizeYearData(yearData) {
       await Promise.all(
         addedArtists.map(async (x) => {
           var img = await ArtistProfile.find({ artist_query: x.artist_query });
+          const n = await SongModel.find({
+            release_date: year.year,
+            artist_query: x.artist_query,
+          });
 
           if (img.length == 0) {
             asdf.push({
               artist_name: x.artist_name,
               artist_query: x.artist_query,
               artist_img: null,
+              num_of_lyrics_in_year: n.length,
             });
           } else {
             asdf.push({
               artist_name: x.artist_name,
               artist_query: x.artist_query,
               artist_img: img[0].img_href,
+              num_of_lyrics_in_year: n.length,
             });
           }
 
@@ -355,7 +361,6 @@ router.get("/cron/homepage", async (req, res) => {
 });
 
 router.get("/cron/year", async (req, res) => {
-
   //MAKE SURE ITS GOOGLE RUNNING THE CRON JOB
   if (req.headers["user-agent"] !== "Google-Cloud-Scheduler") {
     res.status(403);
