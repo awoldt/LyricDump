@@ -530,4 +530,126 @@ router.get("/cron/yearpage", async (req, res) => {
   }
 });
 
+router.get("/cron/artistpage", async (req, res) => {
+  //MAKE SURE ITS GOOGLE RUNNING THE CRON JOB
+  if (req.headers["user-agent"] !== "Google-Cloud-Scheduler") {
+    res.status(403);
+    res.send("access denied");
+  } else {
+    const artists = await getAllUnqiueArtists();
+
+    //get and array of all artists with name, query, and img
+    const artistsDetails = await Promise.all(
+      artists.sort().map(async (x) => {
+        const d = await SongModel.findOne({ artist_query: x });
+        const img = await ArtistProfile.findOne({ artist_query: x });
+        if (img !== null) {
+          return {
+            artist_query: x,
+            artist_name: d.artist,
+            artist_img: img.img_href,
+          };
+        } else {
+          return {
+            artist_query: x,
+            artist_name: d.artist,
+            artist_img: null,
+          };
+        }
+      })
+    );
+
+    //now get the 2 artists before and after each index of each artist
+    const returnData = await Promise.all(
+      artistsDetails.map((a, index) => {
+        //first 2 artists
+        if (index == 0 || index == 1) {
+          if (index == 0) {
+            return {
+              artist: a.artist_query,
+              related_artists: [
+                artistsDetails[1],
+                artistsDetails[2],
+                artistsDetails[3],
+                artistsDetails[4],
+              ],
+            };
+          } else if (index == 1) {
+            return {
+              artist: a.artist_query,
+              related_artists: [
+                artistsDetails[2],
+                artistsDetails[3],
+                artistsDetails[4],
+                artistsDetails[5],
+              ],
+            };
+          }
+          //last 2 artists
+        } else if (
+          index == artistsDetails.length - 1 ||
+          index == artistsDetails.length - 2
+        ) {
+          if (index == artistsDetails.length - 1) {
+            return {
+              artist: a.artist_query,
+              related_artists: [
+                artistsDetails[(index -= 2)],
+                artistsDetails[(index -= 3)],
+                artistsDetails[(index -= 4)],
+                artistsDetails[(index -= 5)],
+              ],
+            };
+          } else if (index == artistsDetails.length - 2) {
+            return {
+              artist: a.artist_query,
+              related_artists: [
+                artistsDetails[(index -= 3)],
+                artistsDetails[(index -= 4)],
+                artistsDetails[(index -= 5)],
+                artistsDetails[(index -= 6)],
+              ],
+            };
+          }
+        } else {
+          return {
+            artist: a.artist_query,
+            related_artists: [
+              artistsDetails[index - 2],
+              artistsDetails[index - 1],
+              artistsDetails[index + 1],
+              artistsDetails[index + 2],
+            ],
+          };
+        }
+      })
+    );
+
+    const j = {
+      related_artist_data: returnData,
+    };
+
+    try {
+      await googleCloudStorage
+        .bucket("year-json-data")
+        .file("artistpage.json")
+        .save(JSON.stringify(j), (err) => {
+          if (err) {
+            res.status(500);
+            console.log(err);
+            res.send(null);
+          } else {
+            res.status(200);
+            console.log("ADDED NEW ARTISTPAGE DATA!");
+            res.send(null);
+          }
+        });
+    } catch (e) {
+      res.status(500);
+      console.log(e);
+      res.send(null);
+    }
+  }
+});
+
 module.exports = router;
