@@ -3,7 +3,7 @@
   <% for(var i=0; i<related_data.length; ++i) { %>
 
   <div class="col text-center">
-    <a href='/artists/<%= related_data[i].artist_query %>'>
+    <a href='/artists/<%= related_data[i].artist_query %>' style="text-decoration: none;">
       <% if(related_data[i].artist_img !== null) { %>
       <img src='<%= related_data[i].artist_img %>' style="width: 75px; height: 75px;" alt="<%= related_data[i].artist_name %>" />
       <% } else { %>
