@@ -98,7 +98,7 @@
             <p class='text-secondary text-center'>Also know as <% if(artist_profile[0].nicknames.length == 1) { %>
               <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[0] %></i></span>
               <% } else if(artist_profile[0].nicknames.length == 2) { %>
-              <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[0] %></i></span>or <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[1] %></i></span>
+              <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[0] %></i></span> or <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[1] %></i></span>
               <% } else { %>
               <% for(var i=0; i<artist_profile[0].nicknames.length; ++i) { %>
               <% if(i == artist_profile[0].nicknames.length-1) { %>
