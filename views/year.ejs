@@ -42,7 +42,7 @@
 
       <p style="font-size: 20px;">Easily sort through decades of the worst rap lyrics, each showcasing all the rappers who are featured having a bad lyric in that speicific year. This catalogue features lyrics over the past <%= organized_data.year_data[organized_data.year_data.length-1].year - organized_data.year_data[0].year %> years, from <%= organized_data.year_data[0].year %> through <%= organized_data.year_data[organized_data.year_data.length-1].year %>.</p>
 
-      <div style="border: 5px solid #ffc107; border-radius: 10px; padding: 25px;">
+      <div style="border: 5px solid #ffc107; border-radius: 10px; padding: 25px; background-color: rgb(242, 242, 242, .5);">
         <div class="row">
           <div class="col-lg" style="margin-top: 50px;">
             <p style="font-size: 25px; max-width: 500px; margin: 0 auto;" class="text-center">
@@ -89,10 +89,13 @@
       <div>
 
         <div>
-          <a href='/year/<%= organized_data.year_data[i].year %>' style="color:#d63384">
-            <h2 style="font-size: 30px;" id='<%= organized_data.year_data[i].year %>'><%= organized_data.year_data[i].year %></h2>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-calendar" viewBox="0 0 16 16">
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+          </svg>
+          <a href='/year/<%= organized_data.year_data[i].year %>' style="color:#d63384;">
+            <h2 style="font-size: 30px; display: inline;" id='<%= organized_data.year_data[i].year %>'><%= organized_data.year_data[i].year %></h2>
           </a>
-          <p>
+          <p style="padding-left: 20px; margin-top: 20px;">
 
             <% if(organized_data.year_data[i].total_lyrics.length == 1) { %>
             1 lyric <% if(organized_data.year_data[i].artist_data.length == 1) { %>
@@ -118,6 +121,7 @@
 
         <div class="row p-2">
           <% if(organized_data.year_data[i].year_facts.length !== 0) { %>
+        
           <div class="alert alert-info" role="alert">
             <p style="margin-bottom: 0px;"><%= organized_data.year_data[i].year_facts[0] %> <%= organized_data.year_data[i].year %></p>
           </div>
