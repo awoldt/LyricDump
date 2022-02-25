@@ -70,7 +70,7 @@
   <%- include('./navbar'); %>
   <div class="container" style='margin-bottom: 50px;'>
 
-   
+
 
 
 
@@ -96,15 +96,15 @@
             <% if(artist_profile !== undefined) { %>
             <% if(artist_profile[0].nicknames.length !== 0) { %>
             <p class='text-secondary text-center'>Also know as <% if(artist_profile[0].nicknames.length == 1) { %>
-             <i><%= artist_profile[0].nicknames[0] %></i>
+              <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[0] %></i></span>
               <% } else if(artist_profile[0].nicknames.length == 2) { %>
-            <i><%= artist_profile[0].nicknames[0] %></i> or <i><%= artist_profile[0].nicknames[1] %></i>
+              <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[0] %></i></span>or <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[1] %></i></span>
               <% } else { %>
               <% for(var i=0; i<artist_profile[0].nicknames.length; ++i) { %>
               <% if(i == artist_profile[0].nicknames.length-1) { %>
-              or <i><%= artist_profile[0].nicknames[i]  %></i>
+              or <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[i]  %></i></span>
               <% } else { %>
-          <i><%=  artist_profile[0].nicknames[i] %></i>,
+              <span itemprop="alternateName"><i><%=  artist_profile[0].nicknames[i] %></i></span>,
               <% } %>
               <% } %>
               <% } %>
@@ -114,7 +114,7 @@
             <% } %>
 
 
-          
+
             <p class="text-center"><code style='color: black'>Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data</code></p>
             <div class="text-center" style="margin-bottom: 50px;">
               <div style="display: inline-block;" role="button">
@@ -215,7 +215,7 @@
 
           <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px;'>
             <% for(var i=0; i<artist_data.length; ++i) { %>
-            <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;"  itemscope itemtype="https://schema.org/MusicComposition">
+            <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;" itemscope itemtype="https://schema.org/MusicComposition">
               <% if(artist_data[i].explicit) { %>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
                 <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
@@ -239,9 +239,11 @@
         </div>
 
         <% if(related_artists !== undefined) { %>
-            <%- include('./relatedArtists', {related_data: related_artists}) %>
+        <hr>
+        </hr>
+        <%- include('./relatedArtists', {related_data: related_artists}) %>
         <% } %>
-       
+
 
       </div>
 

@@ -531,11 +531,7 @@ router.get("/cron/yearpage", async (req, res) => {
 });
 
 router.get("/cron/artistpage", async (req, res) => {
-  //MAKE SURE ITS GOOGLE RUNNING THE CRON JOB
-  if (req.headers["user-agent"] !== "Google-Cloud-Scheduler") {
-    res.status(403);
-    res.send("access denied");
-  } else {
+  
     const artists = await getAllUnqiueArtists();
 
     //get and array of all artists with name, query, and img
@@ -543,17 +539,20 @@ router.get("/cron/artistpage", async (req, res) => {
       artists.sort().map(async (x) => {
         const d = await SongModel.findOne({ artist_query: x });
         const img = await ArtistProfile.findOne({ artist_query: x });
+        const num_of_songs = await SongModel.find({artist_query: x})
         if (img !== null) {
           return {
             artist_query: x,
             artist_name: d.artist,
             artist_img: img.img_href,
+            numOfLyrics: num_of_songs.length
           };
         } else {
           return {
             artist_query: x,
             artist_name: d.artist,
             artist_img: null,
+            numOfLyrics: num_of_songs.length
           };
         }
       })
@@ -649,7 +648,7 @@ router.get("/cron/artistpage", async (req, res) => {
       console.log(e);
       res.send(null);
     }
-  }
+  
 });
 
 module.exports = router;
