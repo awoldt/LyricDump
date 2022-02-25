@@ -67,15 +67,10 @@ router.get("/api/filter", async (req, res) => {
       //EXPLICIT
     } else if (query.hasOwnProperty("explicit")) {
       if (query.explicit !== "true" && query.explicit !== "false") {
-        if (query.explicit == "both") {
-          res.status(200);
-          res.json({ message: "both" });
-        } else {
-          res.status(400);
-          res.json({
-            message: "explicit query can only be true or false",
-          });
-        }
+        res.status(400);
+        res.json({
+          message: "explicit query can only be true or false",
+        });
       } else {
         const results = await SongModel.find({
           explicit: query.explicit,

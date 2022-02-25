@@ -154,46 +154,46 @@
             <p style="margin-bottom: 50px; font-size: 20px;">
               This endpoint will randomly fetch one single lyric from database
             </p>
-            <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
-            <ul>
-              <li>
-                <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i>
-                </p>
-              </li>
-              <li>
-                <p style="display: inline;"><code>lyrics: </code>the bad lyric
-                  <i>(text)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
-                  <i>(text)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"><code>song: </code>the song in which the lyrics were
-                  said
-                  <i>(text)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"> <code>release_date: </code>the date the song
-                  was released in year format
-                  <i>(text)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
-                  explicit language
-                  <i>(boolean)</i>
-                </p>
-
-              </li>
-            </ul>
+            <div style="background-color: rgb(242, 242, 242); padding: 10px;">
+              <p style='font-size: 16px; font-weight: normal;'><u>JSON structure:</u> </p>
+              <ul>
+               
+                <li>
+                  <p style="display: inline;"><code>lyrics: </code>the bad lyric
+                    <i><b>(text)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
+                    <i><b>(text)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"><code>song: </code>the song in which the lyrics were
+                    said
+                    <i><b>(text)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"> <code>release_date: </code>the date the song
+                    was released in year format
+                    <i><b>(text)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
+                    explicit language
+                    <i><b>(boolean)</b></i>
+                  </p>
+  
+                </li>
+              </ul>
+            </div>
+           
           </div>
 
 
@@ -286,65 +286,68 @@
 
 
 
+            <div style="background-color: rgb(242, 242, 242); padding: 10px">
+              <p style='font-size: 16px; font-weight: normal;'><u>JSON structure:</u> </p>
+              <ul>
+                <li>
+                  <p style="display: inline;"><code>_id:</code> unique id for each lyric <i><b>(text)</b></i>
+                  </p>
+                </li>
+                <li>
+                  <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
+                    <i><b>(text)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
+                    <i><b>(text)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"> <code>song: </code>the song in which the lyric were
+                    said
+                    <i><b>(text)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"><code>release_date: </code>the date on which the song
+                    was released in year format
+                    <i><b>(text)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
+                    explicit language
+                    <i><b>(boolean)</b></i>
+                  </p>
+  
+                </li>
+                <li>
+                  <p style="display: inline;"><code>artist_query: </code>used to uniquely identify
+                    artists in database
+                    <i><b>(text)</b></i>
+                  </p>
+                </li>
+                <li>
+                  <p style="display: inline;"><code>date_added: </code>the date in which the lyric was
+                    added to database in
+                    ISO
+                    format <i><b>(date format)</b></i></p>
+                </li>
+                <li>
+                  <p style="display: inline;"><code>explanation: </code>the reason as to why said lyric
+                    is bad, only lyrics
+                    that
+                    are so dumb and easy to explain why they're dumb feature this field <i><b>(text)</b></i></p>
+                </li>
+              </ul>
+            </div>
 
-            <p style='font-size: 16px; font-weight: normal;'><u>Returned JSON structure:</u> </p>
-            <ul>
-              <li>
-                <p style="display: inline;"><code>_id:</code> unique id for each lyric <i>(text)</i>
-                </p>
-              </li>
-              <li>
-                <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
-                  <i>(text)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
-                  <i>(text)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"> <code>song: </code>the song in which the lyric were
-                  said
-                  <i>(text)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"><code>release_date: </code>the date on which the song
-                  was released in year format
-                  <i>(text)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
-                  explicit language
-                  <i>(boolean)</i>
-                </p>
-
-              </li>
-              <li>
-                <p style="display: inline;"><code>artist_query: </code>used to uniquely identify
-                  artists in database
-                  <i>(text)</i>
-                </p>
-              </li>
-              <li>
-                <p style="display: inline;"><code>date_added: </code>the date in which the lyric was
-                  added to database in
-                  ISO
-                  format <i>(date format)</i></p>
-              </li>
-              <li>
-                <p style="display: inline;"><code>explanation: </code>the reason as to why said lyric
-                  is bad, only lyrics
-                  that
-                  are so dumb and easy to explain why they're dumb feature this field <i>(text)</i></p>
-              </li>
-            </ul>
+           
           </div>
 
           <hr>
