@@ -4,6 +4,7 @@ const SongModel = require("../SongModel");
 const ArtistProfile = require("../ArtistProfile");
 
 const { Storage } = require("@google-cloud/storage");
+const { vary } = require("express/lib/response");
 
 //gets all years featured in lyrics
 async function getYearsRange(songs) {
@@ -96,12 +97,20 @@ router.get("/artists/:id", async (req, res) => {
           const r = JSON.parse(buffer).related_artist_data;
           const index = r.findIndex((i) => i.artist === req.params.id);
 
+          var relatedData;
+          if(index == -1) {
+            relatedData = undefined;
+          }
+          else {
+            relatedData = r[index].related_artists
+          }
+
           res.render("artistPage", {
             artist_data: artistData,
             has_explicit_song: hasExplicitSong,
             lyrics_years_range: yearsRange,
             artist_profile: profile,
-            related_artists: r[index].related_artists,
+            related_artists: relatedData,
           });
         });
     } catch (e) {

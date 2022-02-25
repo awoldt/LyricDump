@@ -238,7 +238,10 @@
           </div>
         </div>
 
-        <%- include('./relatedArtists', {related_data: related_artists}) %>
+        <% if(related_artists !== undefined) { %>
+            <%- include('./relatedArtists', {related_data: related_artists}) %>
+        <% } %>
+       
 
       </div>
 
