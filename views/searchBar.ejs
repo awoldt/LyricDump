@@ -22,10 +22,13 @@
 
     document.getElementById('search-input').style.fontSize = '20px'
 
+    var l = false;
+
+
     //search function
     async function searchArtist(q) {
       resultsDiv.innerText = '';
-
+      l = false;
       var data = await fetch('/api/search?artist=' + q);
       var artistAdded = new Array();
       data = await data.json();
@@ -62,9 +65,14 @@
       searchArtist(document.getElementById('search-input').value)
     })
 
+
     function displaySpinner() {
-      resultsDiv.innerText = '';
-      resultsDiv.appendChild(spinner);
+      if (l == false) {
+        resultsDiv.innerText = '';
+        resultsDiv.appendChild(spinner);
+        l = true;
+      }
+
 
     }
   </script>
