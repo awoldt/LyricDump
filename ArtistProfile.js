@@ -4,7 +4,8 @@ const profileSchema = new mongoose.Schema({
   artist_query: String,
   img_href: String,
   name: String,
-  nicknames: Array
+  nicknames: Array,
+  description: String
 });
 
 const artistProfile =
