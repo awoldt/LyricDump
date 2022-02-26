@@ -1,7 +1,7 @@
-<div style='margin-bottom: 10px;' >
+<div style='margin-bottom: 10px;'>
 
-  <input type='text' placeholder="Search any rapper" onkeyup="return delaySearch();" id='search-input' style='border: 1px solid black; border-radius: 10px;' class="form-control text-center" role="search"/>
-  
+  <input type='text' placeholder="Search any rapper" onkeyup="displaySpinner(); return delaySearch();" id='search-input' style='border: 1px solid black; border-radius: 10px;' class="form-control text-center" role="search" />
+
 
   <div id='search-results-div'></div>
 
@@ -12,12 +12,20 @@
     resultsDiv.style.marginTop = '3px'
     resultsDiv.style.borderRadius = '10px'
 
-    document.getElementById('search-input').style.fontSize = '20px'
+    const spinner = document.createElement('div');
+    spinner.setAttribute('class', 'spinner-border text-primary');
+    spinner.setAttribute('role', 'status');
+    const spinnerMessage = document.createElement('span');
+    spinnerMessage.setAttribute('class', 'visually-hidden');
+    spinnerMessage.innerText = 'Loading....';
+    spinner.appendChild(spinnerMessage);
 
+    document.getElementById('search-input').style.fontSize = '20px'
 
     //search function
     async function searchArtist(q) {
       resultsDiv.innerText = '';
+
       var data = await fetch('/api/search?artist=' + q);
       var artistAdded = new Array();
       data = await data.json();
@@ -34,7 +42,7 @@
             resultsDiv.appendChild(link)
           }
         }
-        
+
       } else {
         resultsDiv.innerText = 'no results :(';
       }
@@ -53,5 +61,11 @@
     const delaySearch = debounce(() => {
       searchArtist(document.getElementById('search-input').value)
     })
+
+    function displaySpinner() {
+      resultsDiv.innerText = '';
+      resultsDiv.appendChild(spinner);
+
+    }
   </script>
 </div>
