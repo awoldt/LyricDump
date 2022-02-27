@@ -93,12 +93,10 @@
           <div>
             <h1 class="text-center" style='margin-top: 25px;'><span itemprop="name"><%= artist_data[0].artist %></span>'s Worst Lyrics</h1>
 
-           
+
 
             <% if(artist_profile !== undefined) { %>
-              <% if(artist_profile[0].description !== undefined) { %>
-                <%- include('./artistDescription', {about: artist_profile[0].description}) %>  
-              <% } %>
+
             <% if(artist_profile[0].nicknames.length !== 0) { %>
             <p class='text-secondary text-center'>Also know as <% if(artist_profile[0].nicknames.length == 1) { %>
               <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[0] %></i></span>
@@ -115,6 +113,9 @@
               <% } %>
 
             </p>
+            <% } %>
+            <% if(artist_profile[0].description !== undefined) { %>
+            <%- include('./artistDescription', {about: artist_profile[0].description}) %>
             <% } %>
             <% } %>
 
