@@ -24,7 +24,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+  <!-- Adense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4106301283765460" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -82,12 +83,12 @@
           <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
         </svg>
         <% if(organized_data[year_index].artist_data.length == 1) { %>
-          <h2><b>Featured artist</b></h2>
+        <h2><b>Featured artist</b></h2>
         <% } else { %>
-<h2><b>Featured artists</b></h2>
+        <h2><b>Featured artists</b></h2>
         <% } %>
 
-        
+
       </div>
 
       <%for(var i=0; i<organized_data[year_index].artist_data.length; ++i) { %>
@@ -135,7 +136,7 @@
 
 
 
-      <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px; margin-bottom: 50px;'>
+      <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px; margin-bottom: 50px; max-width: 850px;'>
         <% for(var i=0; i<organized_data[year_index].lyric_data.length; ++i) { %>
         <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;" itemscope itemtype="https://schema.org/MusicComposition">
           <% if(organized_data[year_index].lyric_data[i].explicit) { %>
