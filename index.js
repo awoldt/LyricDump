@@ -55,6 +55,11 @@ app.use(apiRoutes); //all api backend
 app.use(searchRoute);
 app.use(cronRoute);
 
+app.get('/privacy', (req, res) => {
+  res.status(200);
+  res.sendFile(__dirname + '/privacy.html')
+})
+
 app.get("/sitemap.xml", (req, res) => {
   res.status(200);
   res.sendFile(path.join(__dirname + "/", "sitemap.xml"));
