@@ -5,7 +5,9 @@ const profileSchema = new mongoose.Schema({
   img_href: String,
   name: String,
   nicknames: Array,
-  description: String
+  description: String,
+  social_links: Array,
+  music_links: Array
 });
 
 const artistProfile =
