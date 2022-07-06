@@ -17,7 +17,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 
@@ -59,9 +59,9 @@
       <% if(organized_data.most_lyrics.length > 1) { %>
       <% if(organized_data.most_lyrics.length == 2) { %>
 
-      <p style="font-size: 20px;" class="text-center"><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><b>%= organized_data.most_lyrics[0] %></b>
+      <p style="font-size: 20px;" class="text-center"><a href='#<%= organized_data.most_lyrics[0].replace(/\s/g, "") %>' style="text-decoration: none; color: #d63384;"><code><b>%= organized_data.most_lyrics[0] %></b>
             << /code> </a>and
-        <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><b><%= organized_data.most_lyrics[1] %></b></code></a>
+        <a href='##<%= organized_data.most_lyrics[0].replace(/\s/g, "") %>' style="text-decoration: none; color: #d63384;"><code><b><%= organized_data.most_lyrics[1] %></b></code></a>
         have the most bad lyrics
       </p>
 
@@ -72,9 +72,9 @@
 
         <% for(var i=0; i<organized_data.most_lyrics.length; ++i) { %>
         <% if(i==organized_data.most_lyrics.length-1 ) { %>
-        and <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><b><%= organized_data.most_lyrics[i] %></b></code></a>
+        and <a href='##<%= organized_data.most_lyrics[0].replace(/\s/g, "") %>' style="text-decoration: none; color: #d63384;"><code><b><%= organized_data.most_lyrics[i] %></b></code></a>
         <% } else { %>
-        <a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><b><%= organized_data.most_lyrics[i] %></b></code></a>,
+        <a href='##<%= organized_data.most_lyrics[0].replace(/\s/g, "") %>' style="text-decoration: none; color: #d63384;"><code><b><%= organized_data.most_lyrics[i] %></b></code></a>,
         <% } %>
         <% } %>
         have the most bad lyrics stored
@@ -85,7 +85,7 @@
       <% } %>
       <% } else if(organized_data.most_lyrics.length==1) { %>
 
-      <p style="font-size: 35px;" class="text-center mt-5 mb-5"><a href='#<%= organized_data.most_lyrics[0] %>' style="text-decoration: none; color: #d63384;"><code><b><%= organized_data.most_lyrics[0] %></b></code></a>
+      <p style="font-size: 35px;" class="text-center mt-5 mb-5"><code><b><%= organized_data.most_lyrics[0] %></b></code>
         has the most bad lyrics stored</p>
 
 
@@ -124,7 +124,7 @@
         <div class="col-md-5">
           <h2 class='text-center mb-3'><b>Recently added lyrics</b></h2>
           <% if(organized_data.recently_added_lyrics[1]) { %>
-          <div class="alert alert-danger p-3" role="alert"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+          <div class="alert alert-danger p-3" role="alert"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-explicit" viewBox="0 0 16 16">
               <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
               <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
             </svg>
@@ -135,7 +135,7 @@
           <% for(var i=0; i<organized_data.recently_added_lyrics[0].length; ++i) { %>
           <div class="mb-3 text-center" style="border: 1px solid black; padding: 10px; border-radius: 10px; background-color: rgb(230, 230, 230, .5);" itemscope itemtype="https://schema.org/MusicComposition">
             <% if(organized_data.recently_added_lyrics[0][i].explicit) { %>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-explicit" viewBox="0 0 16 16">
               <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
               <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
             </svg>
@@ -159,9 +159,9 @@
           <%= organized_data.artist_data.length %> artists total
         </b></p>
       <% for(var i=0; i<organized_data.artist_data.length; ++i) { %>
-      <div class="col-md-3" itemscope itemtype="https://schema.org/Person"><span style='display: block; margin-bottom: 5px;' id='<%= organized_data.artist_data[i].artist_name %>'>
+      <div class="col-md-3" itemscope itemtype="https://schema.org/Person"><span style='display: block; margin-bottom: 5px;' id='<%= organized_data.artist_data[i].artist_name.replace(/\s/g, "") %>'>
           <% if(organized_data.most_lyrics.indexOf(organized_data.artist_data[i].artist_name) !==-1) { %>
-          <img src="/fire.svg" style='width: 50px; height: 50px' />
+          <img src="/fire.svg" style='width: 50px; height: 50px' alt="fire icon"/>
           <% } %><a href='<%= organized_data.artist_data[i].artist_href %>' itemprop="url">
             <span itemprop="name"><%= organized_data.artist_data[i].artist_name %></span></a> (<%= organized_data.artist_data[i].artist_num_of_songs %>)
         </span></div>

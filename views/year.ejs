@@ -16,7 +16,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 
@@ -63,7 +63,7 @@
               <% if(i == organized_data.year_data.length-1) { %>
               <a href="#<%= organized_data.year_data[i].year %>" style="color:rgb(13, 110, 253); text-decoration: none;"><%= organized_data.year_data[i].year %></a>
               <% } else { %>
-              <a href="#<%= organized_data.year_data[i].year %>" style="color: rgb(13, 110, 253); text-decoration: none;"><%= organized_data.year_data[i].year %></a> &middot
+              <a href="#<%= organized_data.year_data[i].year %>" style="color: rgb(13, 110, 253); text-decoration: none;"><%= organized_data.year_data[i].year %></a> &middot;
               <% } %>
 
               <% } %>
@@ -143,7 +143,7 @@
           <div class="col-3 mb-3" itemscope itemtype="https://schema.org/Person">
             <a href='/artists/<%= organized_data.year_data[i].artist_data[y].artist_query %>' style="text-decoration: none; color: black;" itemprop="url">
               <% if(organized_data.year_data[i].artist_data[y].artist_img == null) { %>
-              <img src='/no-img.png' style='width: 50px; height: 50px;' class="mx-auto d-block" />
+              <img src='/no-img.png' style='width: 50px; height: 50px;' class="mx-auto d-block" alt="blank artist image"/>
               <% } else { %>
               <img src="<%= organized_data.year_data[i].artist_data[y].artist_img  %>" alt="<%=  organized_data.year_data[i].artist_data[y].artist_name %>" style='width: 50px; height: 50px; border-radius: 50%;' class="mx-auto d-block" itemprop="image" />
               <% } %>

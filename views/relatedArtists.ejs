@@ -7,7 +7,7 @@
       <% if(related_data[i].artist_img !== null) { %>
       <img src='<%= related_data[i].artist_img %>' style="width: 75px; height: 75px;" alt="<%= related_data[i].artist_name %>" itemprop="image" />
       <% } else { %>
-      <img src='/no-img.png' style="width: 75px; height: 75px;" />
+      <img src='/no-img.png' style="width: 75px; height: 75px;" alt="black artist image"/>
       <% } %>
       <p itemprop="name" class="mb-0"><%= related_data[i].artist_name %>
       </p>

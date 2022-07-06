@@ -24,7 +24,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 
@@ -158,7 +158,7 @@
         <hr>
 
         <% if(has_explicit_song.length !==0) { %>
-        <div class="alert alert-danger p-3" role="alert"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+        <div class="alert alert-danger p-3" role="alert"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-explicit" viewBox="0 0 16 16">
             <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
             <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
           </svg>
@@ -187,7 +187,7 @@
             <% if(i == lyrics_years_range.length-1) { %>
             <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a>
             <% } else { %>
-            <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a> &middot
+            <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a> &middot;
             <% } %>
             <% } %>
           </p>
@@ -197,7 +197,7 @@
             <% for(var i=0; i<artist_data.length; ++i) { %>
             <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;" itemscope itemtype="https://schema.org/MusicComposition">
               <% if(artist_data[i].explicit) { %>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-explicit" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-explicit" viewBox="0 0 16 16">
                 <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
                 <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
               </svg>
@@ -220,7 +220,7 @@
 
         <% if(related_artists !== undefined) { %>
         <hr>
-        </hr>
+       
         <%- include('./relatedArtists', {related_data: related_artists}) %>
         <% } %>
 
