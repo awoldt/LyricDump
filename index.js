@@ -5,10 +5,13 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const dbConnect = require("./DB_connect");
+const compression = require("compression");
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+// Compress all HTTP responses
+app.use(compression());
 
 dbConnect();
 
@@ -55,10 +58,10 @@ app.use(apiRoutes); //all api backend
 app.use(searchRoute);
 app.use(cronRoute);
 
-app.get('/privacy', (req, res) => {
+app.get("/privacy", (req, res) => {
   res.status(200);
-  res.sendFile(__dirname + '/privacy.html')
-})
+  res.sendFile(__dirname + "/privacy.html");
+});
 
 app.get("/sitemap.xml", (req, res) => {
   res.status(200);
