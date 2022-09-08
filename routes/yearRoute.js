@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const { Storage } = require("@google-cloud/storage");
-const { config } = require("dotenv");
 
 function generateYearNavigation(years, currentYear) {
   //find where year is in data
