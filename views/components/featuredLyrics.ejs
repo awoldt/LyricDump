@@ -1,0 +1,24 @@
+<div class="row justify-content-center"
+  style="margin-top: 52px; margin-bottom: 100px; padding: 50px; border: 5px solid #ffc107; border-radius: 50px; background-color: rgb(242, 242, 242, .5);">
+  <div id="copy-alert">
+
+  </div>
+  <span class="text-center" style="font-size: 30px; font-weight: bold;">Featured Lyrics</span>
+
+  <% for(var i=0; i<featured_lyrics.length; ++i) { %>
+    <div class="col-lg-3 col-md-4 col-sm-6" itemscope itemtype="https://schema.org/MusicComposition">
+      <a href="/artists/<%= featured_lyrics[i].artist_query %>" style="text-decoration: none;">
+        <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+
+          <p class="text-secondary text-center" itemprop="name">
+            <%= featured_lyrics[i].artist %>
+          </p>
+        </div>
+        <p class="text-center"
+          style="color: black; background-color: rgb(230, 230, 230, .5); padding: 25px; border-radius: 10px;">
+          "<span itemprop="lyrics"><%= featured_lyrics[i].lyrics %></span>"
+        </p>
+      </a>
+    </div>
+    <% } %>
+</div>
