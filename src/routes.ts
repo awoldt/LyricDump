@@ -2,6 +2,7 @@ import {
   GET_FEATURED_LYRICS,
   GET_FILTERED_RANDOM_LYRIC,
   GET_HOMEPAGE_DISPLAY_STATS,
+  GET_MOST_POPULAR_ARTISTS,
   GET_RANDOM_LYRIC,
 } from "./FUNCTIONS";
 import lyric from "./interfaces/lyric";
@@ -9,6 +10,7 @@ import { Router } from "express";
 import filtered_lyric_query from "./interfaces/filtered_query_lyric";
 import homepage_display_stats from "./interfaces/homepage_display_stats";
 import featured_lyric from "./interfaces/featured_lyrics";
+import top_artists from "./interfaces/top_artists_aggregate";
 
 const router = Router();
 
@@ -29,6 +31,17 @@ router.get("/", async (req, res) => {
     res.send("error");
   }
 });
+
+// (/artists)
+router.get("/artists", async (req, res) => {
+  const topArtists: top_artists[] | null = await GET_MOST_POPULAR_ARTISTS();
+  console.log(topArtists);
+  res.send("ok!");
+});
+
+///////////////////////////////////////////////////
+//API ENPOINTS
+///////////////////////////////////////////////////
 
 // (/api)
 router.get("/api", async (req, res) => {

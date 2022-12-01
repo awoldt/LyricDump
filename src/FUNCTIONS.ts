@@ -8,6 +8,7 @@ const mongoClient = new MongoClient(
 const LYRICS = mongoClient.db("badrapapi-PROD").collection<lyric>("lyrics");
 
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import top_artists from "./interfaces/top_artists_aggregate";
 const s3 = new S3Client({
   credentials: {
     accessKeyId: "AKIAXEY2SYGHPVS6ASBU",
@@ -103,6 +104,35 @@ export async function GET_FEATURED_LYRICS() {
     });
     const didGetFeaturedLyrics = await s3.send(getFeaturedLyrics);
     return JSON.parse(await didGetFeaturedLyrics.Body?.transformToString()!);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function GET_MOST_POPULAR_ARTISTS() {
+  try {
+    //orders artists by most lyrics to least
+    const data = await LYRICS.aggregate<top_artists>([
+      {
+        $group: {
+          _id: {
+            artistName: "$artist_query",
+          },
+          numOfLyrics: {
+            $count: {},
+          },
+        },
+      },
+      {
+        $sort: {
+          numOfLyrics: -1,
+        },
+      },
+    ]).toArray();
+
+    //only need top 9 artists
+    return data.slice(0, 9);
   } catch (e) {
     console.log(e);
     return null;
