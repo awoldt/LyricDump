@@ -35,7 +35,6 @@ router.get("/", async (req, res) => {
 // (/artists)
 router.get("/artists", async (req, res) => {
   const topArtists: top_artists[] | null = await GET_MOST_POPULAR_ARTISTS();
-  console.log(topArtists);
 
   res.render("artists", {
     top_artists: topArtists,

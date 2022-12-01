@@ -1,13 +1,19 @@
 <div class="row">
     <h2>Most Popular Arists</h2>
+    <p>
+        <%= data[0]._id.artistNameClean %> is currently the artist with the most bad lyrics stored.
+    </p>
     <% for( let index=0; index < data.length; index++ ) { %>
-        <div class="col" style="float: bottom;">
-            <img src="/imgs/<%= data[index]._id.artistName %>.png" alt="<%= data[index]._id.artistName  %>"
-                class="img-fluid" style="height: 50px; width: 50px"/>
-
-            <span>
-                <%= data[index]._id.artistName %>
-            </span>
+        <div class="col-xl-1 col-lg-2 col-md-3 col-4" style="float: bottom;">
+            <a href="/artists/<%= data[index]._id.artistName %>" style="text-decoration: none; color: black">
+                <img src="/imgs/<%= data[index]._id.artistName %>.png" alt="<%= data[index]._id.artistName  %>"
+                    class="img-fluid" style="width: 100px;"/>
+                <div>
+                    <%= data[index]._id.artistNameClean %>
+                    <code style="display: block;"><%= data[index].numOfLyrics%> lyrics</code>
+                </div>
+                
+            </a>
         </div>
         <% } %>
 </div>

@@ -118,6 +118,7 @@ export async function GET_MOST_POPULAR_ARTISTS() {
         $group: {
           _id: {
             artistName: "$artist_query",
+            artistNameClean: "$artist",
           },
           numOfLyrics: {
             $count: {},
@@ -131,8 +132,8 @@ export async function GET_MOST_POPULAR_ARTISTS() {
       },
     ]).toArray();
 
-    //only need top 9 artists
-    return data.slice(0, 9);
+    //only need top 12 artists
+    return data.slice(0, 12);
   } catch (e) {
     console.log(e);
     return null;
