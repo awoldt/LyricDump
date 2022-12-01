@@ -1,0 +1,13 @@
+<div class="row">
+    <h2>Most Popular Arists</h2>
+    <% for( let index=0; index < data.length; index++ ) { %>
+        <div class="col" style="float: bottom;">
+            <img src="/imgs/<%= data[index]._id.artistName %>.png" alt="<%= data[index]._id.artistName  %>"
+                class="img-fluid" style="height: 50px; width: 50px"/>
+
+            <span>
+                <%= data[index]._id.artistName %>
+            </span>
+        </div>
+        <% } %>
+</div>
