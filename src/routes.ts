@@ -36,6 +36,7 @@ router.get("/api", async (req, res) => {
   if (Object.keys(req.query).length !== 0) {
     const filter: filtered_lyric_query = req.query;
     const l: object | null = await GET_FILTERED_RANDOM_LYRIC(filter);
+
     //if no object keys, query doesnt match any lyrics
     if (l !== null) {
       if (Object.keys(l!).length === 0) {
@@ -45,7 +46,7 @@ router.get("/api", async (req, res) => {
       }
     } else {
       res
-        .status(500)
+        .status(400)
         .send("Error while fetching random lyric with current query");
     }
   }

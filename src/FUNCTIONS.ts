@@ -36,8 +36,14 @@ export async function GET_FILTERED_RANDOM_LYRIC(
 
   //convert release_date and explicit to correct type (all filtered_lyric_query objs come with keys all set to string)
   if (queryObj.hasOwnProperty("explicit")) {
-    queryObj.explicit = JSON.parse(queryObj.explicit); //should turn 'true' and 'false' (strings) into true and false (booleans)
+    if (queryObj.explicit !== "true" && queryObj.explicit !== "false") {
+      console.log("explicit query formatted incorrectly");
+      return null;
+    } else {
+      queryObj.explicit = JSON.parse(queryObj.explicit); //should turn 'true' and 'false' (strings) into true and false (booleans) MAKE SURE ACTUAL TRUE OR FALSE NO MISPELLINGS
+    }
   }
+  //turn year into number from string
   if (queryObj.hasOwnProperty("year")) {
     queryObj.year = Number(queryObj.year);
   }
