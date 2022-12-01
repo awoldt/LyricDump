@@ -10,8 +10,8 @@ const LYRICS = mongoClient.db("badrapapi-PROD").collection<lyric>("lyrics");
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: "AKIAXEY2SYGHHE3EM245",
-    secretAccessKey: "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",
+    accessKeyId: "AKIAXEY2SYGHPVS6ASBU",
+    secretAccessKey: "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",
   },
   region: "us-east-1",
 });
