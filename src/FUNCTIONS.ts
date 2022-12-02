@@ -158,7 +158,9 @@ export async function GET_ARTISTPAGE_DATA(artist: string) {
   try {
     const artistLyrics: lyric[] = await LYRICS.find({
       artist_query: artist,
-    }).toArray();
+    })
+      .sort({ year: -1 })
+      .toArray();
 
     if (artistLyrics.length === 0) {
       return null;

@@ -1,1 +1,23 @@
-<p>Lyrics!</p>
+
+<div style="background-color: white; padding: 10px">
+    <p>
+    <%= data.length %> lyrics ranging from
+</p>
+<hr>
+<% for( let index=0; index < data.length; index++ ) { %>
+
+    <div class="mb-3" style=" padding: 7px;">
+        <p style="margin-bottom: 0px;">
+            <%= data[index].lyrics %>
+        </p>
+        <span style="display: block;" class="text-muted">
+            <% if (data[index].explicit) { %>
+                <img src="/icons/explicit-fill.svg" />
+                <% } %>
+                <%= data[index].song %> (<%= data[index].year %>)
+        </span>
+    </div>
+
+    <% } %>
+</div>
+

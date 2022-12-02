@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" style="background-color: rgb(242, 242, 242);">
 
 <head>
-  
+
   <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
   <%- include('./navbar'); %>
-  <div class="container" style='margin-bottom: 50px; color: black' itemscope itemtype="https://schema.org/Person">
-    <div class="row">
-      <div class="col">
-        <%- include('./components/artistPageProfile', {data: artist_data.profile}); %>
+    <div class="container-fluid" style='margin-bottom: 50px; color: black; background-color: rgb(242, 242, 242); padding: 25px;' itemscope
+      itemtype="https://schema.org/Person">
+      <div class="container">
+        <div class="row p-5" style="background-color: white; padding: 15px; border-radius: 50px;">
+          <div class="col-xl-6">
+            <%- include('./components/artistPageProfile', {data: artist_data.profile}); %>
+          </div>
+          <div class="col">
+            <% if (artist_data.profile.about !==undefined && artist_data.profile.about !==null) { %>
+              <% for( let index = 0; index < artist_data.profile.about.length; index++ ) { %>
+              <p><%= artist_data.profile.about[index] %></p>
+              <% } %>
+              <% } %>
+            
+          </div>
+        </div>
+        <hr>
+        <%- include('./components/artistPageLyrics', {data: artist_data.lyrics}); %>
       </div>
-      <div class="col">
-        <%- include('./components/artistPageLyrics'); %>
-      </div>
+
     </div>
-  </div>
 </body>
 
 </html>

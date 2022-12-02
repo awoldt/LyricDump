@@ -3,4 +3,5 @@ export default interface artist {
   profile_img: string;
   name: string;
   nicknames: string[] | null;
+  about?: string[]
 }
