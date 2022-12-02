@@ -1,5 +1,5 @@
 <div class="row justify-content-center"
-  style="margin-top: 52px; margin-bottom: 100px; padding: 50px; border: 5px solid #ffc107; border-radius: 50px; background-color: white;">
+  style="margin-bottom: 100px; padding: 50px; border: 5px solid #ffc107; border-radius: 50px; background-color: white;">
   <span class="text-center" style="font-size: 30px; font-weight: bold;">Featured Lyrics</span>
   <p class="text-center text-muted" style=" margin-bottom: 25px;">List auto updates every 24hrs</p>
 
@@ -7,17 +7,27 @@
     <div class="col-lg-3 col-md-4 col-sm-6" itemscope itemtype="https://schema.org/MusicComposition">
       <a href="/artists/<%= featured_lyrics[i].artist_query %>" style="text-decoration: none;">
         <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-          <img src="/imgs/<%= featured_lyrics[i].artist_query %>.png" alt="<%= featured_lyrics[i].artist %>" class="img-fluid" style="border-radius: 20px;"/>
+          <img src="/imgs/<%= featured_lyrics[i].artist_query %>.png" alt="<%= featured_lyrics[i].artist %>"
+            class="img-fluid" style="border-radius: 20px;" />
 
           <p class="text-secondary text-center" itemprop="name">
             <%= featured_lyrics[i].artist %>
           </p>
         </div>
         <p class="text-center"
-          style="color: black; background-color: rgb(230, 230, 230, .5); padding: 25px; border-radius: 10px;">
-          "<span itemprop="lyrics"><%= featured_lyrics[i].lyrics %></span>"
+          style="color: black; background-color: rgb(230, 230, 230, .3); padding: 25px; border-radius: 10px; border: .5px solid black;">
+          "<span itemprop="lyrics">
+            <%= featured_lyrics[i].lyrics %>
+          </span>"
         </p>
       </a>
     </div>
     <% } %>
+      <a href="/artists" class="text-center">
+
+        <div class="btn btn-warning" style="max-width: 200px;">Explore Artists</div>
+      </a>
+
+
+
 </div>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LyricDump - Collection of the Worst Song Lyrics of all Time</title>
+  <title>LyricDump | Collection of the Worst Song Lyrics of all Time</title>
   <meta name="description"
     content="API for bad rap lyrics. Free to use with unlimited requests. Featuring lyrics from all of your favorite rappers." />
   <meta property="og:title" content="Bad Rap Lyrics API" />
@@ -34,11 +34,9 @@
           color: white;
           padding-top: 50px;
         ">
-        Easily discover bad song lyrics
+        LYRICDUMP
       </h1>
-      <p style="color: white;">Everybody loves a dumb song lyric, even your favorite artist will have one. The lyrics
-        that are so bad they make you stop and scratch your head. LyricDump is home to all of these lyrics. Sort through
-        an ever-growing collection of artists and have a good laugh. </p>
+
 
 
 
@@ -46,7 +44,30 @@
 
     <div class="container-fluid" style="background-color: rgb(242, 242, 242)">
       <div class="container" style="padding-top: 50px">
-        <p class="text-center" style="font-size: 35px">Over <code><b><%= homepage_stats.numberOfLyrics %></b></code>
+
+
+        <div style="background-color: white; padding: 25px;">
+          <h1 style="font-size: 20px;">Easily Discover Bad Song Lyrics</h1>
+          <p>Everybody loves a dumb song lyric, even your favorite artist will have one. Lyrics so bad they make you
+            stop and scratch your head wondering why that person said that. LyricDump is home to all of these lyrics.
+            Sort through
+            an ever-growing collection of artists and have a good laugh. </p>
+          <p>LyricDump is home to a collection of the worst song lyrics
+            ever written. This website was created in 2021 and featured only rappers, but has now grown to include
+            lyrics from many different tastes of music. We make it easy to find cringe-worthy and downright
+            awful song lyrics from any genre. The lyrics featured on the site are mostly from mainstream artists but
+            some indie music is featured as well.</p>
+          <p>
+            Overall, this is a great website for music fans who are looking for a laugh. It’s a great way to discover
+            (or re-discover) some truly terrible song lyrics and to share them with friends.</p>
+
+          <img src="/icons/explicit-fill.svg" style="margin-right: 5px;"/><p class="text-muted" style="font-size: 14px; display: inline-block;">Some lyrics may contain explicit language</p>
+
+
+          <%- include('./components/randomLyricBox', {data: random_lyric}) %>
+        </div>
+        <p class="text-center" style="font-size: 35px; margin-top: 50px;margin-bottom: 25px;">Over
+          <code><b><%= homepage_stats.numberOfLyrics %></b></code>
           lyrics across
           <code><b><%= homepage_stats.numberOfArtists %></b></code> artists ranging from
           <code><b><%= homepage_stats.years[0] %>-<%= homepage_stats.years[1] %></b></code>
@@ -57,24 +78,13 @@
 
 
 
-          <hr />
 
-          <div style="background-color: white; padding: 25px;">
-            <p>LyricDump is home to a collection of the worst song lyrics
-              ever written. This website was created in 2021 and featured only rappers, but has now grown to include
-              lyrics from many different tastes of music. We make it easy to find cringe-worthy and downright
-              awful song lyrics from any genre. The lyrics featured on the site are mostly from mainstream artists but
-              some indie music is featured as well.</p>
-            <p>
-              Overall, this is a great website for music fans who are looking for a laugh. It’s a great way to discover
-              (or re-discover) some truly terrible song lyrics and to share them with friends.</p>
-
-          </div>
 
 
 
           <div style="margin-top: 25px; margin-bottom: 50px;">
-            <a href="https://awoldt.com/" target="_blank" rel="noreferrer" style="text-decoration: none;" class="text-muted">
+            <a href="https://awoldt.com/" target="_blank" rel="noreferrer" style="text-decoration: none;"
+              class="text-muted">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-brush"
                 viewBox="0 0 16 16">
                 <path
@@ -82,12 +92,12 @@
               </svg>
               Made by awoldt
             </a>
-          </span>
+            </span>
+
+          </div>
 
       </div>
-
     </div>
-  </div>
 </body>
 
 </html>

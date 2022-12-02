@@ -4,6 +4,7 @@ import {
   GET_HOMEPAGE_DISPLAY_STATS,
   GET_MOST_POPULAR_ARTISTS,
   GET_RANDOM_LYRIC,
+  GET_RECENTLY_ADDED_LYRICS,
 } from "./FUNCTIONS";
 import lyric from "./interfaces/lyric";
 import { Router } from "express";
@@ -22,9 +23,12 @@ router.get("/", async (req, res) => {
 
     const featuredLyrics: featured_lyric[] | null = await GET_FEATURED_LYRICS();
 
+    const initialRandomLyric = await GET_RANDOM_LYRIC(false); //the first lyric displayed cannot be explicit
+
     res.render("homepage.ejs", {
       featured_lyrics: featuredLyrics,
       homepage_stats: homepageStats,
+      random_lyric: initialRandomLyric,
     });
   } catch (e) {
     console.log("error: could not get featured lyrics");
@@ -36,8 +40,11 @@ router.get("/", async (req, res) => {
 router.get("/artists", async (req, res) => {
   const topArtists: top_artists[] | null = await GET_MOST_POPULAR_ARTISTS();
 
+  const recentlyAddedLyrics: lyric[] | null = await GET_RECENTLY_ADDED_LYRICS();
+
   res.render("artists", {
     top_artists: topArtists,
+    recently_added_lyrics: recentlyAddedLyrics,
   });
 });
 
@@ -46,32 +53,11 @@ router.get("/artists", async (req, res) => {
 ///////////////////////////////////////////////////
 
 // (/api)
-router.get("/api", async (req, res) => {
-  //?FILTER
-  if (Object.keys(req.query).length !== 0) {
-    const filter: filtered_lyric_query = req.query;
-    const l: object | null = await GET_FILTERED_RANDOM_LYRIC(filter);
-
-    //if no object keys, query doesnt match any lyrics
-    if (l !== null) {
-      if (Object.keys(l!).length === 0) {
-        res.status(404).json({ message: "No lyrics match current query" });
-      } else {
-        res.send(l);
-      }
-    } else {
-      res
-        .status(400)
-        .send("Error while fetching random lyric with current query");
-    }
-  }
-  //RANDOM
-  else {
-    const l: lyric | null = await GET_RANDOM_LYRIC();
-    l !== null
-      ? res.json(l)
-      : res.status(500).send("Error while fetching random lyric");
-  }
+router.get("/api/rl", async (req, res) => {
+  const l: lyric | null = await GET_RANDOM_LYRIC(req.query.explicit === "true");
+  l !== null
+    ? res.json(l)
+    : res.status(500).send("Error while fetching random lyric");
 });
 
 export default router;

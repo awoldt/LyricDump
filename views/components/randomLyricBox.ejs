@@ -1,0 +1,34 @@
+<div class="text-center" style="margin-top: 75px;">
+    <p>
+        <i style="font-size: 18px" id="random_lyric_text">"<%= data.lyrics %>"</i> -
+        <span id="random_lyric_artist">
+            <%=data.artist %>
+        </span>
+    </p>
+    <button id="random_btn" style="margin-right: 10px;">Random</button>
+    <input type="checkbox" id="explicit_checkbox" />
+    <label for="explicit_checkbox">Explicit</label>
+</div>
+<script>
+    let explicitLyrics = false;
+
+    async function getRandomLyric(isExplicit) {
+        try {
+            const res = await fetch("/api/rl?explicit=" + isExplicit);
+            const data = await res.json();
+            console.log(data)
+
+            document.getElementById("random_lyric_text").innerText = '"' + data.lyrics + '"';
+            document.getElementById("random_lyric_artist").innerText = data.artist;
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+    document.getElementById("random_btn").addEventListener("click", async () => {
+        await getRandomLyric(explicitLyrics);
+    });
+    document.getElementById("explicit_checkbox").addEventListener("change", (e) => {
+        explicitLyrics = e.target.checked;
+    })
+</script>

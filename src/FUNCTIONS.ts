@@ -17,9 +17,11 @@ const s3 = new S3Client({
   region: "us-east-1",
 });
 
-export async function GET_RANDOM_LYRIC() {
+export async function GET_RANDOM_LYRIC(isExplicit: boolean) {
   try {
-    const lyrics: lyric[] = await LYRICS.find({}).toArray();
+    const lyrics: lyric[] = await LYRICS.find({
+      explicit: isExplicit,
+    }).toArray();
     const randomLyric = lyrics[Math.floor(Math.random() * lyrics.length)];
     //remove _id
     delete randomLyric._id;
@@ -33,8 +35,6 @@ export async function GET_RANDOM_LYRIC() {
 export async function GET_FILTERED_RANDOM_LYRIC(
   queryObj: filtered_lyric_query
 ) {
-  //use this function when a url query is in /api route
-
   //convert release_date and explicit to correct type (all filtered_lyric_query objs come with keys all set to string)
   if (queryObj.hasOwnProperty("explicit")) {
     if (queryObj.explicit !== "true" && queryObj.explicit !== "false") {
@@ -134,6 +134,16 @@ export async function GET_MOST_POPULAR_ARTISTS() {
 
     //only need top 12 artists
     return data.slice(0, 12);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function GET_RECENTLY_ADDED_LYRICS() {
+  try {
+    const lyrics: lyric[] = (await LYRICS.find({}).toArray()).reverse();
+    return lyrics.slice(0, 12);
   } catch (e) {
     console.log(e);
     return null;
