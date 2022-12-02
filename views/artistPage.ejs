@@ -3,198 +3,24 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>
-    <%= artist_data[0].artist %>'s Worst Lyrics
-  </title>
-  <meta name="description" content="Discover some of <%= artist_data[0].artist %>'s worst rap lyrics">
-  <meta property="og:title" content="<%= artist_data[0].artist %>'s Worst Rap Lyrics" />
-  <meta property="og:description" content="A collection of <%= artist_data[0].artist %>'s worst rap lyrics" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" />
-
-  <% if(artist_profile != undefined) { %>
-  <meta property="og:image" content="https://badrapapi.com<%= artist_profile[0].img_href %>" />
-  <% } else { %>
-  <meta property="og:image" content="https://badrapapi.com/no-img.png" />
-  <% } %>
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-
-
-  <link rel="canonical" href="https://badrapapi.com/artists/<%= artist_data[0].artist_query %>" />
-
+  
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  
-  <!--Adsense-->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4106301283765460" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <%- include('./navbar'); %>
-  <div class="container" style='margin-bottom: 50px;' itemscope itemtype="https://schema.org/Person">
-
-
-
-
-
-    <div class="row mt-5">
-
-
-
-      <div   class="col-lg-5" id='parent-profile-div'>
-        <%- include('./searchBar') %>
-        <div id='profile-div' >
-          <% if(artist_profile != undefined) { %>
-          <div class="text-center">
-            <img alt='<%= artist_data[0].artist %>' src='<%= artist_profile[0].img_href %>' itemprop="image" />
-          </div>
-
-          <% } %>
-
-
-
-          <div>
-            <h1 class="text-center" style='margin-top: 25px;'><span itemprop="name"><%= artist_data[0].artist %></span>'s Worst Lyrics</h1>
-
-
-
-            <% if(artist_profile !== undefined) { %>
-
-            <% if(artist_profile[0].nicknames.length !== 0) { %>
-            <p class='text-secondary text-center'>Also know as <% if(artist_profile[0].nicknames.length == 1) { %>
-              <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[0] %></i></span>
-              <% } else if(artist_profile[0].nicknames.length == 2) { %>
-              <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[0] %></i></span> or <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[1] %></i></span>
-              <% } else { %>
-              <% for(var i=0; i<artist_profile[0].nicknames.length; ++i) { %>
-              <% if(i == artist_profile[0].nicknames.length-1) { %>
-              or <span itemprop="alternateName"><i><%= artist_profile[0].nicknames[i]  %></i></span>
-              <% } else { %>
-              <span itemprop="alternateName"><i><%=  artist_profile[0].nicknames[i] %></i></span>,
-              <% } %>
-              <% } %>
-              <% } %>
-
-            </p>
-            <% } %>
-            <% if(artist_profile[0].description !== undefined) { %>
-            <%- include('./artistDescription', {about: artist_profile[0].description}) %>
-            <% } %>
-            <% } %>
-
-
-
-            <p class="text-center"><code style='color: black'>Send a GET request to <a href='/api/filter?artist=<%= artist_data[0].artist_query %>' style='text-decoration: none;'>/api/filter?artist=<%= artist_data[0].artist_query %></a> for JSON data</code></p>
-         
-
-          
-
-
-
-          </div>
-
-
-
-
-        </div>
+  <div class="container" style='margin-bottom: 50px; color: black' itemscope itemtype="https://schema.org/Person">
+    <div class="row">
+      <div class="col">
+        <%- include('./components/artistPageProfile', {data: artist_data.profile}); %>
       </div>
-
-
-
-      <div class="col-lg-7">
-
-
-        <hr>
-
-        <% if(has_explicit_song.length !==0) { %>
-        <div class="alert alert-danger p-3" role="alert"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-explicit" viewBox="0 0 16 16">
-            <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
-            <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
-          </svg>
-          <p class="m-0" style="display: inline;">Some songs contain explicit lyrics</p>
-        </div>
-
-        <% } %>
-
-
-
-        <div>
-          <%  if(artist_data.length == 1) { %>
-          <h2> <code style="color: black"><%= artist_data.length %> lyric</code></h2>
-          <% } else { %>
-          <h2> <code style="color: black"> <%= artist_data.length %> of <%= artist_data[0].artist %>'s Worst lyrics</code></h2>
-          <% }   %>
-
-          <% if(artist_data.length == 1) { %>
-          <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-            </svg> Lyric from <a href='/year/<%= lyrics_years_range[0] %>'><%= lyrics_years_range[0] %></a></p>
-          <% } else { %>
-          <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-            </svg> Lyrics from <% for(var i=0; i<lyrics_years_range.length; ++i) { %>
-            <% if(i == lyrics_years_range.length-1) { %>
-            <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a>
-            <% } else { %>
-            <a href='/year/<%= lyrics_years_range[i] %>'><%= lyrics_years_range[i] %></a> &middot;
-            <% } %>
-            <% } %>
-          </p>
-          <% } %>
-
-          <div style='background-color: rgb(242, 242, 242, .5); padding: 3vw; border-radius: 10px;' >
-            <% for(var i=0; i<artist_data.length; ++i) { %>
-            <div style="background-color: rgb(230, 230, 230, .5); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid black;" itemscope itemtype="https://schema.org/MusicComposition">
-              <% if(artist_data[i].explicit) { %>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-explicit" viewBox="0 0 16 16">
-                <path d="M6.826 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
-                <path d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z" />
-              </svg>
-
-              <% } %>
-              <p style="display: inline; font-size: 14px;"><i style="font-size: 20px;">"<span itemprop="lyrics"><%= artist_data[i].lyrics %></span>"</i>
-                (<span itemprop="name"><%= artist_data[i].song %></span>, <span itemprop="copyrightYear"><%= artist_data[i].release_date %></span>)</p>
-
-              <% if(artist_data[i].explanation !== undefined) { %>
-              <div style="padding: 10px; background-color: rgb(255, 255, 0, .5); margin-top: 10px;">
-                <span><u>Explanation:</u></span>
-                <p style="margin-bottom: 0px;" itemprop="description"><%= artist_data[i].explanation %></p>
-              </div>
-              <% } %>
-
-            </div>
-            <% } %>
-          </div>
-        </div>
-
-        <% if(related_artists !== undefined) { %>
-        <hr>
-       
-        <%- include('./relatedArtists', {related_data: related_artists}) %>
-        <% } %>
-
-
+      <div class="col">
+        <%- include('./components/artistPageLyrics'); %>
       </div>
-
-
-
     </div>
-
-
-
-
-
   </div>
 </body>
 

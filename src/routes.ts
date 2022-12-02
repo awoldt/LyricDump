@@ -1,4 +1,5 @@
 import {
+  GET_ARTISTPAGE_DATA,
   GET_FEATURED_LYRICS,
   GET_FILTERED_RANDOM_LYRIC,
   GET_HOMEPAGE_DISPLAY_STATS,
@@ -12,6 +13,7 @@ import filtered_lyric_query from "./interfaces/filtered_query_lyric";
 import homepage_display_stats from "./interfaces/homepage_display_stats";
 import featured_lyric from "./interfaces/featured_lyrics";
 import top_artists from "./interfaces/top_artists_aggregate";
+import artist_page_data from "./interfaces/artist_page_data";
 
 const router = Router();
 
@@ -48,11 +50,32 @@ router.get("/artists", async (req, res) => {
   });
 });
 
+// (/artists/:artust_query)
+router.get("/artists/:ARTIST_QUERY", async (req, res) => {
+  console.log(req.params);
+
+  const artistData: artist_page_data | null = await GET_ARTISTPAGE_DATA(
+    req.params.ARTIST_QUERY
+  );
+  console.log(artistData);
+
+  if (artistData === null) {
+    res
+      .status(404)
+      .send("Cannot find artist '" + req.params.ARTIST_QUERY + "'");
+  } else {
+    res.render("artistPage", {
+      artist_data: artistData,
+    });
+  }
+});
+
 ///////////////////////////////////////////////////
 //API ENPOINTS
 ///////////////////////////////////////////////////
 
-// (/api)
+//return random lyric
+//must specify if explicit
 router.get("/api/rl", async (req, res) => {
   const l: lyric | null = await GET_RANDOM_LYRIC(req.query.explicit === "true");
   l !== null
