@@ -1,15 +1,15 @@
 <div class="text-center">
-    <img src="<%= data.profile_img %>" alt="<%= data.name %>" class="img-fluid"
-        style="width: 400px; border-radius: 150px" />
-    <h1>
+    <img src="<%= data.profile_img %>" alt="<%= data.name %>" class="img-fluid pt-4"
+        style="width: 400px; border-radius: 150px" itemprop="image"/>
+    <h1 itemprop="name">
         <%= data.name %>
     </h1>
     <% if (data.nicknames !==null) { %>
         <p class="text-muted">Also know as <% for( let index=0; index < data.nicknames.length; index++ ) { %>
                 <% if (index===data.nicknames.length-1) { %>
-                    and <%= data.nicknames[index] %>
+                    and <span itemprop="alternateName"><%= data.nicknames[index] %></span>
                         <% } else { %>
-                            <%= data.nicknames[index] %>,
+                            <span itemprop="alternateName"><%= data.nicknames[index] %></span>,
                                 <% } %>
                                     <% } %>
         </p>

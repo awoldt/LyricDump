@@ -24,4 +24,17 @@ export const curse_words_list: curse_word_list[] = [
     word: "asshole",
     cleanDisplay: "a*shole",
   },
+  {
+    word: "pussy",
+    cleanDisplay: "p*ssy",
+  },
+  {
+    word: "dick",
+    cleanDisplay: "d*ck",
+  },
+  {
+    word: "motherfucker",
+    cleanDisplay: "motherf*cker",
+  },
+  
 ];

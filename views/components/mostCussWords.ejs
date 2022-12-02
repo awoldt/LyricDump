@@ -1,14 +1,6 @@
 <div class="row" style="background-color: white; padding: 25px;">
     <h2>Most Explicit Lyrics</h2>
-    <ul>
-        <% for( let index=0; index < occurences.length; index++ ) { %>
-            <li>
-                <p style="margin-bottom: 0px;">
-                    <%= occurences[index].word %> appears <%= occurences[index].occurences %> times
-                </p>
-            </li>
-            <% } %>
-    </ul>
+    
     <% for( let index=0; index < data.length; index++ ) { %>
         <div class="col-xl-2 col-4" style="float: bottom;">
             <a href="/artists/<%= data[index]._id %>" style="text-decoration: none; color: black">
@@ -16,10 +8,20 @@
                     style="width: 100px;" />
                 <div>
                     <%= data[index].artistName %>
-                        <code style="display: block;"><%= data[index].totalCussWordLyrics%> explicit lyrics</code>
+                        <code style="display: block; font-weight: bold;"><%= data[index].totalCussWordLyrics%> explicit lyrics</code>
                 </div>
 
             </a>
         </div>
         <% } %>
+        <p style="margin-bottom: 0px; margin-top: 25px; font-weight: bold;">Throughout the entire dataabse:</p>
+        <ul >
+        <% for( let index=0; index < occurences.length; index++ ) { %>
+            <li>
+                <p style="margin-bottom: 0px;">
+                    The word <%= occurences[index].word %> appears <%= occurences[index].occurences %> times
+                </p>
+            </li>
+            <% } %>
+    </ul>
 </div>

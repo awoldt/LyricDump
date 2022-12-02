@@ -1,14 +1,12 @@
 import { MongoClient } from "mongodb";
-const dbClient = new MongoClient(
-  "mongodb+srv://awoldt:OVyWeV7LosswdGUg@aws-us-east-1.94lch.mongodb.net/?retryWrites=true&w=majority"
-);
-const NEWLYRICS = dbClient.db("badrapapi-PROD").collection("lyrics");
-const new_artists = dbClient.db("badrapapi-PROD").collection("artists");
+const dbClient = new MongoClient(process.env.MONGODB_CONNECTION_URI);
+const NEWLYRICS = dbClient.db(process.env.DB).collection("lyrics");
+const new_artists = dbClient.db(process.env.DB).collection("artists");
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: "AKIAXEY2SYGHPVS6ASBU",
-    secretAccessKey: "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",
+    accessKeyId: process.env.AWS_IAM_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_IAM_SECRET_ACCESS_KEY,
   },
   region: "us-east-1",
 });
@@ -41,6 +39,7 @@ export const scheduledEventLoggerHandler = async (event, context) => {
   //now pick 4 random lyrics and combine with artist profile img
   //cannot have the same artist twice
   //cannot be explicit
+  //cannot be longer than 50 characters
   let selectedFeaturedLyrics = [];
   let randomIndexUsed = [];
   let artistsUsed = [];
@@ -50,7 +49,8 @@ export const scheduledEventLoggerHandler = async (event, context) => {
     if (
       !randomIndexUsed.includes(r) &&
       !artistsUsed.includes(validLyrics[r].artist_query) &&
-      !validLyrics[r].explicit
+      !validLyrics[r].explicit &&
+      validLyrics[r].lyrics.length < 50
     ) {
       randomIndexUsed.push(r);
       artistsUsed.push(validLyrics[r].artist_query);
@@ -68,8 +68,6 @@ export const scheduledEventLoggerHandler = async (event, context) => {
       selectedFeaturedLyrics.push(v);
     }
   }
-
-  console.log(selectedFeaturedLyrics);
 
   const uploadUpdatedFeaturedLyrics = new PutObjectCommand({
     Bucket: "badrapapi",

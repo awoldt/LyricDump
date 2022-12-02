@@ -10,8 +10,8 @@ import { curse_words_list } from "./data/curseWords";
 import curse_word_occurences from "./interfaces/curse_word_occurences";
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: "AKIAXEY2SYGHPVS6ASBU",
-    secretAccessKey: "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",
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
   },
   region: "us-east-1",
 });
@@ -110,7 +110,9 @@ export async function GET_MOST_POPULAR_ARTISTS() {
 
 export async function GET_RECENTLY_ADDED_LYRICS() {
   try {
-    const lyrics: lyric[] = (await LYRICS.find({}).toArray()).reverse();
+    const lyrics: lyric[] = (
+      await LYRICS.find({ explicit: false }).toArray()
+    ).reverse();
     return lyrics.slice(0, 12);
   } catch (e) {
     console.log(e);
@@ -218,10 +220,9 @@ export async function GET_MOST_USED_CUSS_WORDS() {
       },
     ]).toArray();
 
-    //loop through all lyrics and count number of times each curse word appears
+    //loop through all the curse words possible and tally the number of times it appears across the database
     const returnData: curse_word_occurences[] = curse_words_list
       .map((curseWord: any) => {
-        //loop through all the lyrics and find how many times each curse word appears
         return {
           word: curseWord.cleanDisplay,
           occurences: lyrics
@@ -231,6 +232,9 @@ export async function GET_MOST_USED_CUSS_WORDS() {
             })
             .reduce((num1, num2) => num1 + num2),
         };
+      })
+      .filter((x) => {
+        return x.occurences > 1;
       })
       .sort((a: curse_word_occurences, b: curse_word_occurences) => {
         return b.occurences - a.occurences;

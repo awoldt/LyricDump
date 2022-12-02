@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import path from "path";
 import router from "./routes";
@@ -5,24 +8,15 @@ import compression from "compression";
 import { MongoClient } from "mongodb";
 import lyric from "./interfaces/lyric";
 import artist from "./interfaces/artist";
-const mongoClient = new MongoClient(
-  "mongodb+srv://awoldt:OVyWeV7LosswdGUg@aws-us-east-1.94lch.mongodb.net/?retryWrites=true&w=majority"
-);
+const mongoClient = new MongoClient(process.env.MONGODB_CONNECTION_URI!);
 export const LYRICS = mongoClient
-  .db("badrapapi-PROD")
+  .db(process.env.DB)
   .collection<lyric>("lyrics");
 export const ARTISTS = mongoClient
-  .db("badrapapi-PROD")
+  .db(process.env.DB)
   .collection<artist>("artists");
 
 const app = express();
-app.set("views", path.join(__dirname, "..", "/views"));
-app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "..", "/public")));
-app.use(compression());
-
-app.use("/", router); //all routes for app
-
 app.listen("8080", async () => {
   try {
     await mongoClient.connect();
@@ -33,3 +27,10 @@ app.listen("8080", async () => {
     console.log("could not establish connection to database");
   }
 });
+
+app.set("views", path.join(__dirname, "..", "/views"));
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "..", "/public")));
+app.use(compression());
+
+app.use("/", router); //all routes for app

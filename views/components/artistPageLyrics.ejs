@@ -1,19 +1,26 @@
 <div style="background-color: white; padding: 10px">
     <p class="text-center" style="font-size: 20px;">
-        <code style="font-weight: bold; font-size: 30px;"><%= data.length %></code> lyrics
+        <code style="font-weight: bold; font-size: 30px;"><%= data.length %></code><% if (data.length > 1) { %>
+            lyrics
+        <% }else { %>
+            lyric
+        <% }%>
     </p>
     <hr>
     <% for( let index=0; index < data.length; index++ ) { %>
 
-        <div class="mb-3" style=" padding: 7px;">
+        <div class="mb-3" style=" padding: 7px;"  itemscope
+        itemtype="https://schema.org/MusicComposition">
             <% if (data[index].explicit) { %>
-                <img src="/icons/explicit-fill.svg" />
+                <img src="/icons/explicit-fill.svg" alt="explicit icon"/>
                 <% } %>
                     <p style="margin-bottom: 0px; display: initial; margin-left: 5px;">
-                        <%= data[index].lyrics %> <span class="text-muted">
+                        <span  itemprop="lyrics">
+                            <%= data[index].lyrics %>
+                        </span> <span class="text-muted">
 
-                                - <%= data[index].song %> (<%= data[index].year %>)
-                            </span>
+                            - <span itemprop="name"><%= data[index].song %></span> (<span itemprop="copyrightYear"><%= data[index].year %></span>)
+                        </span>
                     </p>
 
                     <% if (data[index].explanation !==undefined && data[index].explanation !==null) { %>
