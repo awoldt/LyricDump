@@ -16,6 +16,7 @@ import top_artists from "./interfaces/top_artists_aggregate";
 import artist_page_data from "./interfaces/artist_page_data";
 import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
 import curse_word_occurences from "./interfaces/curse_word_occurences";
+import { ARTISTS } from "./app";
 
 const router = Router();
 
@@ -88,6 +89,21 @@ router.get("/api/rl", async (req, res) => {
   l !== null
     ? res.json(l)
     : res.status(500).send("Error while fetching random lyric");
+});
+
+router.get("/api/search", async (req, res) => {
+  //use search aggregator in mongodb to search artists index for relevant results
+  const data = await ARTISTS.aggregate([
+    { $match: { $text: { $search: String(req.query.q) } } },
+    {
+      $project: {
+        artistName: "$name",
+        artist_query: "$artist_query",
+      },
+    },
+  ]).toArray();
+
+  res.json(data);
 });
 
 export default router;

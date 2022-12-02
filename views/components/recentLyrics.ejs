@@ -11,7 +11,7 @@
                         <i>
                             <%= data[index].lyrics %>
                         </i> - <span class="text-muted">
-                            <%= data[index].artist %>
+                            <a href="/artists/<%= data[index].artist_query %>"><%= data[index].artist %></a>
                         </span>
                     </p>
         </div>

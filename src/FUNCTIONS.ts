@@ -239,7 +239,7 @@ export async function GET_MOST_USED_CUSS_WORDS() {
       .sort((a: curse_word_occurences, b: curse_word_occurences) => {
         return b.occurences - a.occurences;
       });
-    console.log(returnData);
+
     return returnData;
   } catch (e) {
     console.log(e);

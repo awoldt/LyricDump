@@ -36,5 +36,4 @@ export const curse_words_list: curse_word_list[] = [
     word: "motherfucker",
     cleanDisplay: "motherf*cker",
   },
-  
 ];

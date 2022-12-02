@@ -1,13 +1,26 @@
-<div class="text-center" style="margin-top: 75px;">
-    <p>
-        <i style="font-size: 18px" id="random_lyric_text">"<%= data.lyrics %>"</i> -
-        <span id="random_lyric_artist">
-            <%=data.artist %>
-        </span>
-    </p>
-    <button id="random_btn" style="margin-right: 10px;">Random</button>
-    <input type="checkbox" id="explicit_checkbox" />
-    <label for="explicit_checkbox">Explicit</label>
+<div class="row text-center" style="margin-top: 75px;">
+
+    <div class="col">
+        <p>
+            <i style="font-size: 18px" id="random_lyric_text">"<%= data.lyrics %>"</i> -
+            <span id="random_lyric_artist">
+                <%=data.artist %>
+            </span>
+        </p>
+        <button id="random_btn" style="margin-right: 10px;">Random</button>
+        <input type="checkbox" id="explicit_checkbox" />
+        <label for="explicit_checkbox">Explicit</label>
+    </div>
+
+    <div class="col" style="padding-top: 17.5px;">
+        <a href="/artists" class="text-center" title="Explore all artists">
+
+            <div class="btn btn-warning" style="max-width: 200px; font-size: 23px;"><img src="/icons/person-circle.svg"
+                    alt="person icon" style="margin-right: 5px;" />Explore Artists</div>
+        </a>
+    </div>
+
+
 </div>
 <script>
     let explicitLyrics = false;
