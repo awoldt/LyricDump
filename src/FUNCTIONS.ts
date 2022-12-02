@@ -11,6 +11,7 @@ const ARTISTS = mongoClient.db("badrapapi-PROD").collection<artist>("artists");
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import top_artists from "./interfaces/top_artists_aggregate";
 import artist_page_data from "./interfaces/artist_page_data";
+import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
 const s3 = new S3Client({
   credentials: {
     accessKeyId: "AKIAXEY2SYGHPVS6ASBU",
@@ -165,38 +166,39 @@ export async function GET_ARTISTPAGE_DATA(artist: string) {
 export async function GET_RAPPERS_WHO_CUSS_THE_MOST() {
   //runs an aggregate on all the lyrics stored in database and groups all the explicit lyrics to an individual artist
   try {
-    const data = await LYRICS.aggregate([
-      {
-        $match: {
-          explicit: true,
-        },
-      },
-      {
-        $group: {
-          _id: {
-            artistName: "$artist",
-            artistQuery: "$artist_query",
-          },
-          totalCussWordLyrics: {
-            $count: {},
+    const data: artist_cuss_word_aggregate[] | null =
+      await LYRICS.aggregate<artist_cuss_word_aggregate>([
+        {
+          $match: {
+            explicit: true,
           },
         },
-      },
-      {
-        $limit: 12,
-      },
-      {
-        $match: {
-          totalCussWordLyrics: {
-            $gt: 1,
+        {
+          $group: {
+            _id: "$artist_query",
+            artistName: {
+              $first: "$artist",
+            },
+            totalCussWordLyrics: {
+              $count: {},
+            },
           },
         },
-      },
-    ])
-      .sort({ totalCussWordLyrics: -1 })
-      .toArray();
-    console.log(data);
+        {
+          $match: {
+            totalCussWordLyrics: {
+              $gt: 1,
+            },
+          },
+        },
+      ])
+        .sort({ totalCussWordLyrics: -1 })
+        .toArray();
+   
+
+    return data.slice(0, 6);
   } catch (e) {
     console.log(e);
+    return null;
   }
 }

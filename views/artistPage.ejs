@@ -19,9 +19,9 @@
       style='margin-bottom: 50px; color: black; background-color: rgb(242, 242, 242); padding: 25px;' itemscope
       itemtype="https://schema.org/Person">
       <div class="container">
-        <% if (artist_data.profile !==null) { %>
-          <div class="row p-5" style="background-color: white; padding: 15px; border-radius: 50px;">
-            <div class="col-xl-6">
+        <% if (artist_data.profile !== null) { %>
+          <div class="row p-5" style="background-color: white; padding: 15px; border-radius: 50px; border: 5px solid #ffc107;">
+            <div class="col-xl-6" >
               <%- include('./components/artistPageProfile', {data: artist_data.profile}); %>
             </div>
             <div class="col">

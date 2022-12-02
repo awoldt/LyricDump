@@ -13,6 +13,7 @@ import homepage_display_stats from "./interfaces/homepage_display_stats";
 import featured_lyric from "./interfaces/featured_lyrics";
 import top_artists from "./interfaces/top_artists_aggregate";
 import artist_page_data from "./interfaces/artist_page_data";
+import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
 
 const router = Router();
 
@@ -43,11 +44,13 @@ router.get("/artists", async (req, res) => {
 
   const recentlyAddedLyrics: lyric[] | null = await GET_RECENTLY_ADDED_LYRICS();
 
-  await GET_RAPPERS_WHO_CUSS_THE_MOST();
+  const aritstsWhoCussTheMost: artist_cuss_word_aggregate[] | null =
+    await GET_RAPPERS_WHO_CUSS_THE_MOST();
 
   res.render("artists", {
     top_artists: topArtists,
     recently_added_lyrics: recentlyAddedLyrics,
+    artist_who_cuss_the_most: aritstsWhoCussTheMost,
   });
 });
 
