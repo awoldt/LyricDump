@@ -1,17 +1,11 @@
-import { MongoClient } from "mongodb";
 import lyric from "./interfaces/lyric";
-import artist from "./interfaces/artist";
 import homepage_display_stats from "./interfaces/homepage_display_stats";
-const mongoClient = new MongoClient(
-  "mongodb+srv://awoldt:OVyWeV7LosswdGUg@aws-us-east-1.94lch.mongodb.net/?retryWrites=true&w=majority"
-);
-const LYRICS = mongoClient.db("badrapapi-PROD").collection<lyric>("lyrics");
-const ARTISTS = mongoClient.db("badrapapi-PROD").collection<artist>("artists");
 
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import top_artists from "./interfaces/top_artists_aggregate";
 import artist_page_data from "./interfaces/artist_page_data";
 import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
+import { ARTISTS, LYRICS } from "./app";
 const s3 = new S3Client({
   credentials: {
     accessKeyId: "AKIAXEY2SYGHPVS6ASBU",
@@ -194,7 +188,6 @@ export async function GET_RAPPERS_WHO_CUSS_THE_MOST() {
       ])
         .sort({ totalCussWordLyrics: -1 })
         .toArray();
-   
 
     return data.slice(0, 6);
   } catch (e) {

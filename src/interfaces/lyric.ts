@@ -6,4 +6,5 @@ export default interface lyric {
   year: number;
   explicit: boolean;
   artist_query: string;
+  explanation?: string;
 }

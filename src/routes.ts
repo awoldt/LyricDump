@@ -56,8 +56,6 @@ router.get("/artists", async (req, res) => {
 
 // (/artists/:artust_query)
 router.get("/artists/:ARTIST_QUERY", async (req, res) => {
-  console.log(req.params);
-
   const artistData: artist_page_data | null = await GET_ARTISTPAGE_DATA(
     req.params.ARTIST_QUERY
   );

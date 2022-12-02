@@ -1,23 +1,27 @@
-
 <div style="background-color: white; padding: 10px">
-    <p>
-    <%= data.length %> lyrics ranging from
-</p>
-<hr>
-<% for( let index=0; index < data.length; index++ ) { %>
+    <p class="text-center" style="font-size: 20px;">
+        <code style="font-weight: bold; font-size: 30px;"><%= data.length %></code> lyrics
+    </p>
+    <hr>
+    <% for( let index=0; index < data.length; index++ ) { %>
 
-    <div class="mb-3" style=" padding: 7px;">
-        <p style="margin-bottom: 0px;">
-            <%= data[index].lyrics %>
-        </p>
-        <span style="display: block;" class="text-muted">
+        <div class="mb-3" style=" padding: 7px;">
             <% if (data[index].explicit) { %>
                 <img src="/icons/explicit-fill.svg" />
                 <% } %>
-                <%= data[index].song %> (<%= data[index].year %>)
-        </span>
-    </div>
+                    <p style="margin-bottom: 0px; display: initial; margin-left: 5px;">
+                        <%= data[index].lyrics %> <span class="text-muted">
 
-    <% } %>
+                                - <%= data[index].song %> (<%= data[index].year %>)
+                            </span>
+                    </p>
+
+                    <% if (data[index].explanation !==undefined && data[index].explanation !==null) { %>
+                        <p><mark>
+                                <%= data[index].explanation %>
+                            </mark></p>
+                        <% } %>
+        </div>
+
+        <% } %>
 </div>
-
