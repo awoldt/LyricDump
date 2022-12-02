@@ -6,6 +6,8 @@ import top_artists from "./interfaces/top_artists_aggregate";
 import artist_page_data from "./interfaces/artist_page_data";
 import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
 import { ARTISTS, LYRICS } from "./app";
+import { curse_words_list } from "./data/curseWords";
+import curse_word_occurences from "./interfaces/curse_word_occurences";
 const s3 = new S3Client({
   credentials: {
     accessKeyId: "AKIAXEY2SYGHPVS6ASBU",
@@ -185,11 +187,56 @@ export async function GET_RAPPERS_WHO_CUSS_THE_MOST() {
             },
           },
         },
-      ])
-        .sort({ totalCussWordLyrics: -1 })
-        .toArray();
+        {
+          $sort: {
+            totalCussWordLyrics: -1,
+          },
+        },
+      ]).toArray();
 
     return data.slice(0, 6);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function GET_MOST_USED_CUSS_WORDS() {
+  try {
+    const lyrics = await LYRICS.aggregate([
+      {
+        $match: {
+          explicit: true,
+        },
+      },
+      {
+        $project: {
+          lyricsTxt: {
+            $toLower: "$lyrics",
+          },
+        },
+      },
+    ]).toArray();
+
+    //loop through all lyrics and count number of times each curse word appears
+    const returnData: curse_word_occurences[] = curse_words_list
+      .map((curseWord: any) => {
+        //loop through all the lyrics and find how many times each curse word appears
+        return {
+          word: curseWord.cleanDisplay,
+          occurences: lyrics
+            .map((lyric) => {
+              var regex = new RegExp(curseWord.word, "g");
+              return (lyric.lyricsTxt.match(regex) || []).length;
+            })
+            .reduce((num1, num2) => num1 + num2),
+        };
+      })
+      .sort((a: curse_word_occurences, b: curse_word_occurences) => {
+        return b.occurences - a.occurences;
+      });
+    console.log(returnData);
+    return returnData;
   } catch (e) {
     console.log(e);
     return null;

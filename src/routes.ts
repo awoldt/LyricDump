@@ -3,6 +3,7 @@ import {
   GET_FEATURED_LYRICS,
   GET_HOMEPAGE_DISPLAY_STATS,
   GET_MOST_POPULAR_ARTISTS,
+  GET_MOST_USED_CUSS_WORDS,
   GET_RANDOM_LYRIC,
   GET_RAPPERS_WHO_CUSS_THE_MOST,
   GET_RECENTLY_ADDED_LYRICS,
@@ -14,6 +15,7 @@ import featured_lyric from "./interfaces/featured_lyrics";
 import top_artists from "./interfaces/top_artists_aggregate";
 import artist_page_data from "./interfaces/artist_page_data";
 import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
+import curse_word_occurences from "./interfaces/curse_word_occurences";
 
 const router = Router();
 
@@ -47,10 +49,14 @@ router.get("/artists", async (req, res) => {
   const aritstsWhoCussTheMost: artist_cuss_word_aggregate[] | null =
     await GET_RAPPERS_WHO_CUSS_THE_MOST();
 
+  const curseWordOccurences: curse_word_occurences[] | null =
+    await GET_MOST_USED_CUSS_WORDS();
+
   res.render("artists", {
     top_artists: topArtists,
     recently_added_lyrics: recentlyAddedLyrics,
     artist_who_cuss_the_most: aritstsWhoCussTheMost,
+    curseWordOccurences: curseWordOccurences,
   });
 });
 
