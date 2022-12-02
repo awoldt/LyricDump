@@ -1,15 +1,14 @@
 import {
   GET_ARTISTPAGE_DATA,
   GET_FEATURED_LYRICS,
-  GET_FILTERED_RANDOM_LYRIC,
   GET_HOMEPAGE_DISPLAY_STATS,
   GET_MOST_POPULAR_ARTISTS,
   GET_RANDOM_LYRIC,
+  GET_RAPPERS_WHO_CUSS_THE_MOST,
   GET_RECENTLY_ADDED_LYRICS,
 } from "./FUNCTIONS";
 import lyric from "./interfaces/lyric";
 import { Router } from "express";
-import filtered_lyric_query from "./interfaces/filtered_query_lyric";
 import homepage_display_stats from "./interfaces/homepage_display_stats";
 import featured_lyric from "./interfaces/featured_lyrics";
 import top_artists from "./interfaces/top_artists_aggregate";
@@ -44,6 +43,8 @@ router.get("/artists", async (req, res) => {
 
   const recentlyAddedLyrics: lyric[] | null = await GET_RECENTLY_ADDED_LYRICS();
 
+  await GET_RAPPERS_WHO_CUSS_THE_MOST();
+
   res.render("artists", {
     top_artists: topArtists,
     recently_added_lyrics: recentlyAddedLyrics,
@@ -57,7 +58,6 @@ router.get("/artists/:ARTIST_QUERY", async (req, res) => {
   const artistData: artist_page_data | null = await GET_ARTISTPAGE_DATA(
     req.params.ARTIST_QUERY
   );
-  console.log(artistData);
 
   if (artistData === null) {
     res

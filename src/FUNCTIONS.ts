@@ -1,7 +1,6 @@
 import { MongoClient } from "mongodb";
 import lyric from "./interfaces/lyric";
 import artist from "./interfaces/artist";
-import filtered_lyric_query from "./interfaces/filtered_query_lyric";
 import homepage_display_stats from "./interfaces/homepage_display_stats";
 const mongoClient = new MongoClient(
   "mongodb+srv://awoldt:OVyWeV7LosswdGUg@aws-us-east-1.94lch.mongodb.net/?retryWrites=true&w=majority"
@@ -28,37 +27,6 @@ export async function GET_RANDOM_LYRIC(isExplicit: boolean) {
     const randomLyric = lyrics[Math.floor(Math.random() * lyrics.length)];
     //remove _id
     delete randomLyric._id;
-    return randomLyric;
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-}
-
-export async function GET_FILTERED_RANDOM_LYRIC(
-  queryObj: filtered_lyric_query
-) {
-  //convert release_date and explicit to correct type (all filtered_lyric_query objs come with keys all set to string)
-  if (queryObj.hasOwnProperty("explicit")) {
-    if (queryObj.explicit !== "true" && queryObj.explicit !== "false") {
-      console.log("explicit query formatted incorrectly");
-      return null;
-    } else {
-      queryObj.explicit = JSON.parse(queryObj.explicit); //should turn 'true' and 'false' (strings) into true and false (booleans) MAKE SURE ACTUAL TRUE OR FALSE NO MISPELLINGS
-    }
-  }
-  //turn year into number from string
-  if (queryObj.hasOwnProperty("year")) {
-    queryObj.year = Number(queryObj.year);
-  }
-
-  try {
-    const lyrics: lyric[] = await LYRICS.find(queryObj).toArray();
-    let randomLyric: any = {}; //will only populate if any lyics match user query
-    if (lyrics.length !== 0) {
-      randomLyric = lyrics[Math.floor(Math.random() * lyrics.length)];
-      delete randomLyric._id;
-    }
     return randomLyric;
   } catch (e) {
     console.log(e);
@@ -191,5 +159,44 @@ export async function GET_ARTISTPAGE_DATA(artist: string) {
   } catch (e) {
     console.log(e);
     return null;
+  }
+}
+
+export async function GET_RAPPERS_WHO_CUSS_THE_MOST() {
+  //runs an aggregate on all the lyrics stored in database and groups all the explicit lyrics to an individual artist
+  try {
+    const data = await LYRICS.aggregate([
+      {
+        $match: {
+          explicit: true,
+        },
+      },
+      {
+        $group: {
+          _id: {
+            artistName: "$artist",
+            artistQuery: "$artist_query",
+          },
+          totalCussWordLyrics: {
+            $count: {},
+          },
+        },
+      },
+      {
+        $limit: 12,
+      },
+      {
+        $match: {
+          totalCussWordLyrics: {
+            $gt: 1,
+          },
+        },
+      },
+    ])
+      .sort({ totalCussWordLyrics: -1 })
+      .toArray();
+    console.log(data);
+  } catch (e) {
+    console.log(e);
   }
 }
