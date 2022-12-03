@@ -1,0 +1,19 @@
+<div style="background-color: white; padding: 25px;" class="row">
+    <h2>Recently Added Lyrics</h2>
+    <p class="text-muted">Explicit lyrics are filtered out. You can view these lyrics on each artist's profile page.</p>
+    <% for( let index=0; index < data.length; index++ ) { %>
+        <div class="mt-1 mb-1">
+            <% if (data[index].explicit) { %>
+                <img src="/icons/explicit-fill.svg" alt="explicit icon" style="margin-right: 5px;" />
+                <% } %>
+                    <p style="font-size: 18px; display: inline;">
+
+                        <i>
+                            <%= data[index].lyrics %>
+                        </i> - <span class="text-muted">
+                            <a href="/artists/<%= data[index].artist_query %>"><%= data[index].artist %></a>
+                        </span>
+                    </p>
+        </div>
+        <% } %>
+</div>

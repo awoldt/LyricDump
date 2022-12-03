@@ -1,6 +1,7 @@
-FROM node:17-alpine
+FROM node:18-alpine
 WORKDIR /
 COPY package.json .
 RUN npm i
 COPY . .
-CMD ["npm", "start"]
+WORKDIR /build
+CMD ["node", "app"]

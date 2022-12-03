@@ -1,447 +1,106 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" style="background-color: rgb(242, 242, 242);">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BadRapApi | Collection of the Worst Rap Lyrics</title>
-  <meta name="description"
-    content="API for bad rap lyrics. Free to use with unlimited requests. Featuring lyrics from all of your favorite rappers.">
-  <meta property="og:title" content="Bad Rap Lyrics API" />
-  <meta property="og:description" content="Send GET requests and get back JSON data. Simple and free to use." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://badrapapi.com" />
-
-  <link rel="canonical" href="https://badrapapi.com" />
-
+  <title>LyricDump - Collection of the Worst Song Lyrics of all Time</title>
+  <meta name="description" content="Easily discover some of the funniest song lyrics from your favorite artists.">
+  <meta property="og:title" content="LyricDump - Bad Song Lyrics">
+  <meta property="og:description" content="Here are some of the worst song lyrics of all time">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lyricdump.com">
+  <link rel="canonical" href="https://lyricdump.com">
   <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
   <link rel="mask-icon" href="/safari-pinned-tab.svg">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-
-  <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+  </style>
 
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JC5XRCVESM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-JC5XRCVESM');
+  </script>
 </head>
 
 <body>
+  <div class="container-fluid" style="background-color: rgb(242, 242, 242)">
+    <div class="container" style="padding-top: 50px">
+      <%- include('./components/homepageSearch') %>
 
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary p-4">
-    <a class="navbar-brand" href="/" title="Home">
-      <img src='/logo.png' alt="logo" width='150' height='50' />
-    </a>
-  </nav>
+        <div style="background-color: white; padding: 25px;">
+          <div style="margin-bottom: 25px;">
+            <span class="navbar-brand" title="Homepage"
+              style="color: black; font-family: Zen Dots; font-weight: bold; font-size: 30px;">
+              <img src="/favicon.ico" width="50" height="50" class="d-inline-block align-top" alt="LyricDump logo">
+              LyricDump
+            </span>
+          </div>
 
-  <div class="container-fluid p-0" style="background-color: rgb(13, 110, 253);">
+          <h1 style="font-size: 20px;">Easily Discover Bad Song Lyrics</h1>
+          <p>Everybody loves a dumb song lyric, even your favorite artist will have one. Lyrics so bad they make you
+            stop and scratch your head wondering why that person said what they did.</p>
+          <p>LyricDump is home to a collection of the worst song lyrics
+            ever written. This website was created in early 2022 and featured only rappers, but has now grown to include
+            lyrics from many different tastes of music. We make it easy to find cringe-worthy and downright
+            awful song lyrics from any genre. The lyrics featured on the site are mostly from mainstream artists but
+            some indie music is featured as well.</p>
+          <p>
+            Overall, this is a great website for music fans who are looking for a laugh. It’s a great way to discover
+            (or re-discover) some truly terrible song lyrics and to share them with friends.</p>
 
+          <img src="/icons/explicit-fill.svg" style="margin-right: 5px;" alt="explicit icon" />
+          <p class="text-muted" style="font-size: 14px; display: inline-block;">Some lyrics may contain explicit
+            language</p>
 
-    <h1 class="text-center"
-      style='font-family: Verdana, sans-serif; font-weight: bold; color: white; padding-top: 50px;'>API for the Worst
-      Rap Lyrics of All
-      Time</h1>
-    <div class="container" style="background-color: rgb(13, 110, 253); padding: 75px; padding-top: 50px;">
-      <div class="row">
-        <div class="col-lg-5 mb-5">
-          <p class="text-center" style="font-size: 20px; margin: 0 auto; color: white;">
-            Simple REST API to get some of the funniest rap lyrics from all your favorite rappers. Rap lyrics
-            so bad they will forever be cemented in rap history. Send a GET request and get back a random lyric from
-            database. Free
-            and easy to use, unlimited requests. Browse some of the artists featured in the database and discover the
-            trend of horrible lyrics over time. Some songs may contain explicit lyrics.
-          </p>
+          <hr>
+          <%- include('./components/randomLyricBox', {data: random_lyric}) %>
         </div>
-        <div style="width: 20px;">
-
-        </div>
-        <div class="col-lg-3 text-center mb-5"
-          style="margin-bottom: 50px; cursor: pointer; background-color: rgb(13, 69, 253); padding: 25px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="white" class="bi bi-person"
-            viewBox="0 0 16 16">
-            <path
-              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-          </svg>
-          <p style="color: white;">
-            <span style="font-weight: bold; font-size: 30px; color: white;">Artists</span>
-
-            <br>
-            Browse all rappers featured
-          </p>
-
-          <a href='/artists' style="text-decoration: none;">
-            <div class="btn btn-warning" role="button">
-              <span>Browse Artists</span>
-            </div>
-          </a>
-        </div>
-
-        <div class="col-lg-3 text-center mb-5"
-          style="cursor: pointer; background-color: rgb(13, 69, 253); padding: 25px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="white" class="bi bi-calendar"
-            viewBox="0 0 16 16">
-            <path
-              d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-          </svg>
-          <p style="color: white;"> <span style="font-weight: bold; font-size: 30px; color: white">Worst of Year</span>
-            <br>
-            Discover lyrics from each year
-          </p>
-          <a href='/year' style="text-decoration: none;">
-
-            <div class="btn btn-warning" role="button">
-              <span>Worst Years</span>
-            </div>
-          </a>
-        </div>
-      </div>
-      <p style="color: white; font-size: 20px;" class="text-center">Do you have any funny lyrics you would like to see
-        added to the site?</p>
-      <div class="text-center">
-        <a href="https://forms.gle/GpYwhTLDhHKGFPCr5" rel="noreferrer" target="_blank">
-          <div class="btn btn-danger" role="button">Submit lyrics</div>
-        </a>
-
-      </div>
-
-    </div>
-
-    <div class="container-fluid" style="background-color: white;">
-      <div class="container " style="padding-top: 50px;">
-        <p class="text-center" style="font-size: 40px;">Over <code><b><%= organized_data.numOfLyrics %></b></code>
-          lyrics across <code><b><%= organized_data.numOfArtists %></b></code> artists from
-          <code><b><%= organized_data.year_range[0] %>-<%= organized_data.year_range[1] %></b></code>
+        <p class="text-center" style="font-size: 35px; margin-top: 50px;margin-bottom: 25px;">Over
+          <code><b><%= homepage_stats.numberOfLyrics %></b></code>
+          lyrics across
+          <code><b><%= homepage_stats.numberOfArtists %></b></code> artists ranging from
+          <code><b><%= homepage_stats.years[0] %>-<%= homepage_stats.years[1] %></b></code>
         </p>
 
-        <div class="container" style="padding: 0px 25px 0px 25px;">
-          <%- include('./searchBar') %>
-        </div>
 
-        <div class="row justify-content-center"
-          style="margin-top: 52px; margin-bottom: 100px; padding: 50px; border: 5px solid #ffc107; border-radius: 50px; background-color: rgb(242, 242, 242, .5);">
-          <div id="copy-alert">
-
-          </div>
-          <span class="text-center" style="font-size: 30px; font-weight: bold;">Featured Lyrics</span>
-          <p class="text-center" style="margin-bottom: 75px;">These lyrics can be fetched using the API by adding a
-            query to the url. Send a request to <span id='copy'
-              style="color: rgb(13, 110, 253); text-decoration: underline; cursor: pointer;">/api/filter?explicit=false</span>
-          </p>
-          <script>
-            const x = document.getElementById('copy');
-            const z = document.getElementById('copy-alert')
-            x.addEventListener('click', () => {
-              navigator.clipboard.writeText('https://badrapapi.com/api/filter?explicit=false')
-              const y = document.createElement('div')
-              y.setAttribute('class', 'alert alert-success p-3')
-              y.innerText = 'Copied';
-
-              z.appendChild(y);
-
-              setTimeout(() => {
-                y.remove();
-              }, 2000)
-            })
-          </script>
-          <% for(var i=0; i<organized_data.data.length; ++i) { %>
-
-            <div class="col-lg-3 col-md-4 col-sm-6" itemscope itemtype="https://schema.org/MusicComposition">
-              <a href="/artists/<%= organized_data.data[i].artist_query %>" style="text-decoration: none;">
-                <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-                  <img src='<%= organized_data.data[i].artist_img %>'
-                    style="width: 210px; height: 200px; border-radius: 50%;"
-                    alt="<%= organized_data.data[i].artist_name %>" class='mx-auto d-block' itemprop="image" />
-                  <p class="text-secondary text-center" itemprop="name">
-                    <%= organized_data.data[i].artist_name %>
-                  </p>
-                </div>
-
-                <p class="text-center"
-                  style="color: black; background-color: rgb(230, 230, 230, .5); padding: 5px; border-radius: 10px;">
-                  <i>"<span itemprop="lyrics">
-                      <%= organized_data.data[i].lyric %>
-                    </span>", </i><span itemprop="name">
-                    <%= organized_data.data[i].song %>
-                  </span> (<%= organized_data.data[i].release_year %>)
-                </p>
-
-              </a>
-            </div>
-            <% } %>
-        </div>
-
-        <hr>
+        <%- include('./components/featuredLyrics', { featured_lyrics: featured_lyrics }) %>
 
 
 
 
 
-        <div style="max-width: 850px;">
-          <p>Below are all the endpoints that return lyric data, <code>/api</code> and <code>/api/filter</code>. This
-            API was designed with beginner developers in mind, and focused more on showcasing how APIs work first hand.
-            All data returned is in JSON format and contains minimal data points for the sake of simplicity. Any status
-            code other than 200 indicates an error in the request. </p>
 
-          <div
-            style="padding: 25px; background-color: rgb(242, 242, 242, .5); margin-bottom: 25px; border-radius: 10px; border: .8px solid black">
-            <h2 style="font-size: 45px;">
-              <a href='/api' style="color: rgb(218, 70, 143); text-decoration: none;"> <code><b>/api</b></code> <svg
-                  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-                  <path fill-rule="evenodd"
-                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
-                </svg></a>
-            </h2>
 
-            <p style="margin-bottom: 50px; font-size: 20px;">
-              This endpoint will randomly fetch one single lyric from database
-            </p>
+          <div style="margin-top: 25px; margin-bottom: 50px;">
+            <a href="https://awoldt.com/" target="_blank" rel="noreferrer" style="text-decoration: none;"
+              class="text-muted">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brush"
+                viewBox="0 0 16 16">
+                <path
+                  d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04zM4.705 11.912a1.23 1.23 0 0 0-.419-.1c-.246-.013-.573.05-.879.479-.197.275-.355.532-.5.777l-.105.177c-.106.181-.213.362-.32.528a3.39 3.39 0 0 1-.76.861c.69.112 1.736.111 2.657-.12.559-.139.843-.569.993-1.06a3.122 3.122 0 0 0 .126-.75l-.793-.792zm1.44.026c.12-.04.277-.1.458-.183a5.068 5.068 0 0 0 1.535-1.1c1.9-1.996 4.412-5.57 6.052-8.631-2.59 1.927-5.566 4.66-7.302 6.792-.442.543-.795 1.243-1.042 1.826-.121.288-.214.54-.275.72v.001l.575.575zm-4.973 3.04.007-.005a.031.031 0 0 1-.007.004zm3.582-3.043.002.001h-.002z" />
+              </svg>
+              Made by awoldt
+            </a>
 
-            <div style="background-color: rgb(242, 242, 242); padding: 10px; border: .5px solid black;">
-              <p style='font-size: 16px; font-weight: normal;'><u>JSON structure:</u> </p>
-              <ul>
+            &middot;
 
-                <li>
-                  <p style="display: inline;"><code>lyrics: </code>the bad lyric
-                    <i><b>(text)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
-                    <i><b>(text)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"><code>song: </code>the song in which the lyrics were
-                    said
-                    <i><b>(text)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"> <code>release_date: </code>the date the song
-                    was released in year format
-                    <i><b>(text)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
-                    explicit language
-                    <i><b>(boolean)</b></i>
-                  </p>
-
-                </li>
-              </ul>
-            </div>
+            <a href="/privacy" title="Privacy page" class="text-muted" style="color: #6c757d; text-decoration: none;">Privacy</a>
 
           </div>
 
-
-          <div
-            style="padding: 25px; background-color: rgb(242, 242, 242, .5); border-radius: 10px; border: .8px solid black; margin-bottom: 40px;">
-            <h2 style="font-size: 45px;">
-              <a href='/api/filter?explicit=false'
-                style="color: rgb(218, 70, 143);text-decoration: none;"><code><b>/api/filter</b></code>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                  class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-                  <path fill-rule="evenodd"
-                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
-                </svg></a>
-            </h2>
-            <p style="margin-bottom: 50px; font-size: 20px;">
-              This endpoint will fetch one random lyric that matches query. Must contain at least one
-              query.
-            </p>
-            <p style='font-weight: normal; font-size: 16px; max-width: 600px;'>Below are all the
-              query parameters that can be used in the url. Any query used other than
-              the
-              ones indicated below will
-              result in a 400 response code.</p>
-
-            <ul style='margin-bottom: 25px; '>
-              <li>
-                <span>
-                  <code style="color: rgb(218, 70, 143); font-weight: bold; font-size: 18px;">?artist</code>
-                </span>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="display: inline;">This will filter requests by artist</p>
-              </li>
-              <li>
-                <p style="display: inline;">Artist query must be all lowercase with no special characters</p>
-              </li>
-
-              <li>
-                <p style="display: inline;">example: <a href='/api/filter?artist=jayz'
-                    style='text-decoration: none;'><code class="text-secondary">/api/filter?artist=jayz</code></a></p>
-
-              </li>
-            </ul>
-
-            <ul>
-              <li>
-                <p style="display: inline;">Dr. Dre = drdre</p>
-              </li>
-              <li>
-                <p style="display: inline;">Jay-Z = jayz</p>
-              </li>
-              <li>
-                <p style="display: inline;">Andre 3000 = andre3000</p>
-              </li>
-            </ul>
-
-            <ul>
-              <li>
-                <span>
-                  <code style="color: rgb(218, 70, 143); font-weight: bold;  font-size: 18px;">?explicit</code>
-                </span>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="display: inline;">Returns lyrics that either contain explicit language or not</p>
-              </li>
-              <li>
-                <p style="display: inline;">Can only be true or false</p>
-              </li>
-              <li>
-                <p style="display: inline;">example: <a href='/api/filter?explicit=false'
-                    style='text-decoration: none;'><code class="text-secondary">/api/filter?explicit=false</code></a>
-                </p>
-
-              </li>
-            </ul>
-
-
-            <ul>
-              <li>
-                <span>
-                  <code style="color: rgb(218, 70, 143); font-weight: bold;  font-size: 18px;">?year</code>
-                </span>
-              </li>
-            </ul>
-
-            <ul>
-              <li>
-                <p style="display: inline;">Will filter out lyrics by year it came out</p>
-              </li>
-              <li>
-                <p style="display: inline;">Value is in year format, do not need month or day</p>
-              </li>
-              <li>
-                <p style="display: inline;">example: <a href='/api/filter?year=1985'
-                    style='text-decoration: none;'><code class="text-secondary">/api/filter?year=1985</code></a></p>
-              </li>
-            </ul>
-
-
-
-            <p style="max-width: 550px;">Keep in mind all filter
-              queries can be used at once. Different combinations can
-              get back unique results. Fetching non-explicit song lyrics from Jay-Z in the year 2012 would be <a
-                href='/api/filter?artist=jayz&explicit=false&year=2012'>/api/filter?artist=jayz&explicit=false&year=2012</a>
-            </p>
-
-
-
-            <div style="background-color: rgb(242, 242, 242); padding: 10px; border: .5px solid black">
-              <p style='font-size: 16px; font-weight: normal;'><u>JSON structure:</u> </p>
-              <ul>
-                <li>
-                  <p style="display: inline;"><code>_id:</code> unique id for each lyric <i><b>(text)</b></i>
-                  </p>
-                </li>
-                <li>
-                  <p style="display: inline;"><code>lyrics: </code>the bad lyric of the song
-                    <i><b>(text)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"><code>artist: </code>the rapper who said the lyric
-                    <i><b>(text)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"> <code>song: </code>the song in which the lyric were
-                    said
-                    <i><b>(text)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"><code>release_date: </code>the date on which the song
-                    was released in year format
-                    <i><b>(text)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"><code>explicit: </code>whether or not the lyric contains
-                    explicit language
-                    <i><b>(boolean)</b></i>
-                  </p>
-
-                </li>
-                <li>
-                  <p style="display: inline;"><code>artist_query: </code>used to uniquely identify
-                    artists in database
-                    <i><b>(text)</b></i>
-                  </p>
-                </li>
-                <li>
-                  <p style="display: inline;"><code>date_added: </code>the date in which the lyric was
-                    added to database in
-                    ISO
-                    format <i><b>(date format)</b></i></p>
-                </li>
-                <li>
-                  <p style="display: inline;"><code>explanation: </code>the reason as to why said lyric
-                    is bad, only lyrics
-                    that
-                    are so dumb and easy to explain why they're dumb feature this field <i><b>(text)</b></i></p>
-                </li>
-              </ul>
-            </div>
-
-
-          </div>
-        </div>
-
-
-
-
-
-      </div>
-      <div class="text-center">
-        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brush"
-            viewBox="0 0 16 16">
-            <path
-              d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04zM4.705 11.912a1.23 1.23 0 0 0-.419-.1c-.246-.013-.573.05-.879.479-.197.275-.355.532-.5.777l-.105.177c-.106.181-.213.362-.32.528a3.39 3.39 0 0 1-.76.861c.69.112 1.736.111 2.657-.12.559-.139.843-.569.993-1.06a3.122 3.122 0 0 0 .126-.75l-.793-.792zm1.44.026c.12-.04.277-.1.458-.183a5.068 5.068 0 0 0 1.535-1.1c1.9-1.996 4.412-5.57 6.052-8.631-2.59 1.927-5.566 4.66-7.302 6.792-.442.543-.795 1.243-1.042 1.826-.121.288-.214.54-.275.72v.001l.575.575zm-4.973 3.04.007-.005a.031.031 0 0 1-.007.004zm3.582-3.043.002.001h-.002z" />
-          </svg> Made by <a href='https://awoldt.com/' rel="noreferrer" target="_blank"
-            style='text-decoration: none;'>Awoldt</a></span>
-        <a href='/privacy' style="display: block; text-decoration: none; margin-top: 10px; margin-bottom: 25px;"
-          class="text-secondary">Privacy</a>
-
-      </div>
     </div>
-
   </div>
 </body>
 

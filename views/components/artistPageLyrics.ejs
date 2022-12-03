@@ -1,0 +1,34 @@
+<div style="background-color: white; padding: 10px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;" class="row">
+    <p class="text-center" style="font-size: 20px;">
+        <code style="font-weight: bold; font-size: 30px;"><%= data.length %></code><% if (data.length > 1) { %>
+            lyrics
+        <% }else { %>
+            lyric
+        <% }%>
+    </p>
+    <hr>
+    <% for( let index=0; index < data.length; index++ ) { %>
+
+        <div class="mb-3" style=" padding: 7px;"  itemscope
+        itemtype="https://schema.org/MusicComposition">
+            <% if (data[index].explicit) { %>
+                <img src="/icons/explicit-fill.svg" alt="explicit icon"/>
+                <% } %>
+                    <p style="margin-bottom: 0px; display: initial; margin-left: 5px;">
+                        <span  itemprop="lyrics">
+                            <%= data[index].lyrics %>
+                        </span> <span class="text-muted">
+
+                            - <span itemprop="name"><%= data[index].song %></span> (<span itemprop="copyrightYear"><%= data[index].year %></span>)
+                        </span>
+                    </p>
+
+                    <% if (data[index].explanation !==undefined && data[index].explanation !==null) { %>
+                        <p style="margin-bottom: 0px;"><mark style="background-color: #FBF719">
+                                <%= data[index].explanation %>
+                            </mark></p>
+                        <% } %>
+        </div>
+
+        <% } %>
+</div>
