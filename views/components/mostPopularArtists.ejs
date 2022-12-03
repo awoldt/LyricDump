@@ -4,7 +4,7 @@
         🔥 <%= data[0]._id.artistNameClean %> is currently the artist with the most bad lyrics stored. 
     </p>
     <% for( let index=0; index < data.length; index++ ) { %>
-        <div class="col-xl-1 col-lg-2 col-md-3 col-4" style="float: bottom;">
+        <div class="col-xl-1 col-lg-2 col-md-3 col-4">
             <a href="/artists/<%= data[index]._id.artistName %>" style="text-decoration: none; color: black">
                 <img src="/imgs/<%= data[index]._id.artistName %>.png" alt="<%= data[index]._id.artistName  %>"
                     class="img-fluid" style="width: 100px;"/>

@@ -17,6 +17,7 @@ import artist_page_data from "./interfaces/artist_page_data";
 import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
 import curse_word_occurences from "./interfaces/curse_word_occurences";
 import { ARTISTS } from "./app";
+import path from "path";
 
 const router = Router();
 
@@ -104,6 +105,10 @@ router.get("/api/search", async (req, res) => {
   ]).toArray();
 
   res.json(data);
+});
+
+router.get("/privacy", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "/privacy.html"));
 });
 
 export default router;
