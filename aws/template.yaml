@@ -32,6 +32,6 @@ Resources:
         CloudWatchEvent:
           Type: Schedule
           Properties:
-            Schedule: rate(24 hours)
+            Schedule: rate(6 hours)
       MemorySize: 128
       Timeout: 100
