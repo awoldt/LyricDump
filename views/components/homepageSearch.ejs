@@ -23,6 +23,7 @@
                         for (let index = 0; index < data.length; index++) {
                             let link = document.createElement("a");
                             link.style.display = "block";
+                            link.style.color = 'white'
                             link.setAttribute("href", "/artists/" + data[index].artist_query);
                             link.innerText = data[index].artistName;
                             document.getElementById("search_results").appendChild(link);
@@ -33,6 +34,7 @@
                     for (let index = 0; index < data.length; index++) {
                         let link = document.createElement("a");
                         link.style.display = "block";
+                        link.style.color = 'white'
                         link.setAttribute("href", "/artists/" + data[index].artist_query);
                         link.innerText = data[index].artistName;
                         document.getElementById("search_results").appendChild(link);
@@ -46,8 +48,9 @@
         document
             .getElementById("search_bar")
             .addEventListener("keypress", async (e) => {
+                query = e.target.value;
                 if (query !== "") {
-                    query = e.target.value;
+                   
                     if (e.key === "Enter") {
                         const req = await fetch("/api/search?q=" + query);
                         const data = await req.json();
@@ -59,6 +62,7 @@
                             for (let index = 0; index < data.length; index++) {
                                 let link = document.createElement("a");
                                 link.style.display = "block";
+                                link.style.color = 'white'
                                 link.setAttribute(
                                     "href",
                                     "/artists/" + data[index].artist_query
@@ -72,6 +76,7 @@
                         for (let index = 0; index < data.length; index++) {
                             let link = document.createElement("a");
                             link.style.display = "block";
+                            link.style.color = 'white'
                             link.setAttribute("href", "/artists/" + data[index].artist_query);
                             link.innerText = data[index].artistName;
                             document.getElementById("search_results").appendChild(link);

@@ -46,8 +46,10 @@
         document
             .getElementById("search_bar")
             .addEventListener("keypress", async (e) => {
+                query = e.target.value;
+
                 if (query !== "") {
-                    query = e.target.value;
+
                     if (e.key === "Enter") {
                         const req = await fetch("/api/search?q=" + query);
                         const data = await req.json();
