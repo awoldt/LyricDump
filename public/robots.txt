@@ -9,3 +9,5 @@ Disallow: /
 
 User-agent: PetalBot
 Disallow: /
+
+Sitemap: https://lyricdump.com/sitemap.xml
