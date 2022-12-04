@@ -8,6 +8,7 @@ import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate"
 import { ARTISTS, LYRICS } from "./app";
 import { curse_words_list } from "./data/curseWords";
 import curse_word_occurences from "./interfaces/curse_word_occurences";
+import all_artists from "./interfaces/all_artists_list";
 const s3 = new S3Client({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
@@ -161,7 +162,7 @@ export async function GET_ARTISTPAGE_DATA(artist: string) {
   }
 }
 
-export async function GET_RAPPERS_WHO_CUSS_THE_MOST() {
+export async function GET_ARTISTS_WHO_CUSS_THE_MOST() {
   //runs an aggregate on all the lyrics stored in database and groups all the explicit lyrics to an individual artist
   try {
     const data: artist_cuss_word_aggregate[] | null =
@@ -241,6 +242,34 @@ export async function GET_MOST_USED_CUSS_WORDS() {
       });
 
     return returnData;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function GET_UNIQUE_ARTISTS() {
+  try {
+    const lyrics = await LYRICS.find({}).toArray();
+
+    let artistsAdded: string[] = [];
+    let uniqueArtists: all_artists[] = [];
+
+    for (const artist of lyrics) {
+      if (!artistsAdded.includes(artist.artist_query)) {
+        artistsAdded.push(artist.artist_query);
+        uniqueArtists.push({
+          artistName: artist.artist,
+          artistQuery: artist.artist_query,
+        });
+      }
+    }
+    return uniqueArtists.sort((a: all_artists, b: all_artists) => {
+      if (b.artistName > a.artistName) {
+        return -1;
+      }
+      return 1;
+    });
   } catch (e) {
     console.log(e);
     return null;

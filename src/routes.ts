@@ -5,8 +5,9 @@ import {
   GET_MOST_POPULAR_ARTISTS,
   GET_MOST_USED_CUSS_WORDS,
   GET_RANDOM_LYRIC,
-  GET_RAPPERS_WHO_CUSS_THE_MOST,
+  GET_ARTISTS_WHO_CUSS_THE_MOST,
   GET_RECENTLY_ADDED_LYRICS,
+  GET_UNIQUE_ARTISTS,
 } from "./FUNCTIONS";
 import lyric from "./interfaces/lyric";
 import { Router } from "express";
@@ -18,6 +19,7 @@ import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate"
 import curse_word_occurences from "./interfaces/curse_word_occurences";
 import { ARTISTS } from "./app";
 import path from "path";
+import all_artists from "./interfaces/all_artists_list";
 
 const router = Router();
 
@@ -49,16 +51,19 @@ router.get("/artists", async (req, res) => {
   const recentlyAddedLyrics: lyric[] | null = await GET_RECENTLY_ADDED_LYRICS();
 
   const aritstsWhoCussTheMost: artist_cuss_word_aggregate[] | null =
-    await GET_RAPPERS_WHO_CUSS_THE_MOST();
+    await GET_ARTISTS_WHO_CUSS_THE_MOST();
 
   const curseWordOccurences: curse_word_occurences[] | null =
     await GET_MOST_USED_CUSS_WORDS();
+
+  const listOfAllArtists: all_artists[] | null = await GET_UNIQUE_ARTISTS();
 
   res.render("artists", {
     top_artists: topArtists,
     recently_added_lyrics: recentlyAddedLyrics,
     artist_who_cuss_the_most: aritstsWhoCussTheMost,
     curseWordOccurences: curseWordOccurences,
+    all_artists: listOfAllArtists
   });
 });
 
