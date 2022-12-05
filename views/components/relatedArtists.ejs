@@ -1,0 +1,21 @@
+<div style="padding: 50px;">
+    <div style="background-color: white;" class="text-center row">
+    <p class="text-muted">Other artists you might be interested in:</p>
+    <div class="col-6">
+        <a href="/artists/<%= data[0].artist_query %>" style="text-decoration: none;">
+
+            <img src="<%= data[0].profile_img %>" style="width: 100px; display: block; border-radius: 50px;" class="mx-auto"  alt="<%= data[0].artist_query.name %>"/>
+
+            <%= data[0].name %>
+        </a>
+    </div>
+    <div class="col-6 ">
+        <a href="/artists/<%= data[1].artist_query %>" style="text-decoration: none;">
+
+            <img src="<%= data[1].profile_img %>" style="width: 100px; display: block; border-radius: 50px;" class="mx-auto" alt="<%= data[1].artist_query.name %>"/>
+
+            <%= data[1].name %>
+        </a>
+    </div>
+</div>
+</div>

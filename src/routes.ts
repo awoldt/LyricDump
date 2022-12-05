@@ -8,6 +8,7 @@ import {
   GET_ARTISTS_WHO_CUSS_THE_MOST,
   GET_RECENTLY_ADDED_LYRICS,
   GET_UNIQUE_ARTISTS,
+  GET_RELATED_ARTISTS,
 } from "./FUNCTIONS";
 import lyric from "./interfaces/lyric";
 import { Router } from "express";
@@ -20,6 +21,7 @@ import curse_word_occurences from "./interfaces/curse_word_occurences";
 import { ARTISTS } from "./app";
 import path from "path";
 import all_artists from "./interfaces/all_artists_list";
+import artist from "./interfaces/artist";
 
 const router = Router();
 
@@ -39,48 +41,64 @@ router.get("/", async (req, res) => {
       random_lyric: initialRandomLyric,
     });
   } catch (e) {
-    console.log("error: could not get featured lyrics");
-    res.send("error");
+    console.log("error: could not render homepage");
+    res.status(500).send("error");
   }
 });
 
 // (/artists)
 router.get("/artists", async (req, res) => {
-  const topArtists: top_artists[] | null = await GET_MOST_POPULAR_ARTISTS();
+  try {
+    const topArtists: top_artists[] | null = await GET_MOST_POPULAR_ARTISTS();
 
-  const recentlyAddedLyrics: lyric[] | null = await GET_RECENTLY_ADDED_LYRICS();
+    const recentlyAddedLyrics: lyric[] | null =
+      await GET_RECENTLY_ADDED_LYRICS();
 
-  const aritstsWhoCussTheMost: artist_cuss_word_aggregate[] | null =
-    await GET_ARTISTS_WHO_CUSS_THE_MOST();
+    const aritstsWhoCussTheMost: artist_cuss_word_aggregate[] | null =
+      await GET_ARTISTS_WHO_CUSS_THE_MOST();
 
-  const curseWordOccurences: curse_word_occurences[] | null =
-    await GET_MOST_USED_CUSS_WORDS();
+    const curseWordOccurences: curse_word_occurences[] | null =
+      await GET_MOST_USED_CUSS_WORDS();
 
-  const listOfAllArtists: all_artists[] | null = await GET_UNIQUE_ARTISTS();
+    const listOfAllArtists: all_artists[] | null = await GET_UNIQUE_ARTISTS();
 
-  res.render("artists", {
-    top_artists: topArtists,
-    recently_added_lyrics: recentlyAddedLyrics,
-    artist_who_cuss_the_most: aritstsWhoCussTheMost,
-    curseWordOccurences: curseWordOccurences,
-    all_artists: listOfAllArtists
-  });
+    res.render("artists", {
+      top_artists: topArtists,
+      recently_added_lyrics: recentlyAddedLyrics,
+      artist_who_cuss_the_most: aritstsWhoCussTheMost,
+      curseWordOccurences: curseWordOccurences,
+      all_artists: listOfAllArtists,
+    });
+  } catch (e) {
+    console.log("error: could not render artists page");
+    res.status(500).send("error");
+  }
 });
 
 // (/artists/:artust_query)
 router.get("/artists/:ARTIST_QUERY", async (req, res) => {
-  const artistData: artist_page_data | null = await GET_ARTISTPAGE_DATA(
-    req.params.ARTIST_QUERY
-  );
+  try {
+    const artistData: artist_page_data | null = await GET_ARTISTPAGE_DATA(
+      req.params.ARTIST_QUERY
+    );
 
-  if (artistData === null) {
-    res
-      .status(404)
-      .send("Cannot find artist '" + req.params.ARTIST_QUERY + "'");
-  } else {
-    res.render("artistPage", {
-      artist_data: artistData,
-    });
+    if (artistData === null) {
+      res
+        .status(404)
+        .send("Cannot find artist '" + req.params.ARTIST_QUERY + "'");
+    } else {
+      const relatedArtists: artist[] | null = await GET_RELATED_ARTISTS(
+        req.params.ARTIST_QUERY
+      );
+
+      res.render("artistPage", {
+        artist_data: artistData,
+        related_artists: relatedArtists,
+      });
+    }
+  } catch (e) {
+    console.log("error: could not render artistsPage");
+    res.status(500).send("error");
   }
 });
 

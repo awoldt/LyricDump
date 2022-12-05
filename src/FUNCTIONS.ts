@@ -9,6 +9,7 @@ import { ARTISTS, LYRICS } from "./app";
 import { curse_words_list } from "./data/curseWords";
 import curse_word_occurences from "./interfaces/curse_word_occurences";
 import all_artists from "./interfaces/all_artists_list";
+import artist from "./interfaces/artist";
 const s3 = new S3Client({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
@@ -270,6 +271,44 @@ export async function GET_UNIQUE_ARTISTS() {
       }
       return 1;
     });
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function GET_RELATED_ARTISTS(currentArtist: string) {
+  try {
+    //current artist must be stored in artists collection to get related artists
+    //returns the artists infront of and behind the currentArtist in the array
+    const artist = await ARTISTS.find({
+      artist_query: currentArtist,
+    }).toArray();
+
+    if (artist.length === 0) {
+      return null;
+    } else {
+      let allArtists = await ARTISTS.find({}).toArray();
+      allArtists.sort((a, b) => {
+        if (b.artist_query > a.artist_query) {
+          return -1;
+        }
+        return 1;
+      });
+      let relatedArtists: artist[] | null = null;
+      for (let index = 0; index < allArtists.length; index++) {
+        //get the artists infront and behind of current artists in array
+        if (allArtists[index].artist_query === currentArtist) {
+          //only return related artists if current index is not the first or the last one 
+          if (index !== 0 && index !== allArtists.length - 1) {
+            relatedArtists = [allArtists[index - 1], allArtists[index + 1]];
+            break;
+          }
+          break;
+        }
+      }
+      return relatedArtists;
+    }
   } catch (e) {
     console.log(e);
     return null;

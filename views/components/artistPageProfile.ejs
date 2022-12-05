@@ -1,32 +1,36 @@
 <div class="text-center">
-    <img src="<%= data.profile_img %>" alt="<%= data.name %>" class="img-fluid pt-4"
-        style="width: 400px; border-radius: 150px" itemprop="image" />
-    <h1 itemprop="name">
-        <%= data.name %>
-    </h1>
-    <% if (data.nicknames !==null) { %>
+  <img src="<%= data.profile_img %>" alt="<%= data.name %>" class="img-fluid pt-4" style="width: 400px; border-radius: 150px" itemprop="image" />
+  <h1 itemprop="name">
+    <%= data.name %>
+  </h1>
+  <% if (data.nicknames !==null) { %>
 
-        <% if (data.nicknames.length===1) { %>
-            <p class="text-muted">Also known as <span itemprop="alternateName">
-                    <%= data.nicknames[0] %>
-                </span></p>
-            <% } else { %>
-                <p class="text-muted">Also know as <% for( let index=0; index < data.nicknames.length; index++ ) { %>
-                        <% if (index===data.nicknames.length-1) { %>
-                            and <span itemprop="alternateName">
-                                <%= data.nicknames[index] %>
-                            </span>
-                            <% } else { %>
-                                <span itemprop="alternateName">
-                                    <%= data.nicknames[index] %>
-                                </span>,
-                                <% } %>
-                                    <% } %>
-                </p>
-                <% } %>
+  <% if (data.nicknames.length===1) { %>
+  <p class="text-muted">Also known as <span itemprop="alternateName">
+      <%= data.nicknames[0] %>
+    </span></p>
+  <% } else if(data.nicknames.length===2) { %>
+  <p class="text-muted">Also known as <span itemprop="alternateName">
+      <%= data.nicknames[0] %>
+    </span> and <span itemprop="alternateName">
+      <%= data.nicknames[1] %>
+    </span></p>
+  <% } else { %>
+  <p class="text-muted">Also know as <% for( let index=0; index < data.nicknames.length; index++ ) { %>
+    <% if (index===data.nicknames.length-1) { %>
+    and <span itemprop="alternateName">
+      <%= data.nicknames[index] %>
+    </span>
+    <% } else { %>
+    <span itemprop="alternateName">
+    <%= data.nicknames[index] %></span>,
+    <% } %>
+    <% } %>
+  </p>
+  <% } %>
 
 
 
 
-                    <% } %>
+  <% } %>
 </div>
