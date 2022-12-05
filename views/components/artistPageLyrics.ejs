@@ -12,9 +12,9 @@
         <div class="mb-3" style=" padding: 7px;"  itemscope
         itemtype="https://schema.org/MusicComposition">
             <% if (data[index].explicit) { %>
-                <img src="/icons/explicit-fill.svg" alt="explicit icon"/>
+                <img src="/icons/explicit-fill.svg" alt="explicit icon" style="margin-right: 5px;"/>
                 <% } %>
-                    <p style="margin-bottom: 0px; display: initial; margin-left: 5px;">
+                    <p style="margin-bottom: 0px; display: initial;">
                         <span  itemprop="lyrics">
                             <%= data[index].lyrics %>
                         </span> <span class="text-muted">
@@ -24,7 +24,7 @@
                     </p>
 
                     <% if (data[index].explanation !==undefined && data[index].explanation !==null) { %>
-                        <p style="margin-bottom: 0px;"><mark style="background-color: #FBF719">
+                        <p style="margin-bottom: 0px;"><mark style="background-color: #FBF719; padding: 5px;">
                                 <%= data[index].explanation %>
                             </mark></p>
                         <% } %>
