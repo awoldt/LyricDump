@@ -249,34 +249,6 @@ export async function GET_MOST_USED_CUSS_WORDS() {
   }
 }
 
-export async function GET_UNIQUE_ARTISTS() {
-  try {
-    const lyrics = await LYRICS.find({}).toArray();
-
-    let artistsAdded: string[] = [];
-    let uniqueArtists: all_artists[] = [];
-
-    for (const artist of lyrics) {
-      if (!artistsAdded.includes(artist.artist_query)) {
-        artistsAdded.push(artist.artist_query);
-        uniqueArtists.push({
-          artistName: artist.artist,
-          artistQuery: artist.artist_query,
-        });
-      }
-    }
-    return uniqueArtists.sort((a: all_artists, b: all_artists) => {
-      if (b.artistName > a.artistName) {
-        return -1;
-      }
-      return 1;
-    });
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-}
-
 export async function GET_RELATED_ARTISTS(currentArtist: string) {
   try {
     //current artist must be stored in artists collection to get related artists
@@ -299,7 +271,7 @@ export async function GET_RELATED_ARTISTS(currentArtist: string) {
       for (let index = 0; index < allArtists.length; index++) {
         //get the artists infront and behind of current artists in array
         if (allArtists[index].artist_query === currentArtist) {
-          //only return related artists if current index is not the first or the last one 
+          //only return related artists if current index is not the first or the last one
           if (index !== 0 && index !== allArtists.length - 1) {
             relatedArtists = [allArtists[index - 1], allArtists[index + 1]];
             break;
@@ -309,6 +281,60 @@ export async function GET_RELATED_ARTISTS(currentArtist: string) {
       }
       return relatedArtists;
     }
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function GENERATE_ARTIST_CATALOGUE() {
+  try {
+    //get all the artists with profile pictures then every other one to display below that
+    const aritstWithProfilePics = await (
+      await ARTISTS.find({}).toArray()
+    ).sort((a: artist, b: artist) => {
+      if (b.artist_query > a.artist_query) {
+        return -1;
+      }
+      return 1;
+    });
+
+    const uniqueArtistsWithProfilePics = aritstWithProfilePics.map((x) => {
+      return x.artist_query;
+    });
+
+    let unqiueArtistsWithoutProfilePics: string[] = [];
+    const artistsWithoutProfilePic = await (
+      await LYRICS.find({}).toArray()
+    )
+      .filter((l: lyric) => {
+        if (
+          !uniqueArtistsWithProfilePics.includes(l.artist_query) &&
+          !unqiueArtistsWithoutProfilePics.includes(l.artist_query)
+        ) {
+          unqiueArtistsWithoutProfilePics.push(l.artist_query);
+          return {
+            artist_query: l.artist_query,
+            artist_name: l.artist,
+          };
+        }
+      })
+      .sort((a: any, b: any) => {
+        if (b.artist_query > a.artist_query) {
+          return -1;
+        }
+        return 1;
+      })
+      .map((x) => {
+        return {
+          artist_query: x.artist_query,
+          artist_name: x.artist,
+        };
+      });
+
+    return [aritstWithProfilePics, artistsWithoutProfilePic];
+
+    //get all unique
   } catch (e) {
     console.log(e);
     return null;

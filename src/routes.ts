@@ -7,8 +7,8 @@ import {
   GET_RANDOM_LYRIC,
   GET_ARTISTS_WHO_CUSS_THE_MOST,
   GET_RECENTLY_ADDED_LYRICS,
-  GET_UNIQUE_ARTISTS,
   GET_RELATED_ARTISTS,
+  GENERATE_ARTIST_CATALOGUE,
 } from "./FUNCTIONS";
 import lyric from "./interfaces/lyric";
 import { Router } from "express";
@@ -60,14 +60,22 @@ router.get("/artists", async (req, res) => {
     const curseWordOccurences: curse_word_occurences[] | null =
       await GET_MOST_USED_CUSS_WORDS();
 
-    const listOfAllArtists: all_artists[] | null = await GET_UNIQUE_ARTISTS();
+    const artistCatalogue:
+      | (
+          | artist[]
+          | {
+              artist_query: string;
+              artist_name: string;
+            }[]
+        )[]
+      | null = await GENERATE_ARTIST_CATALOGUE();
 
     res.render("artists", {
       top_artists: topArtists,
       recently_added_lyrics: recentlyAddedLyrics,
       artist_who_cuss_the_most: aritstsWhoCussTheMost,
       curseWordOccurences: curseWordOccurences,
-      all_artists: listOfAllArtists,
+      artist_catalogue: artistCatalogue,
     });
   } catch (e) {
     console.log("error: could not render artists page");

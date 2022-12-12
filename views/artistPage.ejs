@@ -68,6 +68,12 @@
                 <div class="col-xl-6" id="artist_about_div">
                   <% for( let index=0; index < artist_data.profile.about.length; index++ ) { %>
                     <% if (index===0) { %>
+                      <div class="text-center">
+                        <img src="/icons/info.svg" alt="about icon" style="margin-right: 5px;" />
+                        <p class="text-muted" style="display: inline;">About <%= artist_data.profile.name %>
+                        </p>
+                      </div>
+
                       <p itemprop="description" class="text-center">
                         <%= artist_data.profile.about[index] %>
                       </p>

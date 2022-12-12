@@ -1,7 +1,7 @@
 <div class="row" style="background-color: white; padding: 25px;">
-    <h2>Most Popular</h2>
+    <img src="/icons/popular.svg" alt="popular icon" style="margin-right: 5px; width: 75px;" /> <h2 style="display: contents;">Most Popular</h2>
     <p class="text-muted">
-        🔥 <%= data[0]._id.artistNameClean %> is currently the artist with the most bad lyrics stored. 
+    <%= data[0]._id.artistNameClean %> is currently the artist with the most bad lyrics stored. 
     </p>
     <% for( let index=0; index < data.length; index++ ) { %>
         <div class="col-xl-1 col-lg-2 col-md-3 col-4">
