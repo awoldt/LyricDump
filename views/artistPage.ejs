@@ -29,119 +29,46 @@
 
 
   <% if (artist_data.profile !==null) { %>
-    <!-- there will only be profile img of artist if they have a profile stored in db -->
-    <meta property="og:image" content="https://lyricdump.com<%= artist_data.profile.profile_img %>" />
-    <meta name="twitter:image" content="https://lyricdump.com<%= artist_data.profile.profile_img %>" />
-    <% } %>
+  <meta property="og:image" content="https://lyricdump.com<%= artist_data.profile.profile_img %>" />
+  <meta name="twitter:image" content="https://lyricdump.com<%= artist_data.profile.profile_img %>" />
+  <% } %>
 
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-      <style>
-        @font-face {
-          font-family: "Exo2-Bold";
-          src: url("/fonts/static/Exo2-Bold.ttf");
-        }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <style>
+    @font-face {
+      font-family: "Exo2-Bold";
+      src: url("/fonts/static/Exo2-Bold.ttf");
+    }
 
-        .navbar-toggler:focus {
-          box-shadow: none;
-        }
-      </style>
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+  </style>
 </head>
 
 <body>
   <%- include('./components/navbar'); %>
-    <div class="container-fluid"
-      style='margin-bottom: 50px; color: black; background-color: rgb(242, 242, 242); padding: 25px;'>
-      <div class="container" itemscope itemtype="https://schema.org/Person">
-        <%- include('./components/search') %>
-          <% if (artist_data.profile !==null) { %>
-            <div class="row"
-              style="background-color: white; border-radius: 50px; border: 5px solid #ffc107; margin-bottom: 25px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
-
-              <% if (artist_data.profile.about !==undefined) { %>
-                <div class="col-xl-6">
-                  <%- include('./components/artistPageProfile', {data: artist_data.profile}); %>
-                </div>
-                <div class="col-xl-6" id="artist_about_div">
-                  <% for( let index=0; index < artist_data.profile.about.length; index++ ) { %>
-                    <% if (index===0) { %>
-                      <div class="text-center">
-                        <img src="/icons/info.svg" alt="about icon" style="margin-right: 5px;" />
-                        <p class="text-muted" style="display: inline;">About <%= artist_data.profile.name %>
-                        </p>
-                      </div>
-
-                      <p itemprop="description" class="text-center">
-                        <%= artist_data.profile.about[index] %>
-                      </p>
-                      <% } else { %>
-                        <p class="text-center">
-                          <%= artist_data.profile.about[index] %>
-                        </p>
-                        <% } %>
-
-                          <% } %>
-                            <% if (related_artists !==null) { %>
-                              <%- include('./components/relatedArtists' , {data: related_artists}); %>
-                                <% } %>
-
-                </div>
-                <script>
-                  window.onload = () => {
-                    const w = window.innerWidth;
-
-                    if (w >= 1200) {
-                      document.getElementById("artist_about_div").style.marginTop = '100px'
-                      document.getElementById("artist_about_div").style.paddingRight = '50px'
-                    }
-
-                  }
-
-                  window.onresize = () => {
-                    const w = window.innerWidth;
-
-                    if (w >= 1200) {
-                      document.getElementById("artist_about_div").style.marginTop = '100px'
-                      document.getElementById("artist_about_div").style.paddingRight = '25px'
-                      document.getElementById("artist_about_div").style.paddingLeft = '25px'
-                    }
-                    else {
-                      document.getElementById("artist_about_div").style.marginTop = '0px'
-                      document.getElementById("artist_about_div").style.paddingRight = '0px'
-                      document.getElementById("artist_about_div").style.paddingLeft = '0px'
-                    }
-                  }
-                </script>
-                <% } else { %>
-                  <div class="col-12">
-                    <%- include('./components/artistPageProfile', {data: artist_data.profile}); %>
-                      <% if (related_artists !==null) { %>
-                        <%- include('./components/relatedArtists', {data: related_artists}); %>
-                          <% } %>
-                  </div>
-
-                  <% } %>
-
-
-
-
-            </div>
-            <% } else { %>
-              <div
-                style="background-color: white; border-radius: 50px; border: 5px solid #ffc107; margin-bottom: 25px; padding: 25px">
-                <h1>
-                  <%= artist_data.lyrics[0].artist %>'s Worst Lyrics
-                </h1>
-              </div>
-              <% } %>
-
-                <%- include('./components/artistPageLyrics', {data: artist_data.lyrics}); %>
+  <div class="container-fluid" style='margin-bottom: 50px; color: black; background-color: rgb(242, 242, 242); padding: 25px;'>
+    <div class="container" itemscope itemtype="https://schema.org/Person">
+      <%- include('./components/search') %>
+      <% if (artist_data.profile !== null) { %>
+      <%- include('./components/artistWithProfile', {artist_data: artist_data, related_artists: related_artists})
+              %>
+      <% } else { %>
+      <%# artist does not have profile, no img, nicknames, or about %>
+      <div style="background-color: white; border-radius: 50px; border: 5px solid #ffc107; margin-bottom: 25px; padding: 25px">
+        <h1 class="text-center">
+          <%= artist_data.lyrics[0].artist %>'s Worst Lyrics
+        </h1>
+        <%- include('./components/artistPageLyrics', {data: artist_data.lyrics}); %>
       </div>
+      <% } %>
+
 
     </div>
+
+  </div>
 </body>
 
 </html>
