@@ -1,45 +1,49 @@
 <div class="row">
   <div class="col-xl-5">
-    <div class="row" style="background-color: white; border-radius: 50px; border: 5px solid #ffc107; margin-bottom: 25px;">
+    <div class="row"
+      style="background-color: white; border-radius: 50px; border: 5px solid #ffc107; margin-bottom: 25px;">
 
       <% if (artist_data.profile.about !==undefined) { %>
-      <div class="col-12">
-        <%- include('./artistPageProfile', {data: artist_data.profile}); %>
-      </div>
-      <div class="col-12" id="artist_about_div">
-        <% for( let index=0; index < artist_data.profile.about.length; index++ ) { %>
-        <% if (index===0) { %>
-        <div class="text-center">
-          <img src="/icons/info.svg" alt="about icon" style="margin-right: 5px;" />
-          <p class="text-muted" style="display: inline;">About <%= artist_data.profile.name %>
-          </p>
+        <div class="col-12">
+          <%- include('./artistPageProfile', {data: artist_data.profile}); %>
         </div>
+        <div class="col-12" id="artist_about_div">
+          <% for( let index=0; index < artist_data.profile.about.length; index++ ) { %>
+            <% if (index===0) { %>
+              <div class="text-center">
+                <img src="/icons/info.svg" alt="about icon" style="margin-right: 5px;" />
+                <p class="text-muted" style="display: inline;">About <%= artist_data.profile.name %>
+                </p>
+              </div>
 
-        <p itemprop="description" class="text-center">
-          <%= artist_data.profile.about[index] %>
-        </p>
+              <p itemprop="description" class="text-center">
+                <%= artist_data.profile.about[index] %>
+              </p>
+              <% } else { %>
+                <p class="text-center">
+                  <%= artist_data.profile.about[index] %>
+                </p>
+                <% } %>
+
+                  <% } %>
+                    <% if (related_artists !==null) { %>
+                      <%- include('./relatedArtists' , {data: related_artists}); %>
+                        <% } %>
+        </div>
         <% } else { %>
-        <p class="text-center">
-          <%= artist_data.profile.about[index] %>
-        </p>
-        <% } %>
-
-        <% } %>
-        <% if (related_artists !==null) { %>
-        <%- include('./relatedArtists' , {data: related_artists}); %>
-        <% } %>
-      </div>
-      <% } else { %>
-      <div class="col-12">
-        <%- include('./artistPageProfile', {data: artist_data.profile}); %>
-        <% if (related_artists !==null) { %>
-        <%- include('./relatedArtists', {data: related_artists}); %>
-        <% } %>
-      </div>
-      <% } %>
+          <div class="col-12">
+            <%- include('./artistPageProfile', {data: artist_data.profile}); %>
+              <% if (related_artists !==null) { %>
+                <%- include('./relatedArtists', {data: related_artists}); %>
+                  <% } %>
+          </div>
+          <% } %>
     </div>
   </div>
   <div class="col-xl-7" style="padding-left: 25px;">
     <%- include('./artistPageLyrics', {data: artist_data.lyrics}); %>
+      <% if (artist_articles !==null) { %>
+        <%- include('./artistArticles', {data: artist_articles}); %>
+            <% } %>
   </div>
 </div>

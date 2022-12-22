@@ -9,6 +9,7 @@ import {
   GET_RECENTLY_ADDED_LYRICS,
   GET_RELATED_ARTISTS,
   GENERATE_ARTIST_CATALOGUE,
+  GET_ARTIST_ARTICLES,
 } from "./FUNCTIONS";
 import lyric from "./interfaces/lyric";
 import { Router } from "express";
@@ -20,8 +21,8 @@ import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate"
 import curse_word_occurences from "./interfaces/curse_word_occurences";
 import { ARTISTS } from "./app";
 import path from "path";
-import all_artists from "./interfaces/all_artists_list";
 import artist from "./interfaces/artist";
+import artist_articles from "./interfaces/artist_articles";
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get("/artists", async (req, res) => {
   }
 });
 
-// (/artists/:artust_query)
+// (/artists/:artist_query)
 router.get("/artists/:ARTIST_QUERY", async (req, res) => {
   try {
     const artistData: artist_page_data | null = await GET_ARTISTPAGE_DATA(
@@ -98,15 +99,38 @@ router.get("/artists/:ARTIST_QUERY", async (req, res) => {
       const relatedArtists: artist[] | null = await GET_RELATED_ARTISTS(
         req.params.ARTIST_QUERY
       );
+      const artistArticles: artist_articles[] | null =
+        await GET_ARTIST_ARTICLES(req.params.ARTIST_QUERY);
 
       res.render("artistPage", {
         artist_data: artistData,
         related_artists: relatedArtists,
+        artist_articles: artistArticles,
       });
     }
   } catch (e) {
     console.log("error: could not render artistsPage");
     res.status(500).send("error");
+  }
+});
+
+// (/artists/:artist_query/:article_name)
+router.get("/artists/:ARTIST_QUERY/:ARTICLE_NAME", async (req, res) => {
+  //search for artist in database and see if they have articles
+
+  try {
+    res
+      .status(200)
+      .sendFile(
+        path.join(
+          __dirname,
+          "..",
+          "articles",
+          req.params.ARTICLE_NAME + ".html"
+        )
+      );
+  } catch (e) {
+    res.status(404).send("Article does not exist");
   }
 });
 

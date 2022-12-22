@@ -8,7 +8,6 @@ import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate"
 import { ARTISTS, LYRICS } from "./app";
 import { curse_words_list } from "./data/curseWords";
 import curse_word_occurences from "./interfaces/curse_word_occurences";
-import all_artists from "./interfaces/all_artists_list";
 import artist from "./interfaces/artist";
 const s3 = new S3Client({
   credentials: {
@@ -335,6 +334,20 @@ export async function GENERATE_ARTIST_CATALOGUE() {
     return [aritstWithProfilePics, artistsWithoutProfilePic];
 
     //get all unique
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function GET_ARTIST_ARTICLES(artistQuery: string) {
+  try {
+    const ARTIST = await ARTISTS.find({ artist_query: artistQuery }).toArray();
+    if (ARTIST! && ARTIST[0].articles!) {
+      return ARTIST[0].articles;
+    } else {
+      return null;
+    }
   } catch (e) {
     console.log(e);
     return null;
