@@ -343,7 +343,8 @@ export async function GENERATE_ARTIST_CATALOGUE() {
 export async function GET_ARTIST_ARTICLES(artistQuery: string) {
   try {
     const ARTIST = await ARTISTS.find({ artist_query: artistQuery }).toArray();
-    if (ARTIST! && ARTIST[0].articles!) {
+
+    if (ARTIST[0].articles !== undefined) {
       return ARTIST[0].articles;
     } else {
       return null;
