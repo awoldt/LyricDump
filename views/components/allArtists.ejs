@@ -5,7 +5,7 @@
     <% for( let index=0; index < data[0].length; index++ ) { %>
         <div class="col-xl-1 col-lg-2 col-md-3 col-4">
             <a href="/artists/<%= data[0][index].artist_query %>">
-                <img src="/imgs/<%= data[0][index].artist_query %>.png" alt="<%= data[0][index].artist %>"
+                <img src="/imgs/<%= data[0][index].artist_query %>.png" alt="<%= data[0][index].name %>"
                     style="width: 100px; height: 100px; margin-bottom: 10px;" />
             </a>
 
@@ -15,7 +15,18 @@
 
             <p style="margin-bottom: 0px;">Other artists</p>
             <% for( let index=0; index < data[1].length; index++ ) { %>
-                <a href="/artists/<%= data[1][index].artist_query %>">
+                <% //if character of first name is an actual letter %>
+                <% if (/^[a-z]/i.test(data[1][index].artist_name.charAt(0))) { %>
+                    <% //if not the first or last name to print %>
+                    <% if (index !== 0 && index !== data[1][data[1].length-1]) { %>
+                        <% if (data[1][index].artist_name.charAt(0).toUpperCase() !== data[1][index-1].artist_name.charAt(0).toUpperCase()) { %>
+                         <div class="mt-4"><%= data[1][index].artist_name.charAt(0) %></div>
+                         <hr>
+                        <% } %>
+                    <% } %>
+                <% } %>
+
+               <a href="/artists/<%= data[1][index].artist_query %>" >
                     <%= data[1][index].artist_name %>
                 </a>
                 <% } %>
