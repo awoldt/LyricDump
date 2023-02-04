@@ -14,12 +14,9 @@ import homepage_display_stats from "./interfaces/homepage_display_stats";
 import featured_lyric from "./interfaces/featured_lyrics";
 import top_artists from "./interfaces/top_artists_aggregate";
 import artist_page_data from "./interfaces/artist_page_data";
-import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
-import curse_word_occurences from "./interfaces/curse_word_occurences";
 import { ARTISTS } from "./app";
 import path from "path";
 import artist from "./interfaces/artist";
-import artist_articles from "./interfaces/artist_articles";
 
 const router = Router();
 
@@ -97,26 +94,6 @@ router.get("/artists/:ARTIST_QUERY", async (req, res) => {
   } catch (e) {
     console.log("error: could not render artistsPage");
     res.status(500).send("error");
-  }
-});
-
-// (/artists/:artist_query/:article_name)
-router.get("/artists/:ARTIST_QUERY/:ARTICLE_NAME", async (req, res) => {
-  //search for artist in database and see if they have articles
-
-  try {
-    res
-      .status(200)
-      .sendFile(
-        path.join(
-          __dirname,
-          "..",
-          "articles",
-          req.params.ARTICLE_NAME + ".html"
-        )
-      );
-  } catch (e) {
-    res.status(404).send("Article does not exist");
   }
 });
 
