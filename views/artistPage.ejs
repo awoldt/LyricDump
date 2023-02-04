@@ -55,7 +55,7 @@
     <div class="container" itemscope itemtype="https://schema.org/Person">
       <%- include('./components/search') %>
       <% if (artist_data.profile !== null) { %>
-      <%- include('./components/artistWithProfile', {artist_data: artist_data, related_artists: related_artists, artist_articles: artist_articles})
+      <%- include('./components/artistWithProfile', {artist_data: artist_data, related_artists: related_artists})
               %>
       <% } else { %>
       <%# artist does not have profile, no img, nicknames, or about %>

@@ -253,18 +253,3 @@ export async function GENERATE_ARTIST_CATALOGUE() {
     return null;
   }
 }
-
-export async function GET_ARTIST_ARTICLES(artistQuery: string) {
-  try {
-    const ARTIST = await ARTISTS.find({ artist_query: artistQuery }).toArray();
-
-    if (ARTIST[0].articles !== undefined) {
-      return ARTIST[0].articles;
-    } else {
-      return null;
-    }
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-}

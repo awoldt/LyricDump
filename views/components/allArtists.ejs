@@ -17,8 +17,8 @@
             <% for( let index=0; index < data[1].length; index++ ) { %>
                 <% //if character of first name is an actual letter %>
                 <% if (/^[a-z]/i.test(data[1][index].artist_name.charAt(0))) { %>
-                    <% //if not the first or last name to print %>
-                    <% if (index !== 0 && index !== data[1][data[1].length-1]) { %>
+                    <% //if not the first artist %>
+                    <% if (index !== 0) { %>
                         <% if (data[1][index].artist_name.charAt(0).toUpperCase() !== data[1][index-1].artist_name.charAt(0).toUpperCase()) { %>
                          <div class="mt-4"><%= data[1][index].artist_name.charAt(0) %></div>
                          <hr>

@@ -7,7 +7,6 @@ import {
   GET_RECENTLY_ADDED_LYRICS,
   GET_RELATED_ARTISTS,
   GENERATE_ARTIST_CATALOGUE,
-  GET_ARTIST_ARTICLES,
 } from "./FUNCTIONS";
 import lyric from "./interfaces/lyric";
 import { Router } from "express";
@@ -89,13 +88,10 @@ router.get("/artists/:ARTIST_QUERY", async (req, res) => {
       const relatedArtists: artist[] | null = await GET_RELATED_ARTISTS(
         req.params.ARTIST_QUERY
       );
-      const artistArticles: artist_articles[] | null =
-        await GET_ARTIST_ARTICLES(req.params.ARTIST_QUERY);
 
       res.render("artistPage", {
         artist_data: artistData,
         related_artists: relatedArtists,
-        artist_articles: artistArticles,
       });
     }
   } catch (e) {
