@@ -1,13 +1,9 @@
 import lyric from "./interfaces/lyric";
 import homepage_display_stats from "./interfaces/homepage_display_stats";
-
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import top_artists from "./interfaces/top_artists_aggregate";
 import artist_page_data from "./interfaces/artist_page_data";
-import artist_cuss_word_aggregate from "./interfaces/artist_cuss_word_aggregate";
 import { ARTISTS, LYRICS } from "./app";
-import { curse_words_list } from "./data/curseWords";
-import curse_word_occurences from "./interfaces/curse_word_occurences";
 import artist from "./interfaces/artist";
 const s3 = new S3Client({
   credentials: {
