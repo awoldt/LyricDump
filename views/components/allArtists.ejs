@@ -20,7 +20,7 @@
                     <% //if not the first artist %>
                     <% if (index !== 0) { %>
                         <% if (data[1][index].artist_name.charAt(0).toUpperCase() !== data[1][index-1].artist_name.charAt(0).toUpperCase()) { %>
-                         <div class="mt-4"><%= data[1][index].artist_name.charAt(0) %></div>
+                         <div class="mt-4"><b><%= data[1][index].artist_name.charAt(0) %></b></div>
                          <hr>
                         <% } %>
                     <% } %>
