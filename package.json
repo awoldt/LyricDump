@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index"
+    "build": "tsc",
+    "start": "cd build && node app",
+    "dev": "cd src && ts-node app"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "@google-cloud/storage": "^5.18.0",
     "aws-config": "^1.4.0",
     "compression": "^1.7.4",
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "fuse.js": "^6.5.3",
@@ -25,7 +27,6 @@
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",
-    "@types/express": "^4.17.14",
-    "dotenv": "^10.0.0"
+    "@types/express": "^4.17.14"
   }
 }

@@ -1,7 +1,8 @@
-FROM node:18-alpine
+FROM node:20-alpine
 WORKDIR /
 COPY package.json .
 RUN npm i
 COPY . .
-WORKDIR /build
-CMD ["node", "app"]
+RUN npm i -g typescript
+RUN npm run build
+CMD ["npm", "start"]

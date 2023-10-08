@@ -1,8 +1,9 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 import express from "express";
-import path from "path";
+
 import router from "./routes";
 import compression from "compression";
 import { MongoClient } from "mongodb";
