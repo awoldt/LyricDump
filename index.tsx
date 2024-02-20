@@ -9,6 +9,7 @@ import {
   GetRelatedArtists,
 } from "./utils";
 import ArtistPage from "./views/Artist";
+import Nav from "./views/components/Nav";
 const app = new Hono();
 
 app.use("*", serveStatic({ root: "./public" }));
@@ -35,6 +36,7 @@ if (await ConnectToDb()) {
           <link rel="stylesheet" href="/styles/home.css" />
         </head>
         <body>
+          <Nav />
           <main>
             <div id="container">
               <HomePage lyrics={lyrics} />
@@ -69,6 +71,14 @@ if (await ConnectToDb()) {
       },
     ]).toArray();
 
+    if (artistData.length === 0) {
+      return c.notFound();
+    }
+
+    artistData[0].lyrics?.sort((a: any, b: any) => {
+      return b.year - a.year;
+    });
+
     const relatedArtists = await GetRelatedArtists(artist);
 
     return c.html(
@@ -84,6 +94,7 @@ if (await ConnectToDb()) {
           <link rel="stylesheet" href="/styles/artist.css" />
         </head>
         <body>
+          <Nav />
           <main>
             <div id="container" style="text-align: center">
               <ArtistPage

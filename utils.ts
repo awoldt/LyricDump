@@ -29,6 +29,7 @@ export interface Lyric {
 export interface RelatedArtist {
   name: string;
   profile_img: string;
+  query: string;
 }
 
 const dbClient = new MongoClient(process.env.MONGODB_CONNECTION_STRING!);
@@ -71,8 +72,6 @@ export async function GetRelatedArtists(artistId: string) {
         artist_id: { $in: artist.related_artists },
       }).toArray();
 
-      console.log(relatedArtists);
-
       for (let i = 0; i < relatedArtists.length; i++) {
         if (!addedArtists.includes(relatedArtists[i].artist_id)) {
           RETURN_ARTISTS.push({
@@ -80,6 +79,7 @@ export async function GetRelatedArtists(artistId: string) {
             profile_img: !relatedArtists[i].has_profile_img
               ? "/imgs/noprofile.png"
               : `/imgs/artists/${relatedArtists[i].artist_id}.png`,
+            query: relatedArtists[i].artist_id,
           });
           addedArtists.push(relatedArtists[i].artist_id);
         }
@@ -93,8 +93,6 @@ export async function GetRelatedArtists(artistId: string) {
       related_artists: { $in: [artistId] },
     }).toArray();
 
-    console.log(appearsIn);
-
     for (let i = 0; i < appearsIn.length; i++) {
       if (!addedArtists.includes(appearsIn[i].artist_id)) {
         RETURN_ARTISTS.push({
@@ -102,6 +100,7 @@ export async function GetRelatedArtists(artistId: string) {
           profile_img: !appearsIn[i].has_profile_img
             ? "/imgs/noprofile.png"
             : `/imgs/artists/${appearsIn[i].artist_id}.png`,
+          query: appearsIn[i].artist_id,
         });
         addedArtists.push(appearsIn[i].artist_id);
       }

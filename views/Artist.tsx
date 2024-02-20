@@ -17,7 +17,7 @@ export default function ArtistPage(prop: PageProps) {
       <hr />
       <div id="lyric_parent_div">
         {prop.artistData.lyrics && (
-          <span>{[prop.artistData.lyrics.length]} lyrics</span>
+          <span><b>{[prop.artistData.lyrics.length]} lyrics</b></span>
         )}{" "}
         {prop.artistData.lyrics &&
           prop.artistData.lyrics.map((x: Lyric) => {
@@ -38,20 +38,25 @@ export default function ArtistPage(prop: PageProps) {
             );
           })}
       </div>
-      {prop.relatedArtists && prop.relatedArtists.length > 1 && (
-        <div>
-          <h2>Other artists you might be interested in</h2>
-          {prop.relatedArtists.map((x: any) => {
-            return (
-              <div>
-                <img src={x.profile_img} alt="" />
-                <span>
-                  <b>{x.name}</b>
-                </span>
-              </div>
-            );
-          })}
-        </div>
+      {prop.relatedArtists && prop.relatedArtists.length > 0 && (
+        <>
+          <hr />
+          <div style="text-align: left">
+            <h2>Other artists you might be interested in</h2>
+            {prop.relatedArtists.map((x) => {
+              return (
+                <a href={`/${x.query}`}>
+                  <div class="related-artist">
+                    <img src={x.profile_img} alt="" />
+                    <span>
+                      <b>{x.name}</b>
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </>
       )}
     </>
   );
