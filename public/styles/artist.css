@@ -1,0 +1,20 @@
+#lyric_parent_div {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.lyric-div p {
+  display: inline-block;
+  max-width: 650px;
+}
+
+.lyric-div span {
+  color: grey;
+  font-style: italic;
+}
+
+#profile_img {
+  height: 400px;
+  width: 400px;
+}
