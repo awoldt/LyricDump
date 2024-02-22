@@ -32,6 +32,14 @@ export interface RelatedArtist {
   query: string;
 }
 
+export interface RecentLyrics {
+  lyric: string;
+  song: string;
+  year: number;
+  artist_name: string;
+  artist_query: string;
+}
+
 const dbClient = new MongoClient(process.env.MONGODB_CONNECTION_STRING!);
 export const HomepageLyricsCollection = dbClient
   .db("lyricdump-PROD")
@@ -41,10 +49,95 @@ export const ArtistsCollection = dbClient
   .db("lyricdump-PROD")
   .collection<Artist>("artists_v2");
 
+export const LyricsCollection = dbClient
+  .db("lyricdump-PROD")
+  .collection<Lyric>("lyrics_v2");
+
 export async function ConnectToDb() {
   try {
     await dbClient.connect();
     return true;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+export async function GetHomepageData() {
+  /*
+    Gets all the information needed to display on root route "/"
+  */
+
+  try {
+    const featuredLyrics = await HomepageLyricsCollection.find(
+      {},
+      { projection: { _id: 0 } }
+    ).toArray();
+
+    const topArtist = await LyricsCollection.aggregate<{
+      _id: string;
+      numOfLyrics: number;
+      artist_data: Artist[];
+    }>([
+      {
+        $group: {
+          _id: "$artist_id",
+          numOfLyrics: { $count: {} },
+        },
+      },
+      {
+        $sort: { numOfLyrics: -1, _id: -1 }, // _id sort here will enforce stable order of results
+      },
+      {
+        $limit: 10,
+      },
+      {
+        $lookup: {
+          from: "artists_v2",
+          localField: "_id",
+          foreignField: "artist_id",
+          as: "artist_data",
+        },
+      },
+    ]).toArray();
+
+    const recentLyrics: RecentLyrics[] = (
+      await LyricsCollection.aggregate([
+        {
+          $sort: {
+            _id: -1,
+          },
+        },
+        {
+          $match: { explicit: false },
+        },
+        {
+          $lookup: {
+            from: "artists_v2",
+            localField: "artist_id",
+            foreignField: "artist_id",
+            as: "artist_data",
+          },
+        },
+        {
+          $limit: 10,
+        },
+      ]).toArray()
+    ).map((x) => {
+      return {
+        lyric: x.lyric,
+        song: x.song,
+        year: x.year,
+        artist_name: x.artist_data[0].name,
+        artist_query: x.artist_data[0].artist_id,
+      };
+    });
+
+    return {
+      topArtist: topArtist,
+      featuredLyrics: featuredLyrics,
+      recentLyrics: recentLyrics,
+    };
   } catch (err) {
     console.log(err);
     return null;

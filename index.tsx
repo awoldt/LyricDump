@@ -1,25 +1,31 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
-import HomePage from "./views/Home";
 import {
   ArtistsCollection,
   ConnectToDb,
   HomepageLyricsCollection,
   type Artist,
   GetRelatedArtists,
+  LyricsCollection,
+  type Lyric,
+  type RecentLyrics,
+  GetHomepageData,
 } from "./utils";
 import ArtistPage from "./views/Artist";
 import Nav from "./views/components/Nav";
+import RecentlyAddedLyrics from "./views/components/Home/RecentlyAddedLyrics";
+import TopArtist from "./views/components/Home/TopArtist";
+import FeaturedLyrics from "./views/components/Home/FeaturedLyrics";
 const app = new Hono();
 
 app.use("*", serveStatic({ root: "./public" }));
 
 if (await ConnectToDb()) {
   app.get("/", async (c) => {
-    const lyrics = await HomepageLyricsCollection.find(
-      {},
-      { projection: { _id: 0 } }
-    ).toArray();
+    const homepageData = await GetHomepageData();
+    if (homepageData === null) {
+      return c.text("There was an error while getting data from backend :(");
+    }
 
     return c.html(
       <html lang="en">
@@ -39,7 +45,23 @@ if (await ConnectToDb()) {
           <Nav />
           <main>
             <div id="container">
-              <HomePage lyrics={lyrics} />
+              <div id="banner_text">
+                <h1>A Collection of the Worst Song Lyrics of All Time</h1>
+                <p>
+                  Lyricdump is a archive of some of the worst song lyrics ever.
+                  Lyrics so strange that it might make you wonder why an artist
+                  had it in their song. Spanning many genres, LyricDump is the
+                  one-stop shop for hilarious lyrics to share with friends and
+                  family.
+                </p>
+              </div>
+
+              <FeaturedLyrics lyrics={homepageData.featuredLyrics} />
+
+              <div id="other_stats_div">
+                <TopArtist topArtist={homepageData.topArtist} />
+                <RecentlyAddedLyrics lyrics={homepageData.recentLyrics} />
+              </div>
             </div>
           </main>
         </body>
