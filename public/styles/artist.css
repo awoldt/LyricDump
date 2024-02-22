@@ -5,14 +5,19 @@
   padding: 5px;
 }
 
-.lyric-div p {
-  display: inline-block;
-  max-width: 650px;
+.lyric-div {
+  display: flex;
+  align-items: center;
+}
+
+.lyric-div img {
+  margin-right: 8px;
 }
 
 .lyric-div span {
   color: grey;
   font-style: italic;
+  margin-left: 10px;
 }
 
 #profile_img {
@@ -27,6 +32,11 @@
 .related-artist img {
   width: 50px;
   display: inline-block;
+}
+
+#artist_description {
+  max-width: 800px;
+  margin: auto;
 }
 
 @media only screen and (max-width: 750px) {

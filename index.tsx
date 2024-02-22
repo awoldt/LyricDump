@@ -14,7 +14,7 @@ import {
 import ArtistPage from "./views/Artist";
 import Nav from "./views/components/Nav";
 import RecentlyAddedLyrics from "./views/components/Home/RecentlyAddedLyrics";
-import TopArtist from "./views/components/Home/TopArtist";
+import TopArtist from "./views/components/Home/TopArtists";
 import FeaturedLyrics from "./views/components/Home/FeaturedLyrics";
 const app = new Hono();
 
