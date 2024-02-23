@@ -1,17 +1,11 @@
 #lyric_parent_div {
-  display: flex;
-  flex-direction: column;
   text-align: left;
   padding: 5px;
 }
 
-.lyric-div {
-  display: flex;
-  align-items: center;
-}
-
 .lyric-div img {
   margin-right: 8px;
+  display: inline-block;
 }
 
 .lyric-div span {
@@ -44,4 +38,8 @@
     height: 200px;
     width: 200px;
   }
+}
+
+.explanation-text {
+  display: block;
 }

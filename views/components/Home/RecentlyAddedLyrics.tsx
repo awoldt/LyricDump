@@ -1,26 +1,45 @@
-import type { RecentLyrics } from "../../../utils";
+import type { DisplayLyric } from "../../../utils";
 
 interface PropData {
-  lyrics: RecentLyrics[];
+  lyrics: DisplayLyric[];
 }
 
 export default function RecentlyAddedLyrics(prop: PropData) {
   return (
-    <div id="recent_lyrics_div">
-      <h2>Recently added lyrics</h2>
-      {prop.lyrics.map((x) => {
-        return (
-          <a href={`/${x.artist_query}`} class="recent-lyric">
-            {" "}
-            <p>
-              {x.lyric}{" "}
-              <span class="lyric-songandyear">
-                {x.artist_name} - {x.song} ({x.year})
-              </span>
-            </p>
-          </a>
-        );
-      })}
+    <div style="margin-top: 50px">
+      <h2 style="text-align: center">Recently added lyrics</h2>
+      <div class="lyric-display-div">
+        {prop.lyrics.map((x) => {
+          return (
+            <a href={`/${x.artist_query}`}>
+              {" "}
+              <div>
+                <div style="display: flex; align-items: center">
+                  {x.has_profile_img && (
+                    <img
+                      src={`/imgs/artists/${x.artist_query}.png`}
+                      alt={x.artist_name}
+                    />
+                  )}
+                  {!x.has_profile_img && <img src={`/imgs/noprofile.png`} />}
+
+                  <span style="display: inline-block; margin-left: 5px">
+                    <b>{x.artist_name}</b>
+                  </span>
+                </div>
+
+                <p>
+                  {x.lyric}
+                  <br />
+                  <span class="lyric-songandyear">
+                    {x.song} ({x.year})
+                  </span>
+                </p>
+              </div>
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 }

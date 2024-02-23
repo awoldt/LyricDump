@@ -1,11 +1,18 @@
 #container {
   max-width: 1500px;
   margin: auto;
-  padding: 100px 10% 0px 10%;
+  padding: 0px 10% 0px 10%;
 }
 
 body {
   margin: 0px;
+  color: white;
+  background-color: #21383a;
+}
+
+main {
+  padding-bottom: 50px;
+  padding-top: 50px;
 }
 
 html {
@@ -13,12 +20,13 @@ html {
 }
 
 h1 {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .navbar {
   overflow: hidden;
-  background-color: #0d6efd;
+  background-color: rgba(209,170,9,0.5);
   font-family: Arial, sans-serif;
 }
 

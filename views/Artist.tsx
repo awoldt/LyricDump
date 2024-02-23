@@ -21,7 +21,9 @@ export default function ArtistPage(prop: PageProps) {
       )}
 
       <h1>{prop.artistData.name}'s Worst Lyrics</h1>
-      {prop.artistData.description && <p id="artist_description">{prop.artistData.description}</p>}
+      {prop.artistData.description && (
+        <p id="artist_description">{prop.artistData.description}</p>
+      )}
       <hr />
       <div id="lyric_parent_div">
         {prop.artistData.lyrics && (
@@ -39,11 +41,14 @@ export default function ArtistPage(prop: PageProps) {
                   </>
                 )}
                 <p>
-                  {x.lyric}{" "}
+                  {x.lyric}
                   <span>
-                    {x.song} ({x.year})
+                    - {x.song} ({x.year})
                   </span>
                 </p>
+                {x.explanation && (
+                  <p class="explanation-text">{x.explanation}</p>
+                )}
               </div>
             );
           })}

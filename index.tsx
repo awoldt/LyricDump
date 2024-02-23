@@ -3,18 +3,14 @@ import { serveStatic } from "hono/bun";
 import {
   ArtistsCollection,
   ConnectToDb,
-  HomepageLyricsCollection,
   type Artist,
   GetRelatedArtists,
-  LyricsCollection,
-  type Lyric,
-  type RecentLyrics,
   GetHomepageData,
 } from "./utils";
 import ArtistPage from "./views/Artist";
 import Nav from "./views/components/Nav";
 import RecentlyAddedLyrics from "./views/components/Home/RecentlyAddedLyrics";
-import TopArtist from "./views/components/Home/TopArtists";
+import TopArtist from "./views/components/Home/PopularArtists";
 import FeaturedLyrics from "./views/components/Home/FeaturedLyrics";
 const app = new Hono();
 
@@ -42,26 +38,23 @@ if (await ConnectToDb()) {
           <link rel="stylesheet" href="/styles/home.css" />
         </head>
         <body>
-          <Nav />
           <main>
             <div id="container">
               <div id="banner_text">
-                <h1>A Collection of the Worst Song Lyrics of All Time</h1>
+                <h1>A Collection of the Dumbest Song Lyrics of All Time</h1>
                 <p>
                   Lyricdump is a archive of some of the worst song lyrics ever.
                   Lyrics so strange that it might make you wonder why an artist
-                  had it in their song. Spanning many genres, LyricDump is the
+                  had it in their song. Spanning many genres, this site is the
                   one-stop shop for hilarious lyrics to share with friends and
                   family.
                 </p>
               </div>
 
               <FeaturedLyrics lyrics={homepageData.featuredLyrics} />
+              <RecentlyAddedLyrics lyrics={homepageData.recentLyrics} />
 
-              <div id="other_stats_div">
-                <TopArtist topArtist={homepageData.topArtist} />
-                <RecentlyAddedLyrics lyrics={homepageData.recentLyrics} />
-              </div>
+              <TopArtist topArtist={homepageData.topArtist} />
             </div>
           </main>
         </body>

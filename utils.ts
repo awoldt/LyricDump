@@ -1,11 +1,12 @@
 import { MongoClient } from "mongodb";
 
-export interface HomepageLyric {
+export interface DisplayLyric {
   lyric: string;
   song: string;
   year: number;
+  artist_name: string;
   artist_query: string;
-  artist: string;
+  has_profile_img: boolean;
 }
 
 export interface Artist {
@@ -32,18 +33,10 @@ export interface RelatedArtist {
   query: string;
 }
 
-export interface RecentLyrics {
-  lyric: string;
-  song: string;
-  year: number;
-  artist_name: string;
-  artist_query: string;
-}
-
 const dbClient = new MongoClient(process.env.MONGODB_CONNECTION_STRING!);
 export const HomepageLyricsCollection = dbClient
   .db("lyricdump-PROD")
-  .collection<HomepageLyric>("homepage-lyrics");
+  .collection<DisplayLyric>("homepage-lyrics");
 
 export const ArtistsCollection = dbClient
   .db("lyricdump-PROD")
@@ -74,7 +67,7 @@ export async function GetHomepageData() {
       { projection: { _id: 0 } }
     ).toArray();
 
-    const topArtist = await LyricsCollection.aggregate<{
+    const popularArtists = await LyricsCollection.aggregate<{
       _id: string;
       numOfLyrics: number;
       artist_data: Artist[];
@@ -89,7 +82,7 @@ export async function GetHomepageData() {
         $sort: { numOfLyrics: -1, _id: -1 }, // _id sort here will enforce stable order of results
       },
       {
-        $limit: 10,
+        $limit: 18,
       },
       {
         $lookup: {
@@ -101,7 +94,7 @@ export async function GetHomepageData() {
       },
     ]).toArray();
 
-    const recentLyrics: RecentLyrics[] = (
+    const recentLyrics: DisplayLyric[] = (
       await LyricsCollection.aggregate([
         {
           $sort: {
@@ -120,7 +113,7 @@ export async function GetHomepageData() {
           },
         },
         {
-          $limit: 10,
+          $limit: 9,
         },
       ]).toArray()
     ).map((x) => {
@@ -130,11 +123,12 @@ export async function GetHomepageData() {
         year: x.year,
         artist_name: x.artist_data[0].name,
         artist_query: x.artist_data[0].artist_id,
+        has_profile_img: x.artist_data[0].has_profile_img,
       };
     });
 
     return {
-      topArtist: topArtist,
+      topArtist: popularArtists,
       featuredLyrics: featuredLyrics,
       recentLyrics: recentLyrics,
     };

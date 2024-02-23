@@ -1,41 +1,51 @@
-#featured_lyrics_div {
+h2 {
+  font-weight: 900;
+}
+
+.lyric-display-div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-#featured_lyrics_div a {
-  border: 1px solid black;
+.lyric-display-div a {
+  border: 5px solid #1a2c2e;
   padding: 10px;
   border-radius: 10px;
   width: 400px;
   margin: 5px;
   text-decoration: none;
   color: inherit;
+  background-color: #4f5c5d;
 }
 
-#featured_lyrics_div p {
+.lyric-display-div p {
   margin-bottom: 0px;
 }
 
-#featured_lyrics_div img {
+.lyric-display-div img {
   width: 50px;
   height: 50px;
   border-radius: 10px;
 }
 
+.lyric-display-div span {
+  margin-top: 15px;
+}
+
 .lyric-songandyear {
   margin-top: 3px;
   display: block;
-  color: grey;
+  color: white;
   font-size: 14px;
+  font-style: italic;
 }
 
 #top_artist_div {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -44,10 +54,11 @@
   align-items: center;
   text-decoration: none;
   color: inherit;
+  margin: 20px;
 }
 
 #top_artist_div img {
-  width: 50px;
+  width: 100px;
   border-radius: 10px;
 }
 
@@ -60,19 +71,39 @@
 
 #banner_text {
   text-align: center;
-  max-width: 750px;
+  max-width: 900px;
   margin: auto;
-}
-
-#other_stats_div {
-  justify-content: center;
-  display: flex;
-}
-
-#recent_lyrics_div {
-  text-align: -webkit-center;
 }
 
 #recent_lyrics_div a {
   max-width: 600px;
+}
+
+#popular_artists_div {
+  background-color: #4f5c5d;
+  padding: 10px;
+  border: 5px solid #1a2c2e;
+  border-radius: 10px;
+  margin-top: 50px;
+}
+
+@media only screen and (max-width: 1096px) {
+  #top_artist_div {
+    margin-top: 10px;
+  }
+
+  #recent_lyrics_div {
+    margin-top: 50px;
+  }
+}
+
+@media only screen and (max-width: 1116px) {
+  .lyric-display-div a {
+    width: 100%;
+    font-size: 20px;
+  }
+
+  #top_artist_div img {
+    width: 75px;
+  }
 }
