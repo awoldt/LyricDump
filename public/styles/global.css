@@ -26,7 +26,7 @@ h1 {
 
 .navbar {
   overflow: hidden;
-  background-color: rgba(209,170,9,0.5);
+  background-color: #0d1617;
   font-family: Arial, sans-serif;
 }
 
@@ -43,6 +43,10 @@ h1 {
 .navbar a:hover {
   background-color: #ddd;
   color: black;
+}
+
+.navbar .right-link {
+  float: right;
 }
 
 @media only screen and (max-width: 750px) {

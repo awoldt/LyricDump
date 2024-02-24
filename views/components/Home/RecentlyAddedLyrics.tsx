@@ -11,7 +11,11 @@ export default function RecentlyAddedLyrics(prop: PropData) {
       <div class="lyric-display-div">
         {prop.lyrics.map((x) => {
           return (
-            <a href={`/${x.artist_query}`}>
+            <a
+              href={`/${x.artist_query}`}
+              itemscope
+              itemtype="https://schema.org/MusicComposition"
+            >
               {" "}
               <div>
                 <div style="display: flex; align-items: center">
@@ -24,17 +28,22 @@ export default function RecentlyAddedLyrics(prop: PropData) {
                   {!x.has_profile_img && <img src={`/imgs/noprofile.png`} />}
 
                   <span style="display: inline-block; margin-left: 5px">
-                    <b>{x.artist_name}</b>
+                    <b itemprop="lyricist">{x.artist_name}</b>
                   </span>
                 </div>
-
-                <p>
-                  {x.lyric}
-                  <br />
-                  <span class="lyric-songandyear">
-                    {x.song} ({x.year})
-                  </span>
-                </p>
+                <div>
+                  <p>
+                    <span itemprop="lyrics">{x.lyric}</span>
+                    <br />
+                    <span class="lyric-songandyear">
+                      <span itemprop="name">{x.song}</span> (
+                      <span itemprop="copyrightYear">{x.year}</span>)
+                    </span>
+                    <span style="margin-top: 10px; display: block; color: lightgrey">
+                      Added on {x.added_on?.toDateString()}
+                    </span>
+                  </p>
+                </div>
               </div>
             </a>
           );

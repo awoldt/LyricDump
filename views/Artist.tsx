@@ -7,47 +7,61 @@ interface PageProps {
 
 export default function ArtistPage(prop: PageProps) {
   return (
-    <>
+    <div itemscope itemtype="https://schema.org/Person">
       {prop.artistData.has_profile_img && (
         <img
           src={`/imgs/artists/${prop.artistData.artist_id}.png`}
           alt={`${prop.artistData.name}`}
           id="profile_img"
+          itemprop="image"
         />
       )}
-
       {!prop.artistData.has_profile_img && (
         <img src={`/imgs/noprofile.png`} id="profile_img" />
       )}
 
-      <h1>{prop.artistData.name}'s Worst Lyrics</h1>
+      <h1>
+        <span itemprop="name">{prop.artistData.name}</span>'s Worst Lyrics
+      </h1>
       {prop.artistData.description && (
-        <p id="artist_description">{prop.artistData.description}</p>
+        <p id="artist_description" itemprop="description">
+          {prop.artistData.description}
+        </p>
       )}
       <hr />
       <div id="lyric_parent_div">
         {prop.artistData.lyrics && (
-          <span>
+          <span style="margin-bottom: 20px; display: block">
             <b>{[prop.artistData.lyrics.length]} lyrics</b>
           </span>
         )}{" "}
         {prop.artistData.lyrics &&
           prop.artistData.lyrics.map((x: Lyric) => {
             return (
-              <div class="lyric-div">
-                {x.explicit && (
-                  <>
-                    <img src="/imgs/icons/explicit.svg" alt="explicit icon" />
-                  </>
-                )}
-                <p>
-                  {x.lyric}
-                  <span>
-                    - {x.song} ({x.year})
-                  </span>
-                </p>
+              <div
+                class="lyric-div"
+                itemscope
+                itemtype="https://schema.org/MusicComposition"
+              >
+                <div style="display: flex">
+                  {x.explicit && (
+                    <>
+                      <img src="/imgs/icons/explicit.svg" alt="explicit icon" />
+                    </>
+                  )}
+                  <p>
+                    <span itemprop="lyrics">{x.lyric}</span>
+                    <span>
+                      - <span itemprop="name">{x.song}</span> (
+                      <span itemprop="copyrightYear">{x.year}</span>)
+                    </span>
+                  </p>
+                </div>
+
                 {x.explanation && (
-                  <p class="explanation-text">{x.explanation}</p>
+                  <p class="explanation-text">
+                    <i>{x.explanation}</i>
+                  </p>
                 )}
               </div>
             );
@@ -56,23 +70,23 @@ export default function ArtistPage(prop: PageProps) {
       {prop.relatedArtists && prop.relatedArtists.length > 0 && (
         <>
           <hr />
-          <div style="text-align: left">
-            <h2>Other artists you might be interested in</h2>
+          <h2>Other artists you might be interested in</h2>
+          <div id="related_artists_div">
             {prop.relatedArtists.map((x) => {
               return (
-                <a href={`/${x.query}`}>
-                  <div class="related-artist">
-                    <img src={x.profile_img} alt="" />
+                <div class="related-artist">
+                  <a href={`/${x.query}`}>
+                    <img src={x.profile_img} alt={x.name} />
                     <span>
                       <b>{x.name}</b>
                     </span>
-                  </div>
-                </a>
+                  </a>
+                </div>
               );
             })}
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }

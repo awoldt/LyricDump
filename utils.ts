@@ -1,4 +1,10 @@
 import { MongoClient } from "mongodb";
+import { z } from "zod";
+
+export const LyricSubmissionModel = z.object({
+  lyric: z.string().max(1500).trim(),
+  song: z.string().max(250).trim(),
+});
 
 export interface DisplayLyric {
   lyric: string;
@@ -7,6 +13,7 @@ export interface DisplayLyric {
   artist_name: string;
   artist_query: string;
   has_profile_img: boolean;
+  added_on?: Date;
 }
 
 export interface Artist {
@@ -45,6 +52,10 @@ export const ArtistsCollection = dbClient
 export const LyricsCollection = dbClient
   .db("lyricdump-PROD")
   .collection<Lyric>("lyrics_v2");
+
+export const LyricSubmissionCollection = dbClient
+  .db("lyricdump-PROD")
+  .collection<z.infer<typeof LyricSubmissionModel>>("lyric_submissions");
 
 export async function ConnectToDb() {
   try {
@@ -124,6 +135,7 @@ export async function GetHomepageData() {
         artist_name: x.artist_data[0].name,
         artist_query: x.artist_data[0].artist_id,
         has_profile_img: x.artist_data[0].has_profile_img,
+        added_on: new Date(x._id.getTimestamp()),
       };
     });
 
@@ -198,4 +210,30 @@ export async function GetRelatedArtists(artistId: string) {
     console.log(err);
     return null;
   }
+}
+
+export function GenerateArtistPageMetaDescription(
+  lyrics: Lyric[] | undefined,
+  artistName: string
+) {
+  /* 
+    Returns a string for a meta description for an artists lyric page,
+    contains a list of at most 5 unique songs featured
+  */
+  if (lyrics === undefined) return null;
+  if (lyrics.length === 1) {
+    return `Discover ${artistName}'s worst lyrics. Laugh and share with friends and family, explore other popular aritsts.`;
+  }
+
+  const songs: string[] = [];
+  for (let i = 0; i < lyrics.length; i++) {
+    if (songs.length === 6) break;
+    if (!songs.includes(lyrics[i].song)) {
+      songs.push(lyrics[i].song);
+    }
+  }
+
+  return `Discover ${artistName}'s worst lyrics from songs like ${songs
+    .slice(0, songs.length - 1)
+    .join(", ")}, and ${songs[songs.length - 1]}`;
 }
