@@ -153,30 +153,42 @@ export async function GetHomepageData() {
 export async function GetRelatedArtists(artistId: string) {
   /* 
     Will return most popular artists ALONG with artists stored in 
-    related_artists array (it will cross reference)
-
-    If an artist is stored in the array, that artist will have the current 
-    artist show on their page as well, regardless if its stored in their array
+    related_artists array
   */
 
   try {
     const artist = await ArtistsCollection.findOne({ artist_id: artistId });
     if (artist === null) return null;
 
-    const appearsIn = (
-      await ArtistsCollection.find({
-        related_artists: { $in: [artistId] },
-      }).toArray()
-    ).map((x) => {
-      return {
-        name: x.name,
-        profile_img: x.has_profile_img
-          ? `/imgs/artists/${x.artist_id}.png`
-          : "/imgs/noprofile.png",
-        query: x.artist_id,
-      };
-    });
+    let recommendedArtists: RelatedArtist[];
+    // current artists has related artists stored in their array
+    if(artist.related_artists) {
+      recommendedArtists = (await ArtistsCollection.find({artist_id: {$in: artist.related_artists}}).toArray()).map((x) => {
+        return {
+          name: x.name,
+          profile_img: x.has_profile_img
+            ? `/imgs/artists/${x.artist_id}.png`
+            : "/imgs/noprofile.png",
+          query: x.artist_id,
+        };
+      })
+    }
+    // no artists stored in their array, check to see if they appear in any other related artists arrays
+    else {
+      recommendedArtists = (await ArtistsCollection.find({related_artists: {$in: [artistId]}}).toArray()).map((x) => {
+        return {
+          name: x.name,
+          profile_img: x.has_profile_img
+            ? `/imgs/artists/${x.artist_id}.png`
+            : "/imgs/noprofile.png",
+          query: x.artist_id,
+        };
+      })
+    }
 
+
+
+  
     const popularArtists = (
       await LyricsCollection.aggregate<{
         _id: string;
@@ -214,8 +226,16 @@ export async function GetRelatedArtists(artistId: string) {
       };
     });
 
+    const p = popularArtists.map(x => {
+      return x.query
+    })
+    // filter out any recommendedArtists that already appear in popularArtists
+    recommendedArtists = recommendedArtists.filter((x) => {
+      return !p.includes(x.query)
+    })
+
     return {
-      relatedAritsts: appearsIn,
+      recommendedArtists: recommendedArtists,
       popularArtists: popularArtists,
     };
   } catch (err) {

@@ -163,11 +163,11 @@ if (await ConnectToDb()) {
           <main>
             <div id="container">
               <div id="banner_text">
-                <h1>Submit Lyrics to be Featured on Lyricdump</h1>
+                <h1>Submit Lyrics</h1>
                 <p>
                   This site is always looking for new funny lyrics to add, if
                   you If you have any lyrics that you don't see on the site
-                  already, be sure to submit the lyrics below!
+                  already, be sure to submit your lyrics below!
                 </p>
               </div>
 
@@ -249,6 +249,8 @@ if (await ConnectToDb()) {
       artistData[0].lyrics,
       artistData[0].name
     );
+
+    
 
     return c.html(
       <html lang="en">

@@ -3,7 +3,7 @@ import type { Artist, Lyric, RelatedArtist } from "../utils";
 interface PageProps {
   artistData: Artist;
   relatedArtists: {
-    relatedAritsts: RelatedArtist[];
+    recommendedArtists: RelatedArtist[];
     popularArtists: RelatedArtist[];
   } | null;
 }
@@ -20,7 +20,7 @@ export default function ArtistPage(prop: PageProps) {
         />
       )}
       {!prop.artistData.has_profile_img && (
-        <img src={`/imgs/noprofile.png`} id="profile_img" />
+        <img src={`/imgs/noprofile.png`} id="profile_img" alt="no profile"/>
       )}
 
       <h1>
@@ -72,12 +72,12 @@ export default function ArtistPage(prop: PageProps) {
       </div>
       {prop.relatedArtists && (
         <>
-          {prop.relatedArtists.relatedAritsts.length > 0 && (
+          {prop.relatedArtists.recommendedArtists.length > 0 && (
             <>
               <hr />
               <h2>Recommended Artists</h2>
               <div class="related_artists_div">
-                {prop.relatedArtists.relatedAritsts.map((x) => {
+                {prop.relatedArtists.recommendedArtists.map((x) => {
                   return (
                     <div class="related-artist">
                       <a href={`/${x.query}`}>
