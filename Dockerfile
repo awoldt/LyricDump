@@ -1,8 +1,7 @@
-FROM node:20-alpine
-WORKDIR /
-COPY package.json .
-RUN npm i
+FROM oven/bun:latest
+WORKDIR /app
+COPY package.json bun.lockb ./
+RUN bun install
 COPY . .
-RUN npm i -g typescript
-RUN npm run build
-CMD ["npm", "start"]
+EXPOSE 8080
+CMD ["bun", "run", "index.tsx"]
