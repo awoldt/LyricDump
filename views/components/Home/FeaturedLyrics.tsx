@@ -7,11 +7,7 @@ interface PropData {
 export default function FeaturedLyrics(prop: PropData) {
   return (
     <div style="margin-top: 50px">
-      <div style="text-align: center">
-        <h2 style="text-align: center">Featured Lyrics</h2>{" "}
-        <p>Featured lyrics will update every 24 hours at midnight UTC</p>
-      </div>
-
+      <h2 style="text-align: center">Featured Lyrics</h2>{" "}
       <div class="lyric-display-div">
         {prop.lyrics.map((x) => {
           return (

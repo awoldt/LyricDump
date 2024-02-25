@@ -3,21 +3,20 @@
   padding: 5px;
 }
 
-.lyric-div span {
-  color: lightgray;
-  font-style: italic;
-  margin-left: 10px;
-}
-
 .lyric-div img {
   margin-right: 7px;
+}
+
+.lyric-metadata {
+  color: lightgray;
+  font-style: italic;
 }
 
 .lyric-div {
   background-color: #4f5c5d;
   margin-bottom: 10px;
   border-radius: 10px;
-  padding: 5px;
+  padding: 5px 5px 5px 15px;
 }
 
 #profile_img {
@@ -29,6 +28,7 @@
 .related-artist img {
   width: 75px;
 }
+
 .related-artist span {
   display: block;
   margin-top: 10px;
@@ -44,14 +44,17 @@
   font-weight: 900;
 }
 
-#related_artists_div {
+.related_artists_div {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-#related_artists_div a {
+.related_artists_div a {
   text-decoration: none;
   color: inherit;
+  margin: 10px;
+  display: block;
 }
 
 @media only screen and (max-width: 750px) {

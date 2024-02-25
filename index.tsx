@@ -34,9 +34,64 @@ if (await ConnectToDb()) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          ></link>
           <title>
             LyricDump - Collection of the Worst Song Lyrics of all Time
           </title>
+
+          <meta
+            name="description"
+            content="Lyricdump is a collection of the dumbest song lyrics of all time. Easily browse your favorite artists and discover funny lyrics to share with friends and family."
+          ></meta>
+
+          <link rel="canonical" href="https://lyricdump.com" />
+          <meta
+            property="og:title"
+            content="LyricDump - Collection of the Worst Song Lyrics of all Time"
+          />
+          <meta property="og:url" content="https://lyricdump.com" />
+          <meta property="og:site_name" content="Lyricdump" />
+          <meta
+            property="og:image"
+            content="https://lyricdump.com/favicon.ico"
+          />
+
+          <meta
+            property="og:description"
+            content="Lyricdump is a collection of the dumbest song lyrics of all time. Easily browse your favorite artists and discover funny lyrics to share with friends and family."
+          />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content="LyricDump - Collection of the Worst Song Lyrics of all Time"
+          />
+          <meta
+            name="twitter:description"
+            content="Lyricdump is a collection of the dumbest song lyrics of all time. Easily browse your favorite artists and discover funny lyrics to share with friends and family."
+          />
+
+          <meta
+            name="twitter:image"
+            content="https://lyricdump.com/favicon.ico"
+          />
+
           <link rel="stylesheet" href="/styles/global.css" />
           <link rel="stylesheet" href="/styles/home.css" />
         </head>
@@ -50,7 +105,8 @@ if (await ConnectToDb()) {
                   Lyrics so strange that it might make you wonder why an artist
                   had it in their song. Spanning many genres, this site is the
                   one-stop shop for hilarious lyrics to share with friends and
-                  family.{" "}
+                  family. <br></br>
+                  <br></br>
                   <a href="/submitlyrics" style="color: inherit">
                     Have any funny lyrics you would like to see on this site?
                   </a>
@@ -77,6 +133,23 @@ if (await ConnectToDb()) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          ></link>
           <title>Submit Lyrics</title>
           <meta
             name="description"
@@ -185,6 +258,23 @@ if (await ConnectToDb()) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          ></link>
           <title>{artistData[0].name}'s Worst Lyrics</title>
           {metaDescription && (
             <meta name="description" content={metaDescription}></meta>

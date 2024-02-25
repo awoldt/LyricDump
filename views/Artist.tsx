@@ -2,7 +2,10 @@ import type { Artist, Lyric, RelatedArtist } from "../utils";
 
 interface PageProps {
   artistData: Artist;
-  relatedArtists: RelatedArtist[] | null;
+  relatedArtists: {
+    relatedAritsts: RelatedArtist[];
+    popularArtists: RelatedArtist[];
+  } | null;
 }
 
 export default function ArtistPage(prop: PageProps) {
@@ -50,9 +53,9 @@ export default function ArtistPage(prop: PageProps) {
                     </>
                   )}
                   <p>
-                    <span itemprop="lyrics">{x.lyric}</span>
-                    <span>
-                      - <span itemprop="name">{x.song}</span> (
+                    <span itemprop="lyrics">{x.lyric}</span> -{" "}
+                    <span class="lyric-metadata">
+                      <span itemprop="name">{x.song}</span> (
                       <span itemprop="copyrightYear">{x.year}</span>)
                     </span>
                   </p>
@@ -67,24 +70,47 @@ export default function ArtistPage(prop: PageProps) {
             );
           })}
       </div>
-      {prop.relatedArtists && prop.relatedArtists.length > 0 && (
+      {prop.relatedArtists && (
         <>
-          <hr />
-          <h2>Other artists you might be interested in</h2>
-          <div id="related_artists_div">
-            {prop.relatedArtists.map((x) => {
-              return (
-                <div class="related-artist">
-                  <a href={`/${x.query}`}>
-                    <img src={x.profile_img} alt={x.name} />
-                    <span>
-                      <b>{x.name}</b>
-                    </span>
-                  </a>
-                </div>
-              );
-            })}
-          </div>
+          {prop.relatedArtists.relatedAritsts.length > 0 && (
+            <>
+              <hr />
+              <h2>Recommended Artists</h2>
+              <div class="related_artists_div">
+                {prop.relatedArtists.relatedAritsts.map((x) => {
+                  return (
+                    <div class="related-artist">
+                      <a href={`/${x.query}`}>
+                        <img src={x.profile_img} alt={x.name} />
+                        <span>
+                          <b>{x.name}</b>
+                        </span>
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+          {prop.relatedArtists.popularArtists.length > 0 && (
+            <>
+              <h2>Popular Artists</h2>
+              <div class="related_artists_div">
+                {prop.relatedArtists.popularArtists.map((x) => {
+                  return (
+                    <div class="related-artist">
+                      <a href={`/${x.query}`}>
+                        <img src={x.profile_img} alt={x.name} />
+                        <span>
+                          <b>{x.name}</b>
+                        </span>
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </>
       )}
     </div>

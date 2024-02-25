@@ -152,60 +152,72 @@ export async function GetHomepageData() {
 
 export async function GetRelatedArtists(artistId: string) {
   /* 
-    Will fetch all artists stored in related_artists array in 
-    db, will also cross reference, if one artist has their name
-    in related_artists array in another artist but none in their own,
-    will still show up 
+    Will return most popular artists ALONG with artists stored in 
+    related_artists array (it will cross reference)
+
+    If an artist is stored in the array, that artist will have the current 
+    artist show on their page as well, regardless if its stored in their array
   */
 
   try {
     const artist = await ArtistsCollection.findOne({ artist_id: artistId });
     if (artist === null) return null;
 
-    let RETURN_ARTISTS: RelatedArtist[] = [];
-    let addedArtists: string[] = [];
+    const appearsIn = (
+      await ArtistsCollection.find({
+        related_artists: { $in: [artistId] },
+      }).toArray()
+    ).map((x) => {
+      return {
+        name: x.name,
+        profile_img: x.has_profile_img
+          ? `/imgs/artists/${x.artist_id}.png`
+          : "/imgs/noprofile.png",
+        query: x.artist_id,
+      };
+    });
 
-    // if artist has related_artists array present in their db document
-    if (artist.related_artists !== null) {
-      const relatedArtists = await ArtistsCollection.find({
-        artist_id: { $in: artist.related_artists },
-      }).toArray();
+    const popularArtists = (
+      await LyricsCollection.aggregate<{
+        _id: string;
+        numOfLyrics: number;
+        artist_data: Artist[];
+      }>([
+        {
+          $group: {
+            _id: "$artist_id",
+            numOfLyrics: { $count: {} },
+          },
+        },
+        {
+          $sort: { numOfLyrics: -1, _id: -1 }, // _id sort here will enforce stable order of results
+        },
+        {
+          $limit: 6,
+        },
+        {
+          $lookup: {
+            from: "artists_v2",
+            localField: "_id",
+            foreignField: "artist_id",
+            as: "artist_data",
+          },
+        },
+      ]).toArray()
+    ).map((x) => {
+      return {
+        name: x.artist_data[0].name,
+        profile_img: x.artist_data[0].has_profile_img
+          ? `/imgs/artists/${x.artist_data[0].artist_id}.png`
+          : "/imgs/noprofile.png",
+        query: x.artist_data[0].artist_id,
+      };
+    });
 
-      for (let i = 0; i < relatedArtists.length; i++) {
-        if (!addedArtists.includes(relatedArtists[i].artist_id)) {
-          RETURN_ARTISTS.push({
-            name: relatedArtists[i].name,
-            profile_img: !relatedArtists[i].has_profile_img
-              ? "/imgs/noprofile.png"
-              : `/imgs/artists/${relatedArtists[i].artist_id}.png`,
-            query: relatedArtists[i].artist_id,
-          });
-          addedArtists.push(relatedArtists[i].artist_id);
-        }
-      }
-    }
-
-    // if this artist does not have any related artists, check to see if their name
-    // appears in any related_artist array in entire db
-
-    const appearsIn = await ArtistsCollection.find({
-      related_artists: { $in: [artistId] },
-    }).toArray();
-
-    for (let i = 0; i < appearsIn.length; i++) {
-      if (!addedArtists.includes(appearsIn[i].artist_id)) {
-        RETURN_ARTISTS.push({
-          name: appearsIn[i].name,
-          profile_img: !appearsIn[i].has_profile_img
-            ? "/imgs/noprofile.png"
-            : `/imgs/artists/${appearsIn[i].artist_id}.png`,
-          query: appearsIn[i].artist_id,
-        });
-        addedArtists.push(appearsIn[i].artist_id);
-      }
-    }
-
-    return RETURN_ARTISTS;
+    return {
+      relatedAritsts: appearsIn,
+      popularArtists: popularArtists,
+    };
   } catch (err) {
     console.log(err);
     return null;
