@@ -15,6 +15,7 @@ import Nav from "./views/components/Nav";
 import RecentlyAddedLyrics from "./views/components/Home/RecentlyAddedLyrics";
 import TopArtist from "./views/components/Home/PopularArtists";
 import FeaturedLyrics from "./views/components/Home/FeaturedLyrics";
+import Search from "./views/components/Search";
 const app = new Hono();
 
 app.use("*", serveStatic({ root: "./public" }));
@@ -94,9 +95,6 @@ if (await ConnectToDb()) {
 
           <link rel="stylesheet" href="/styles/global.css" />
           <link rel="stylesheet" href="/styles/home.css" />
-
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4106301283765460"
-     crossorigin="anonymous"></script>
         </head>
         <body>
           <main>
@@ -113,6 +111,14 @@ if (await ConnectToDb()) {
                   <a href="/submitlyrics" style="color: inherit">
                     Have any funny lyrics you would like to see on this site?
                   </a>
+                  <input
+                    type="search"
+                    name="search_query"
+                    id="homepage_search_input"
+                    placeholder="Search any artist"
+                  />
+                  <div id="search_results"></div>
+                  <script src="/scripts/search.js"></script>
                 </p>
               </div>
 
@@ -120,6 +126,13 @@ if (await ConnectToDb()) {
               <RecentlyAddedLyrics lyrics={homepageData.recentLyrics} />
 
               <TopArtist topArtist={homepageData.topArtist} />
+
+              <a
+                href="/privacy"
+                style="text-align: center; color: inherit; display: block; margin-top: 50px;"
+              >
+                Privacy Policy
+              </a>
             </div>
           </main>
         </body>
@@ -213,8 +226,103 @@ if (await ConnectToDb()) {
     return c.html("lyrics successfully submitted <a href='/'>Return home</a>");
   });
 
-  //anything below this comment is an artist route
+  app.get("/privacy", (c) => {
+    return c.html(
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          ></link>
+          <title>Privacy Policy</title>
+          <link rel="stylesheet" href="/styles/global.css" />
+        </head>
+        <body>
+          <Nav />
+          <main>
+            <div id="container" style="max-width: 700px">
+              <h1>Privacy Policy</h1>
+              <p style="color: lightgrey">Last updated February 25th, 2024</p>
+              <p>
+                Thank you for visiting Lyricdump. We respect your privacy and
+                are committed to protecting your personal information. This
+                Privacy Policy outlines the types of information we collect when
+                you use the Site and how we use and safeguard that information.
+              </p>
+              <p>
+                <strong>
+                  We do not collect any personally identifiable information.
+                </strong>
+              </p>
+              <p>
+                We use Google AdSense to serve advertisements on the Site.
+                Google may use cookies to personalize ads based on your
+                interests and other information collected through your use of
+                the Site and other websites. You can learn more about how Google
+                uses your data by visiting the{" "}
+                <a
+                  href="https://policies.google.com/privacy?hl=en-US"
+                  style="color: inherit"
+                  target="_blank"
+                >
+                  Google Privacy & Terms page
+                </a>
+                .
+              </p>
 
+              <p>
+                We reserve the right to update or modify this Privacy Policy at
+                any time. Any changes will be effective immediately upon posting
+                the revised Privacy Policy on the Site. We encourage you to
+                review this Privacy Policy periodically for any changes.
+                <br />
+                <br />
+                By using the Site, you consent to the collection and use of your
+                information as outlined in this Privacy Policy.
+              </p>
+              <a href="/" style="color: inherit">
+                Return home
+              </a>
+            </div>
+          </main>
+        </body>
+      </html>
+    );
+  });
+
+  app.post("/search", async (c) => {
+    const query = c.req.query("q");
+
+    const artist = await ArtistsCollection.find({
+      $text: {
+        $search: `\"${query}\"`,
+      },
+    })
+      .project({ _id: 0 })
+      .toArray();
+
+    return c.json({ results: artist });
+  });
+
+  //anything below this comment is an artist route
   app.get("/:ARTIST", async (c) => {
     const artist = c.req.param("ARTIST").toLowerCase();
     const artistData = await ArtistsCollection.aggregate<Artist>([
@@ -252,8 +360,6 @@ if (await ConnectToDb()) {
       artistData[0].lyrics,
       artistData[0].name
     );
-
-    
 
     return c.html(
       <html lang="en">
@@ -328,19 +434,27 @@ if (await ConnectToDb()) {
           <link rel="stylesheet" href="/styles/global.css" />
           <link rel="stylesheet" href="/styles/artist.css" />
 
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4106301283765460"
-     crossorigin="anonymous"></script>
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4106301283765460"
+            crossorigin="anonymous"
+          ></script>
         </head>
         <body>
           <Nav />
-          <main>
-            <div id="container" style="text-align: center">
-              <ArtistPage
-                artistData={artistData[0]}
-                relatedArtists={relatedArtists}
-              />
+
+          <div id="container" style="padding-top: 10px">
+            <Search />
+            <div style="text-align: center">
+              <main>
+                {" "}
+                <ArtistPage
+                  artistData={artistData[0]}
+                  relatedArtists={relatedArtists}
+                />
+              </main>
             </div>
-          </main>
+          </div>
         </body>
       </html>
     );

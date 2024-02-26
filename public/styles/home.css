@@ -87,6 +87,18 @@ h2 {
   margin-top: 50px;
 }
 
+#homepage_search_input {
+  width: 600px;
+  border-radius: 9px;
+  margin-top: 90px;
+  font-size: 20px;
+  padding: 5px;
+}
+
+#search_results {
+  font-weight: 900;
+}
+
 @media only screen and (max-width: 1096px) {
   #top_artist_div {
     margin-top: 10px;
@@ -101,6 +113,10 @@ h2 {
   .lyric-display-div a {
     width: 100%;
     font-size: 20px;
+  }
+
+  #homepage_search_input {
+    width: 75vw;
   }
 
   #top_artist_div img {

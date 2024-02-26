@@ -10,6 +10,9 @@ export default function Nav() {
         >
           Have any funny lyrics?
         </a>
+        <a class="right-link" href="/privacy">
+          Privacy
+        </a>
       </nav>
     </header>
   );
