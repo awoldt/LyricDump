@@ -107,37 +107,35 @@ if (await ConnectToDb()) {
                   Lyrics so strange that it might make you wonder why an artist
                   had it in their song. Spanning many genres, this site is the
                   one-stop shop for hilarious lyrics to share with friends and
-                  family. <br></br>
-                  <br></br>
-                  <a href="/submitlyrics">
-                    Have any funny lyrics?
-                  </a>
-                  <input
-                    type="search"
-                    name="search_query"
-                    id="homepage_search_input"
-                    placeholder="Search any artist"
-                  />
-                  <div id="search_results"></div>
-                  <a
-                    href="/catalogue"
-                    style="display: block; margin-top: 20px; text-decoration: none; width: fit-content; margin: auto"
-                    title="View all artists"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-person-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                    </svg>{" "}
-                    View artist catalogue
-                  </a>
-                  <script src="/scripts/search.js"></script>
+                  family. <br></br> <br></br>
+                  <a href="/submitlyrics">Have any funny lyrics?</a>
                 </p>
+
+                <input
+                  type="search"
+                  name="search_query"
+                  id="homepage_search_input"
+                  placeholder="Search any artist"
+                />
+                <div id="search_results"></div>
+                <a
+                  href="/catalogue"
+                  style="display: block; text-decoration: none; width: fit-content; margin: auto"
+                  title="View all artists"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-person-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                  </svg>{" "}
+                  View artist catalogue
+                </a>
+                <script src="/scripts/search.js"></script>
               </div>
 
               <FeaturedLyrics lyrics={homepageData.featuredLyrics} />
