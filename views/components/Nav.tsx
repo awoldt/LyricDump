@@ -13,6 +13,9 @@ export default function Nav() {
         <a class="right-link" href="/privacy">
           Privacy
         </a>
+        <a class="right-link" href="/catalogue" title="View all artists">
+          Catalogue
+        </a>
       </nav>
     </header>
   );

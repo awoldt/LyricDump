@@ -9,6 +9,7 @@ import {
   GenerateArtistPageMetaDescription,
   LyricSubmissionModel,
   LyricSubmissionCollection,
+  LyricsCollection,
 } from "./utils";
 import ArtistPage from "./views/Artist";
 import Nav from "./views/components/Nav";
@@ -108,8 +109,8 @@ if (await ConnectToDb()) {
                   one-stop shop for hilarious lyrics to share with friends and
                   family. <br></br>
                   <br></br>
-                  <a href="/submitlyrics" style="color: inherit">
-                    Have any funny lyrics you would like to see on this site?
+                  <a href="/submitlyrics">
+                    Have any funny lyrics?
                   </a>
                   <input
                     type="search"
@@ -118,6 +119,23 @@ if (await ConnectToDb()) {
                     placeholder="Search any artist"
                   />
                   <div id="search_results"></div>
+                  <a
+                    href="/catalogue"
+                    style="display: block; margin-top: 20px; text-decoration: none; width: fit-content; margin: auto"
+                    title="View all artists"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-person-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                    </svg>{" "}
+                    View artist catalogue
+                  </a>
                   <script src="/scripts/search.js"></script>
                 </p>
               </div>
@@ -129,10 +147,120 @@ if (await ConnectToDb()) {
 
               <a
                 href="/privacy"
-                style="text-align: center; color: inherit; display: block; margin-top: 50px;"
+                style="text-align: center;  display: block; margin-top: 50px;"
               >
                 Privacy Policy
               </a>
+            </div>
+          </main>
+        </body>
+      </html>
+    );
+  });
+
+  app.get("/catalogue", async (c) => {
+    const numOfArtists = await ArtistsCollection.countDocuments();
+
+    const artistList = await ArtistsCollection.aggregate([
+      {
+        $group: {
+          _id: { $substr: ["$artist_id", 0, 1] },
+          artists: { $push: "$$ROOT" },
+        },
+      },
+      {
+        $project: {
+          artists: { _id: 0 },
+        },
+      },
+      {
+        $sort: { _id: 1 },
+      },
+    ]).toArray();
+
+    artistList.forEach((x) => {
+      x.artists.sort((a: any, b: any) => {
+        return a.name - b.name;
+      });
+    });
+
+    return c.html(
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          ></link>
+          <title>List of Artists</title>
+          <meta
+            name="description"
+            content="View the entire list of artists featured on lyricdump. Browse through our collection and discover your favorite aritst's bad lyrics."
+          ></meta>
+          <link rel="stylesheet" href="/styles/global.css" />
+          <link rel="stylesheet" href="/styles/catalogue.css" />
+        </head>
+        <body>
+          <Nav />
+          <main>
+            <div id="container">
+              <h1>
+                There are currently <b>{numOfArtists}</b> artists stored in our
+                database.
+              </h1>
+              <p style="margin-bottom: 45px">
+                Browse our collections of artists. If you don't see your
+                favorite artist listed here,{" "}
+                <a href="/submitlyrics">submit them.</a>
+              </p>
+              {artistList.map((x) => {
+                if (!/^[a-zA-Z]+$/.test(x._id)) {
+                  return (
+                    <div>
+                      {x.artists.map((y: Artist) => {
+                        return (
+                          <a href={`/${y.artist_id}`} class="artist-link">
+                            {y.name}
+                          </a>
+                        );
+                      })}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div>
+                      <hr />
+                      <span class="letter-header">
+                        {x._id.toUpperCase()} ({x.artists.length})
+                      </span>
+                      {x.artists.map((y: Artist) => {
+                        return (
+                          <a href={`/${y.artist_id}`} class="artist-link">
+                            {y.name}
+                          </a>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+              })}
             </div>
           </main>
         </body>
@@ -280,7 +408,6 @@ if (await ConnectToDb()) {
                 uses your data by visiting the{" "}
                 <a
                   href="https://policies.google.com/privacy?hl=en-US"
-                  style="color: inherit"
                   target="_blank"
                 >
                   Google Privacy & Terms page
@@ -298,9 +425,7 @@ if (await ConnectToDb()) {
                 By using the Site, you consent to the collection and use of your
                 information as outlined in this Privacy Policy.
               </p>
-              <a href="/" style="color: inherit">
-                Return home
-              </a>
+              <a href="/">Return home</a>
             </div>
           </main>
         </body>
