@@ -25,13 +25,24 @@
   border-radius: 10px;
 }
 
-.related-artist img {
-  width: 75px;
+#related_artists_parent_div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.related-artist span {
+#related_artists_parent_div div {
+  margin: 10px;
+}
+
+#related_artists_parent_div img {
+  width: 75px;
+  height: 75px;
+  margin-bottom: 10px;
+}
+
+#related_artists_parent_div span {
   display: block;
-  margin-top: 10px;
 }
 
 #artist_description {
@@ -42,19 +53,6 @@
 .explanation-text {
   display: block;
   font-weight: 900;
-}
-
-.related_artists_div {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.related_artists_div a {
-  text-decoration: none;
-  color: inherit;
-  margin: 10px;
-  display: block;
 }
 
 @media only screen and (max-width: 750px) {

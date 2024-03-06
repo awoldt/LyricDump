@@ -4,12 +4,12 @@ import {
   ArtistsCollection,
   ConnectToDb,
   type Artist,
-  GetRelatedArtists,
   GetHomepageData,
   GenerateArtistPageMetaDescription,
   LyricSubmissionModel,
   LyricSubmissionCollection,
   LyricsCollection,
+  GetRelatedArtists,
 } from "./utils";
 import ArtistPage from "./views/Artist";
 import Nav from "./views/components/Nav";
@@ -478,11 +478,12 @@ if (await ConnectToDb()) {
       return b.year - a.year;
     });
 
-    const relatedArtists = await GetRelatedArtists(artist);
     const metaDescription = GenerateArtistPageMetaDescription(
       artistData[0].lyrics,
       artistData[0].name
     );
+
+    const relatedArtists = await GetRelatedArtists(artist);
 
     return c.html(
       <html lang="en">

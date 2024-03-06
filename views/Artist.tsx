@@ -2,10 +2,13 @@ import type { Artist, Lyric, RelatedArtist } from "../utils";
 
 interface PageProps {
   artistData: Artist;
-  relatedArtists: {
-    recommendedArtists: RelatedArtist[];
-    popularArtists: RelatedArtist[];
-  } | null;
+  relatedArtists:
+    | {
+        name: string;
+        query: string;
+        profile_img: string;
+      }[]
+    | null;
 }
 
 export default function ArtistPage(prop: PageProps) {
@@ -20,7 +23,7 @@ export default function ArtistPage(prop: PageProps) {
         />
       )}
       {!prop.artistData.has_profile_img && (
-        <img src={`/imgs/noprofile.png`} id="profile_img" alt="no profile"/>
+        <img src={`/imgs/noprofile.png`} id="profile_img" alt="no profile" />
       )}
 
       <h1>
@@ -71,47 +74,18 @@ export default function ArtistPage(prop: PageProps) {
           })}
       </div>
       {prop.relatedArtists && (
-        <>
-          {prop.relatedArtists.recommendedArtists.length > 0 && (
-            <>
-              <hr />
-              <h2>Recommended Artists</h2>
-              <div class="related_artists_div">
-                {prop.relatedArtists.recommendedArtists.map((x) => {
-                  return (
-                    <div class="related-artist">
-                      <a href={`/${x.query}`}>
-                        <img src={x.profile_img} alt={x.name} />
-                        <span>
-                          <b>{x.name}</b>
-                        </span>
-                      </a>
-                    </div>
-                  );
-                })}
+        <div id="related_artists_parent_div">
+          {prop.relatedArtists.map((x) => {
+            return (
+              <div>
+                <a href={`/${x.query}`}>
+                  <img src={x.profile_img} alt={x.name} />
+                  <span>{x.name}</span>
+                </a>
               </div>
-            </>
-          )}
-          {prop.relatedArtists.popularArtists.length > 0 && (
-            <>
-              <h2>Popular Artists</h2>
-              <div class="related_artists_div">
-                {prop.relatedArtists.popularArtists.map((x) => {
-                  return (
-                    <div class="related-artist">
-                      <a href={`/${x.query}`}>
-                        <img src={x.profile_img} alt={x.name} />
-                        <span>
-                          <b>{x.name}</b>
-                        </span>
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          )}
-        </>
+            );
+          })}
+        </div>
       )}
     </div>
   );
