@@ -435,12 +435,6 @@ if (await ConnectToDb()) {
 
           <link rel="stylesheet" href="/styles/global.css" />
           <link rel="stylesheet" href="/styles/artist.css" />
-
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4106301283765460"
-            crossorigin="anonymous"
-          ></script>
         </head>
         <body>
           <Nav />
