@@ -100,6 +100,16 @@ h2 {
   font-weight: 900;
 }
 
+@media only screen and (max-width: 670px) {
+  #homepage-display-btns-parent {
+    display: flex;
+    flex-direction: column;
+  }
+  #homepage-display-btns-parent div {
+    margin-top: 10px;
+  }
+}
+
 @media only screen and (max-width: 1096px) {
   #top_artist_div {
     margin-top: 10px;
@@ -123,4 +133,15 @@ h2 {
   #top_artist_div img {
     width: 75px;
   }
+}
+
+.homepage-display-btn {
+  background-color: darksalmon;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  border-radius: 10px;
+}
+.homepage-display-btn a {
+  text-decoration: none;
 }

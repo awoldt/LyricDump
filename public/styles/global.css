@@ -7,7 +7,7 @@
 body {
   margin: 0px;
   color: white;
-  background-color: #21383a;
+  background-color: #0d1617;
 }
 
 main {
@@ -26,7 +26,7 @@ h1 {
 
 .navbar {
   overflow: hidden;
-  background-color: #0d1617;
+  background-color: #21383a;
   font-family: Arial, sans-serif;
 }
 

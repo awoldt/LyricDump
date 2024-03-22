@@ -1,6 +1,6 @@
 FROM oven/bun:latest
 WORKDIR /app
-COPY package.json bun.lockb ./
+COPY package.json ./
 RUN bun install
 COPY . .
 EXPOSE 8080
