@@ -1,5 +1,4 @@
 import type { Artist, Lyric, RelatedArtist } from "../utils";
-import Ad from "./components/FeedAd";
 
 interface PageProps {
   artistData: Artist;
@@ -44,41 +43,37 @@ export default function ArtistPage(prop: PageProps) {
         )}{" "}
         {prop.artistData.lyrics !== undefined && (
           <>
-            {prop.artistData.lyrics.length <= 3 && <Ad />}
             {prop.artistData.lyrics.map((x: Lyric, index: number) => {
               return (
-                <>
-                  {(index + 1) % 3 === 0 && <Ad />}
-                  <div
-                    class="lyric-div"
-                    itemscope
-                    itemtype="https://schema.org/MusicComposition"
-                  >
-                    <div style="display: flex">
-                      {x.explicit && (
-                        <>
-                          <img
-                            src="/imgs/icons/explicit.svg"
-                            alt="explicit icon"
-                          />
-                        </>
-                      )}
-                      <p>
-                        <span itemprop="lyrics">{x.lyric}</span> -{" "}
-                        <span class="lyric-metadata">
-                          <span itemprop="name">{x.song}</span> (
-                          <span itemprop="copyrightYear">{x.year}</span>)
-                        </span>
-                      </p>
-                    </div>
-
-                    {x.explanation && (
-                      <p class="explanation-text">
-                        <i>{x.explanation}</i>
-                      </p>
+                <div
+                  class="lyric-div"
+                  itemscope
+                  itemtype="https://schema.org/MusicComposition"
+                >
+                  <div style="display: flex">
+                    {x.explicit && (
+                      <>
+                        <img
+                          src="/imgs/icons/explicit.svg"
+                          alt="explicit icon"
+                        />
+                      </>
                     )}
+                    <p>
+                      <span itemprop="lyrics">{x.lyric}</span> -{" "}
+                      <span class="lyric-metadata">
+                        <span itemprop="name">{x.song}</span> (
+                        <span itemprop="copyrightYear">{x.year}</span>)
+                      </span>
+                    </p>
                   </div>
-                </>
+
+                  {x.explanation && (
+                    <p class="explanation-text">
+                      <i>{x.explanation}</i>
+                    </p>
+                  )}
+                </div>
               );
             })}
           </>
