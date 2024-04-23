@@ -1,71 +1,9 @@
-import { MongoClient } from "mongodb";
-import { z } from "zod";
-
-export const LyricSubmissionModel = z.object({
-  lyric: z.string().max(1500).trim(),
-  song: z.string().max(250).trim(),
-});
-
-export interface DisplayLyric {
-  lyric: string;
-  song: string;
-  year: number;
-  artist_name: string;
-  artist_query: string;
-  has_profile_img: boolean;
-  added_on?: Date;
-}
-
-export interface Artist {
-  artist_id: string;
-  name: string;
-  has_profile_img: boolean;
-  description: string;
-  related_artists: string[] | null;
-  lyrics?: Lyric[];
-}
-
-export interface Lyric {
-  artist_id: string;
-  lyric: string;
-  song: string;
-  explicit: boolean;
-  year: number;
-  explanation: string | null;
-}
-
-export interface RelatedArtist {
-  name: string;
-  profile_img: string;
-  query: string;
-}
-
-const dbClient = new MongoClient(process.env.MONGODB_CONNECTION_STRING!);
-export const HomepageLyricsCollection = dbClient
-  .db("lyricdump-PROD")
-  .collection<DisplayLyric>("homepage-lyrics");
-
-export const ArtistsCollection = dbClient
-  .db("lyricdump-PROD")
-  .collection<Artist>("artists_v2");
-
-export const LyricsCollection = dbClient
-  .db("lyricdump-PROD")
-  .collection<Lyric>("lyrics_v2");
-
-export const LyricSubmissionCollection = dbClient
-  .db("lyricdump-PROD")
-  .collection<z.infer<typeof LyricSubmissionModel>>("lyric_submissions");
-
-export async function ConnectToDb() {
-  try {
-    await dbClient.connect();
-    return true;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
+import {
+  ArtistsCollection,
+  HomepageLyricsCollection,
+  LyricsCollection,
+} from "./db";
+import type { Artist, DisplayLyric, Lyric } from "./interfaces";
 
 export async function GetRelatedArtists(artistID: string) {
   try {
