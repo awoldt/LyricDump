@@ -1,4 +1,4 @@
-import type { Artist, DisplayLyric } from "../utils";
+import type { Artist, DisplayLyric } from "../interfaces";
 import FeaturedLyrics from "./components/Home/FeaturedLyrics";
 import TopArtist from "./components/Home/PopularArtists";
 import RecentlyAddedLyrics from "./components/Home/RecentlyAddedLyrics";
@@ -81,7 +81,7 @@ export default function Homepage(props: PageProps) {
         <main>
           <div id="container">
             <div id="banner_text">
-              <h1>A Collection of the Dumbest Song Lyrics of All Time</h1>
+              <h1>A Collection of the Funniest Song Lyrics of All Time</h1>
               <p>
                 Lyricdump is a archive of some of the worst song lyrics ever.
                 Lyrics so strange that it might make you wonder why an artist

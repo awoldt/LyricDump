@@ -1,4 +1,4 @@
-import type { DisplayLyric } from "../../../utils";
+import type { DisplayLyric } from "../../../interfaces";
 
 interface PropData {
   lyrics: DisplayLyric[];

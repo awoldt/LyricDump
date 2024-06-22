@@ -1,4 +1,4 @@
-import type { Artist, Lyric, RelatedArtist } from "../utils";
+import type { Artist, Lyric } from "../interfaces";
 
 interface PageProps {
   artistData: Artist;
