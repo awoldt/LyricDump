@@ -1,42 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@media (min-width: 1px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html,
+  body,
+  main {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: white;
+  }
+
+  * {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 600;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  nav {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    top: 1rem;
+  }
+
+  .nav-holder {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+  }
+
+  .nav-right {
+    display: flex;
+    gap: 2rem;
+  }
+
+}
+
+
 #container {
   max-width: 1500px;
   margin: auto;
   padding: 0px 10% 0px 10%;
 }
 
-body {
-  margin: 0px;
-  color: white;
-  background-color: #0d1617;
-}
-
-main {
-  padding-bottom: 50px;
-  padding-top: 50px;
-}
-
-html {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-h1 {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-}
-
-.navbar {
-  overflow: hidden;
-  background-color: #21383a;
-  font-family: Arial, sans-serif;
-}
 
 .navbar a {
-  font-weight: 600;
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
+  font-weight: 400;
   text-decoration: none;
 }
 
@@ -62,6 +92,7 @@ a {
   #container {
     padding: 10%;
   }
+
   .navbar .right-link {
     float: left;
   }

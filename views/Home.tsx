@@ -80,7 +80,9 @@ export default function Homepage(props: PageProps) {
       <body>
         <main>
           <div id="container">
+            <img src="/imgs/test.jpg" style="width: 100%"/>
             <div id="banner_text">
+              
               <h1>A Collection of the Funniest Song Lyrics of All Time</h1>
               <p>
                 Lyricdump is a archive of some of the worst song lyrics ever.

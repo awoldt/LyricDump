@@ -1,63 +1,97 @@
-#lyric_parent_div {
-  text-align: left;
-  padding: 5px;
-}
+@media (min-width: 1px) {
+  .container-holder {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 
-.lyric-div img {
-  margin-right: 7px;
-}
+  .container {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8rem 2rem;
+    justify-content: space-between;
+    margin-top: 4rem;
+    margin-bottom: 8rem;
+  }
 
-.lyric-metadata {
-  color: lightgray;
-  font-style: italic;
-}
+  .header {
+    background: linear-gradient(rgb(97, 97, 109), rgb(10, 11, 21));
+    width: 100%;
+    min-height: 380px;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+  }
 
-.lyric-div {
-  background-color: #4f5c5d;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  padding: 5px 5px 5px 15px;
-}
+  .profile-img-holder {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    transform: translateY(3rem);
+    /* flex-wrap: wrap; */
+  }
 
-#profile_img {
-  height: 400px;
-  width: 400px;
-  border-radius: 10px;
-}
+  .profile-img {
+    height: 340px;
+    width: 340px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0.75rem 0px;
+  }
 
-#related_artists_parent_div {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+  .lyric-container {
+    width: 60%;
 
-#related_artists_parent_div div {
-  margin: 10px;
-}
+    .p-lyrics {
+      font-size: 1.25rem;
+      color: #000;
+      line-height: 1.6;
+      background-color: rgb(233, 233, 233);
+      margin-top: 0.5rem;
+      width: fit-content;
+      padding: 0.4rem;
+      padding-block: 0;
+    }
 
-#related_artists_parent_div img {
-  width: 75px;
-  height: 75px;
-  margin-bottom: 10px;
-}
+    span {
+      font-size: 1rem;
+      color: #000;
+      line-height: 1.6;
+      font-weight: 500;
+    }
 
-#related_artists_parent_div span {
-  display: block;
-}
+    .p-explanation {
+      font-size: 1rem;
+      color: #000;
+      line-height: 1.6;
+    }
+  }
 
-#artist_description {
-  max-width: 800px;
-  margin: auto;
-}
+  .related-artists-container {
+    width: 400px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 
-.explanation-text {
-  display: block;
-  font-weight: 900;
-}
+    span {
+      font-size: 1rem;
+      color: #000;
+      font-weight: 500;
+    }
 
-@media only screen and (max-width: 750px) {
-  #profile_img {
-    height: 200px;
-    width: 200px;
+    .profile-img-holder {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transform: translateY(0);
+    }
+
+    .profile-img {
+      height: 60px;
+      width: 60px;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0.75rem 0px;
+    }
   }
 }

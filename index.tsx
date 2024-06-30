@@ -431,20 +431,13 @@ app.get("/:ARTIST", async (c) => {
         ></script>
       </head>
       <body>
-        <Nav />
-
-        <div id="container" style="padding-top: 10px">
-          <Search />
-          <div style="text-align: center">
-            <main>
-              {" "}
-              <ArtistPage
-                artistData={artistData[0]}
-                relatedArtists={relatedArtists}
-              />
-            </main>
-          </div>
-        </div>
+        <main>
+          <Nav />
+          <ArtistPage
+            artistData={artistData[0]}
+            relatedArtists={relatedArtists}
+          />
+        </main>
       </body>
     </html>
   );
