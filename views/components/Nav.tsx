@@ -2,18 +2,17 @@ export default function Nav() {
   return (
     <nav>
       <div className="nav-holder">
-        <a href="/">LyricDump</a>
-        <div className="nav-right">
-          <a
-            href="/submitlyrics"
-            title="Submit your funny lyrics to be featured on the site"
-          >
-            Have any funny lyrics?
+        <div className="nav-sub">
+          <a href="/">Lyric Dump</a>
+          <a href="/catalogue" title="View all Artists">
+            Artists
+          </a>
+        </div>
+        <div className="nav-sub">
+          <a href="/submitlyrics" title="Submit Lyrics to be Featured">
+            Submit
           </a>
           <a href="/privacy">Privacy</a>
-          <a href="/catalogue" title="View all artists">
-            Catalogue
-          </a>
         </div>
       </div>
     </nav>

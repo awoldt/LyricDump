@@ -28,24 +28,31 @@ export default function ArtistPage(prop: PageProps) {
           {!prop.artistData.has_profile_img && (
             <img
               src={`/imgs/noprofile.png`}
-              id="profile_img"
+              class="profile-img"
               alt="no profile"
             />
           )}
           <div>
             <h1 itemprop="name">{prop.artistData.name}</h1>
+          </div>
+          {/* <div style="width: 45%">
             {prop.artistData.description && (
               <p itemprop="description">{prop.artistData.description}</p>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
-      <div class="container">
-        {/* <div itemscope itemtype="https://schema.org/Person"> */}
+      <div class="container" itemscope itemtype="https://schema.org/Person">
         <div class="lyric-container">
           {prop.artistData.lyrics && (
-            <p class="p-explanation">
-              Future Lyrics {"["}
+            <p class="p-subtitle">
+              <img
+                src="/imgs/icons/info.svg"
+                alt="info icon"
+                width={6}
+                style="border-radius: 100rem; border: 1px solid black; padding: 0.2rem; width: 1rem; height: 1rem;"
+              />
+              {prop.artistData.name} Lyrics {"["}
               {[prop.artistData.lyrics.length]}
               {"]"}
             </p>
@@ -59,7 +66,10 @@ export default function ArtistPage(prop: PageProps) {
                       <p class="p-lyrics" itemprop="lyrics">
                         {x.lyric}
                       </p>
-                      <div style="display: flex; align-items: flex-start; justify-content: left; margin-left: 2rem; margin-block: 0.5rem; gap: 0.2rem;">
+                      {x.explanation && (
+                        <p class="p-explanation">{x.explanation}</p>
+                      )}
+                      <div style="display: flex; align-items: flex-start; justify-content: left; gap: 0.2rem;">
                         <span>
                           <span itemprop="name">
                             {"["}
@@ -77,10 +87,6 @@ export default function ArtistPage(prop: PageProps) {
                           </>
                         )}
                       </div>
-
-                      {x.explanation && (
-                        <p class="p-explanation">{x.explanation}</p>
-                      )}
                     </div>
                   </div>
                 );
@@ -95,7 +101,7 @@ export default function ArtistPage(prop: PageProps) {
             </div>
             {prop.relatedArtists.map((x) => {
               return (
-                <div style="padding: 1rem; border-bottom: 1px solid black;">
+                <div style="padding: 1rem; border: 1px solid black; border-top: 0px;">
                   <a class="profile-img-holder" href={`/${x.query}`}>
                     <img class="profile-img" src={x.profile_img} alt={x.name} />
                     <span>{x.name}</span>
@@ -106,7 +112,6 @@ export default function ArtistPage(prop: PageProps) {
           </div>
         )}
       </div>
-      {/* </div> */}
     </div>
   );
 }

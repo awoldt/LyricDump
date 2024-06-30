@@ -24,37 +24,67 @@
     font-weight: 400;
     font-style: normal;
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.8;
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 600;
+    line-height: 1.4;
   }
 
   a {
     text-decoration: none;
+    font-size: .9rem;
+    line-height: 1;
+    opacity: 1;
+    transition: 150ms linear;
+  }
+
+  a:hover {
+    opacity: 0.4;
   }
 
   nav {
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
-    top: 1rem;
+    height: 3.5rem;
+    background-color: rgb(97, 97, 109);
+    z-index: 2;
+
+    /* span {
+      font-size: 1.25rem;
+      font-weight: 600;
+    } */
   }
 
+  .nav-holder {
+    display: flex;
+    justify-content: center;
+    width: 95%;
+  }
+
+  .nav-sub {
+    display: none;
+  }
+
+}
+
+@media (min-width: 799px) {
   .nav-holder {
     display: flex;
     justify-content: space-between;
     width: 95%;
   }
 
-  .nav-right {
+  .nav-sub {
     display: flex;
+    align-items: center;
     gap: 2rem;
   }
-
 }
 
 
