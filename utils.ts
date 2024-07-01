@@ -1,7 +1,82 @@
+export interface PageMetadata {
+  title: string;
+  description: string;
+  ogImage: string | null;
+  canonicalLink: string;
+  styles: string[] | null;
+}
+
+export interface NEW_Lyric {
+  id: number;
+  fk_artist_id: number;
+  lyric_text: string;
+  song: string;
+  year: number;
+  explicit: boolean;
+  explanation: string | null;
+}
+
+export interface NEW_Artist {
+  id: number;
+  name: string;
+  query: string;
+  has_profile_img: boolean;
+  description: string | null;
+  related_artists: string[];
+}
+
+export async function GetArtistPageData(artistQuery: string) {
+  try {
+    const client = await pool.connect();
+
+    const artist = (
+      await client.query<NEW_Artist>(
+        `
+      SELECT * FROM artists WHERE query = $1;
+      `,
+        [artistQuery]
+      )
+    ).rows;
+    const lyrics = (
+      await client.query<NEW_Lyric>(
+        `
+      SELECT * FROM lyrics WHERE fk_artist_id = $1 ORDER BY year desc;
+      `,
+        [artist[0].id]
+      )
+    ).rows;
+    let relatedArtists: null | NEW_Artist[] = null;
+    if (artist[0].related_artists.length > 0) {
+      relatedArtists = (
+        await client.query<any>(
+          `
+      SELECT name, has_profile_img, query FROM artists WHERE query = ANY($1::text[]);
+      `,
+          [artist[0].related_artists]
+        )
+      ).rows;
+    }
+
+    client.release();
+
+    return {
+      artist: artist[0],
+      lyrics,
+      relatedArtists,
+    };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+/////////////////////////////////////////////////////
+
 import {
   ArtistsCollection,
   HomepageLyricsCollection,
   LyricsCollection,
+  pool,
 } from "./db";
 import type { Artist, DisplayLyric, Lyric } from "./interfaces";
 

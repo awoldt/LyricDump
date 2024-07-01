@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 
-import ArtistPage from "./views/Artist";
+import ArtistPage from "./views/pages/Artist";
 import Nav from "./views/components/Nav";
 import Search from "./views/components/Search";
 import Homepage from "./views/Home";
@@ -11,9 +11,11 @@ import {
   ConnectToDb,
   LyricSubmissionCollection,
   LyricSubmissionModel,
+  pool,
 } from "./db";
 import {
   GenerateArtistPageMetaDescription,
+  GetArtistPageData,
   GetHomepageData,
   GetRelatedArtists,
 } from "./utils";
@@ -314,132 +316,27 @@ app.post("/search", async (c) => {
   return c.json({ results: artist });
 });
 
-//anything below this comment is an artist route
 app.get("/:ARTIST", async (c) => {
-  const artist = c.req.param("ARTIST").toLowerCase();
-  const artistData = await ArtistsCollection.aggregate<Artist>([
-    {
-      $match: {
-        artist_id: artist,
-      },
-    },
-    {
-      $project: {
-        _id: 0,
-        "lyrics._id": 0,
-      },
-    },
-    {
-      $lookup: {
-        from: "lyrics_v2",
-        localField: "artist_id",
-        foreignField: "artist_id",
-        as: "lyrics",
-      },
-    },
-  ]).toArray();
-
-  if (artistData.length === 0) {
-    return c.notFound();
+  const query = c.req.param("ARTIST").toLowerCase();
+  const pageData = await GetArtistPageData(query);
+  if (pageData === null) {
+    c.status(500);
+    return c.text(
+      "There was an error while fetching page data :(\n\nTry again later."
+    );
   }
 
-  artistData[0].lyrics?.sort((a: any, b: any) => {
-    return b.year - a.year;
-  });
-
-  const metaDescription = GenerateArtistPageMetaDescription(
-    artistData[0].lyrics,
-    artistData[0].name
-  );
-
-  const relatedArtists = await GetRelatedArtists(artist);
-
   return c.html(
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        ></link>
-        <title>{artistData[0].name}'s Worst Lyrics</title>
-        {metaDescription && (
-          <meta name="description" content={metaDescription}></meta>
-        )}
-        <link
-          rel="canonical"
-          href={`https://lyricdump.com/${artistData[0].artist_id}`}
-        />
-        <meta
-          property="og:title"
-          content={`${artistData[0].name}'s Worst Lyrics`}
-        />
-        <meta
-          property="og:url"
-          content={`https://lyricdump.com/${artistData[0].artist_id}`}
-        />
-        <meta property="og:site_name" content="Lyricdump" />
-
-        {artistData[0].has_profile_img && (
-          <meta
-            property="og:image"
-            content={`https://lyricdump.com/imgs/artists/${artistData[0].artist_id}.png`}
-          />
-        )}
-        <meta
-          property="og:description"
-          content={`Discover ${artistData[0].name}'s Worst Lyrics`}
-        />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content={`${artistData[0].name}'s Worst Lyrics`}
-        />
-        <meta
-          name="twitter:description"
-          content={`Discover ${artistData[0].name}'s Worst Lyrics`}
-        />
-        {artistData[0].has_profile_img && (
-          <meta
-            name="twitter:image"
-            content={`https://lyricdump.com/imgs/artists/${artistData[0].artist_id}.png`}
-          />
-        )}
-
-        <link rel="stylesheet" href="/styles/global.css" />
-        <link rel="stylesheet" href="/styles/artist.css" />
-
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4106301283765460"
-          crossorigin="anonymous"
-        ></script>
-      </head>
-      <body>
-        <main>
-          <Nav />
-          <ArtistPage
-            artistData={artistData[0]}
-            relatedArtists={relatedArtists}
-          />
-        </main>
-      </body>
-    </html>
+    <ArtistPage
+      metaData={{
+        title: "test",
+        description: "test",
+        ogImage: "Test",
+        canonicalLink: "test",
+        styles: ["artist"],
+      }}
+      pageData={pageData}
+    />
   );
 });
 
