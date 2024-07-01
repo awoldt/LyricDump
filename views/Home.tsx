@@ -2,6 +2,7 @@ import type { Artist, DisplayLyric } from "../interfaces";
 import FeaturedLyrics from "./components/Home/FeaturedLyrics";
 import TopArtist from "./components/Home/PopularArtists";
 import RecentlyAddedLyrics from "./components/Home/RecentlyAddedLyrics";
+import Nav from "./components/Nav";
 
 interface PageProps {
   featuredLyrics: DisplayLyric[];
@@ -78,68 +79,36 @@ export default function Homepage(props: PageProps) {
         <link rel="stylesheet" href="/styles/home.css" />
       </head>
       <body>
+        <Nav />
         <main>
-          <div id="container">
-            <img src="/imgs/test.jpg" style="width: 100%"/>
-            <div id="banner_text">
-              
-              <h1>A Collection of the Funniest Song Lyrics of All Time</h1>
-              <p>
-                Lyricdump is a archive of some of the worst song lyrics ever.
-                Lyrics so strange that it might make you wonder why an artist
-                had it in their song. Spanning many genres, this site is the
-                one-stop shop for hilarious lyrics to share with friends and
-                family. <br></br> <br></br>
-              </p>
-
-              <div
-                style="display:flex; justify-content:space-evenly;"
-                id="homepage-display-btns-parent"
-              >
-                <div class="homepage-display-btn">
-                  <a href="submitlyrics" title="Submit your lyrics">
-                    Have any funny lyrics?
-                  </a>
+          <div class="container-holder">
+            <div className="container">
+              <div style="display: flex; gap: 4rem; align-items: center; justify-content: center;">
+                <div>
+                  <span style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.4;">
+                    A Collection of the Funniest Song Lyrics of All Time.
+                  </span>
+                  <br />
+                  <br />
+                  <p>
+                    Lyric Dump is an archive of some of the most bizarre and
+                    cringe-worthy song lyrics ever. These lyrics are so strange
+                    that you'll wonder why the artist included them. Covering
+                    many genres, this site is your go-to destination for sharing
+                    hilarious lyrics with friends and family.
+                  </p>
                 </div>
-                <div class="homepage-display-btn">
-                  <a href="/catalogue" target="View all artists">
-                    {" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-person-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                    </svg>{" "}
-                    View artist catalogue
-                  </a>
-                </div>
+                <img
+                  src="/imgs/test.jpg"
+                  width={800}
+                  height={400}
+                  style="object-fit: cover"
+                />
               </div>
-
-              <input
-                type="search"
-                name="search_query"
-                id="homepage_search_input"
-                placeholder="Search any artist"
-              />
-              <div id="search_results"></div>
-              <script src="/scripts/search.js"></script>
+              <FeaturedLyrics lyrics={props.featuredLyrics} />
+              <RecentlyAddedLyrics lyrics={props.recentLyrics} />
+              <TopArtist topArtist={props.topArtists} />
             </div>
-
-            <FeaturedLyrics lyrics={props.featuredLyrics} />
-            <RecentlyAddedLyrics lyrics={props.recentLyrics} />
-
-            <TopArtist topArtist={props.topArtists} />
-
-            <a
-              href="/privacy"
-              style="text-align: center;  display: block; margin-top: 50px;"
-            >
-              Privacy Policy
-            </a>
           </div>
         </main>
       </body>

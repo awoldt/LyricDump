@@ -18,7 +18,7 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    color: white;
+    color: black;
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -33,32 +33,42 @@
     line-height: 1.4;
   }
 
-  a {
+  h2 {
+    font-size: clamp(3rem, 4vw, 4rem);
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  a,
+  button {
+    all: unset;
     text-decoration: none;
     font-size: .9rem;
     line-height: 1;
     opacity: 1;
+    font-weight: 600;
+    cursor: pointer;
     transition: 150ms linear;
   }
 
-  a:hover {
+  a:hover,
+  button:hover {
     opacity: 0.4;
   }
 
-  nav {
+  /* nav {
     position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 3.5rem;
-    background-color: rgb(97, 97, 109);
+    height: 2.5rem;
+    background-color: black;
     z-index: 2;
 
-    /* span {
-      font-size: 1.25rem;
-      font-weight: 600;
-    } */
+    a {
+      color: white;
+    }
   }
 
   .nav-holder {
@@ -69,11 +79,11 @@
 
   .nav-sub {
     display: none;
-  }
+  } */
 
 }
 
-@media (min-width: 799px) {
+/* @media (min-width: 799px) {
   .nav-holder {
     display: flex;
     justify-content: space-between;
@@ -85,45 +95,4 @@
     align-items: center;
     gap: 2rem;
   }
-}
-
-
-#container {
-  max-width: 1500px;
-  margin: auto;
-  padding: 0px 10% 0px 10%;
-}
-
-
-.navbar a {
-  font-weight: 400;
-  text-decoration: none;
-}
-
-.navbar a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.navbar .right-link {
-  float: right;
-}
-
-.search-results {
-  display: block;
-  color: inherit;
-}
-
-a {
-  color: inherit;
-}
-
-@media only screen and (max-width: 750px) {
-  #container {
-    padding: 10%;
-  }
-
-  .navbar .right-link {
-    float: left;
-  }
-}
+} */

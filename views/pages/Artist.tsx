@@ -121,21 +121,7 @@ export default function ArtistPage({
                         itemtype="https://schema.org/MusicComposition"
                       >
                         <div style="margin-bottom: 4rem;">
-                          <p class="p-lyrics" itemprop="lyrics">
-                            {x.lyric_text}
-                          </p>
-                          {x.explanation && (
-                            <p class="p-explanation">{x.explanation}</p>
-                          )}
                           <div style="display: flex; align-items: flex-start; justify-content: left; gap: 0.2rem;">
-                            <span>
-                              <span itemprop="name">
-                                {"["}
-                                {x.song}
-                              </span>{" "}
-                              (<span itemprop="copyrightYear">{x.year}</span>)
-                              {"]"}
-                            </span>
                             {x.explicit && (
                               <>
                                 <img
@@ -145,7 +131,22 @@ export default function ArtistPage({
                                 />
                               </>
                             )}
+
+                            <p class="p-lyrics" itemprop="lyrics">
+                              {x.lyric_text}
+                            </p>
                           </div>
+                          {x.explanation && (
+                            <p class="p-explanation">{x.explanation}</p>
+                          )}
+                          <span>
+                            <span itemprop="name">
+                              {"["}
+                              {x.song}
+                            </span>{" "}
+                            (<span itemprop="copyrightYear">{x.year}</span>)
+                            {"]"}
+                          </span>
                         </div>
                       </div>
                     );

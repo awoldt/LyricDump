@@ -1,9 +1,0 @@
-textarea input {
-  font-size: 18px;
-}
-
-@media only screen and (max-width: 800px) {
-  textarea {
-    width: 90% !important;
-  }
-}
