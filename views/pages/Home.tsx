@@ -1,0 +1,118 @@
+import type { NEW_Artist, NEW_Lyric } from "../../utils";
+import FeaturedLyrics from "../components/Home/FeaturedLyrics";
+import TopArtist, {
+  type PopularArtists,
+} from "../components/Home/PopularArtists";
+import RecentlyAddedLyrics, {
+  type LyricsWithArtist,
+} from "../components/Home/RecentlyAddedLyrics";
+import Nav from "../components/Nav";
+
+export default function Home({
+  pageData,
+}: {
+  pageData: {
+    recentLyrics: LyricsWithArtist[];
+    popularArtists: PopularArtists[];
+  };
+}) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        ></link>
+        <title>
+          LyricDump - Collection of the Worst Song Lyrics of all Time
+        </title>
+
+        <meta
+          name="description"
+          content="Lyricdump is a collection of the dumbest song lyrics of all time. Easily browse your favorite artists and discover funny lyrics to share with friends and family."
+        ></meta>
+
+        <link rel="canonical" href="https://lyricdump.com" />
+        <meta
+          property="og:title"
+          content="LyricDump - Collection of the Worst Song Lyrics of all Time"
+        />
+        <meta property="og:url" content="https://lyricdump.com" />
+        <meta property="og:site_name" content="Lyricdump" />
+        <meta property="og:image" content="https://lyricdump.com/favicon.ico" />
+
+        <meta
+          property="og:description"
+          content="Lyricdump is a collection of the dumbest song lyrics of all time. Easily browse your favorite artists and discover funny lyrics to share with friends and family."
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="LyricDump - Collection of the Worst Song Lyrics of all Time"
+        />
+        <meta
+          name="twitter:description"
+          content="Lyricdump is a collection of the dumbest song lyrics of all time. Easily browse your favorite artists and discover funny lyrics to share with friends and family."
+        />
+
+        <meta
+          name="twitter:image"
+          content="https://lyricdump.com/favicon.ico"
+        />
+
+        <link rel="stylesheet" href="/styles/global.css" />
+        <link rel="stylesheet" href="/styles/home.css" />
+      </head>
+      <body>
+        <Nav />
+        <main>
+          <div class="container-holder">
+            <div className="container">
+              <div style="display: flex; gap: 4rem; align-items: center; justify-content: center;">
+                <div>
+                  <span style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.4;">
+                    A Collection of the Funniest Song Lyrics of All Time.
+                  </span>
+                  <br />
+                  <br />
+                  <p>
+                    Lyric Dump is an archive of some of the most bizarre and
+                    cringe-worthy song lyrics ever. These lyrics are so strange
+                    that you'll wonder why the artist included them. Covering
+                    many genres, this site is your go-to destination for sharing
+                    hilarious lyrics with friends and family.
+                  </p>
+                </div>
+                <img
+                  src="/imgs/test.jpg"
+                  width={800}
+                  height={400}
+                  style="object-fit: cover"
+                />
+              </div>
+              {/* <FeaturedLyrics lyrics={props.featuredLyrics} /> */}
+              <RecentlyAddedLyrics lyrics={pageData.recentLyrics} />
+              <TopArtist mostPopularArtists={pageData.popularArtists} />
+            </div>
+          </div>
+        </main>
+      </body>
+    </html>
+  );
+}

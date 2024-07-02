@@ -1,18 +1,25 @@
 import type { DisplayLyric } from "../../../interfaces";
+import type { NEW_Artist, NEW_Lyric } from "../../../utils";
 
-interface PropData {
-  lyrics: DisplayLyric[];
+export interface LyricsWithArtist extends NEW_Lyric {
+  query: string;
+  has_profile_img: boolean;
+  name: string;
 }
 
-export default function RecentlyAddedLyrics(prop: PropData) {
+export default function RecentlyAddedLyrics({
+  lyrics,
+}: {
+  lyrics: LyricsWithArtist[];
+}) {
   return (
     <div class="lyric-container">
       <h2>RECENTLY ADDED</h2>
       <br />
-      {prop.lyrics.map((x) => {
+      {lyrics.map((x) => {
         return (
           <a
-            href={`/${x.artist_query}`}
+            href={`/${x.query}`}
             itemscope
             itemtype="https://schema.org/MusicComposition"
           >
@@ -20,17 +27,17 @@ export default function RecentlyAddedLyrics(prop: PropData) {
               <div class="profile-img-holder">
                 {x.has_profile_img && (
                   <img
-                    src={`/imgs/artists/${x.artist_query}.png`}
-                    alt={x.artist_name}
+                    src={`/imgs/artists/${x.query}.png`}
+                    alt={x.name}
                     class="profile-img"
                   />
                 )}
                 {!x.has_profile_img && (
                   <img src={`/imgs/noprofile.png`} class="profile-img" />
                 )}
-                <span itemprop="lyricist">{x.artist_name}</span>
+                <span itemprop="lyricist">{x.name}</span>
               </div>
-              <p itemprop="lyrics">{x.lyric}</p>
+              <p itemprop="lyrics">{x.lyric_text}</p>
               <span itemprop="name">{x.song}</span>
               {/* <span style="margin-top: 10px; display: block; color: lightgrey">
                       Added on {x.added_on?.toDateString()}

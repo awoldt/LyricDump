@@ -19,6 +19,7 @@ import {
   GetHomepageData,
   GetRelatedArtists,
 } from "./utils";
+import Home from "./views/pages/Home";
 const app = new Hono();
 
 await ConnectToDb(); // app must wait for database connection before initializing routes
@@ -26,16 +27,20 @@ await ConnectToDb(); // app must wait for database connection before initializin
 app.use("*", serveStatic({ root: "./public" }));
 
 app.get("/", async (c) => {
-  const homepageData = await GetHomepageData();
-  if (homepageData === null) {
-    return c.text("There was an error while getting data from backend :(");
+  const pageData = await GetHomepageData();
+  if (pageData === null) {
+    c.status(500);
+    return c.text(
+      "There was an error while fetching page data :(\n\nTry again later."
+    );
   }
 
   return c.html(
-    <Homepage
-      featuredLyrics={homepageData.featuredLyrics}
-      recentLyrics={homepageData.recentLyrics}
-      topArtists={homepageData.topArtist}
+    <Home
+      pageData={{
+        recentLyrics: pageData.recentLyrics,
+        popularArtists: pageData.mostPopularArtists,
+      }}
     />
   );
 });
@@ -338,13 +343,6 @@ app.get("/:ARTIST", async (c) => {
       pageData={pageData}
     />
   );
-});
-
-// permanently redirect any request that matches old sites url artist route
-// ex: /artists/{ARTIST} => /{ARTIST}
-app.get("/artists/:ARTIST", (c) => {
-  const artist = c.req.param("ARTIST").toLowerCase();
-  return c.redirect(`/${artist}`, 301);
 });
 
 Bun.serve({
