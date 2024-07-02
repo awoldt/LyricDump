@@ -27,7 +27,7 @@ export default function RecentlyAddedLyrics({
             <div class="lyric-holder">
               <div>
                 <p itemprop="lyrics">
-                  {x.lyric}&ensp;
+                  {x.lyric_text}&ensp;
                   <span itemprop="name">
                     {"["}
                     {x.song}
@@ -48,11 +48,8 @@ export default function RecentlyAddedLyrics({
                 )}
                 <span itemprop="lyricist">{x.name}</span>
               </div>
-<<<<<<< HEAD
-=======
               <p itemprop="lyrics">{x.lyric_text}</p>
               <span itemprop="name">{x.song}</span>
->>>>>>> 9d151a1ee6620d031f0d85cdb889b003213b5213
               {/* <span style="margin-top: 10px; display: block; color: lightgrey">
                       Added on {x.added_on?.toDateString()}
                     </span> */}
