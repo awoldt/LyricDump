@@ -21,6 +21,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 4rem;
   }
 
   .lyric-holder {
@@ -30,13 +31,12 @@
     justify-content: space-between;
     gap: 4rem 2rem;
     padding: 1rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    border-bottom: 1px solid black;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-bottom: 1px solid rgb(225, 225, 225);
   }
 
   .profile-img-holder {
-    width: 25%;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -47,6 +47,7 @@
     width: 60px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0.75rem 0px;
     transform: translateY(0rem);
+    border-radius: 100rem;
   }
 }
 
@@ -146,6 +147,7 @@
     display: flex;
     flex-direction: column;
   }
+
   #homepage-display-btns-parent div {
     margin-top: 10px;
   }
@@ -183,6 +185,7 @@
   font-size: 20px;
   border-radius: 10px;
 }
+
 .homepage-display-btn a {
   text-decoration: none;
 }

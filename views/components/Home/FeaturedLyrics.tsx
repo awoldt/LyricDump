@@ -15,8 +15,19 @@ export default function FeaturedLyrics(prop: PropData) {
             href={`/${x.artist_query}`}
             itemscope
             itemtype="https://schema.org/MusicComposition"
+            style="width: 100%;"
           >
             <div class="lyric-holder">
+              <div>
+                <p itemprop="lyrics">
+                  {x.lyric}&ensp;
+                  <span itemprop="name">
+                    {"["}
+                    {x.song}
+                    {"]"}
+                  </span>
+                </p>
+              </div>
               <div class="profile-img-holder">
                 {x.has_profile_img && (
                   <img
@@ -30,8 +41,6 @@ export default function FeaturedLyrics(prop: PropData) {
                 )}
                 <span itemprop="lyricist">{x.artist_name}</span>
               </div>
-              <p itemprop="lyrics">{x.lyric}</p>
-              <span itemprop="name">{x.song}</span>
               {/* (<span itemprop="copyrightYear">{x.year}</span>) */}
             </div>
           </a>

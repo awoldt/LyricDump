@@ -10,28 +10,28 @@ interface PropData {
 
 export default function TopArtist(prop: PropData) {
   return (
-    <div id="popular_artists_div">
-      <div style="text-align: center">
-        <img src="/imgs/icons/trending.svg" alt="trending icon" />
-        <h2>Popular Artists</h2>
-        <p style="margin-top: 0px">
-          👑 <b>{prop.topArtist[0].artist_data[0].name}</b> is currently the
-          most popular artist with {prop.topArtist[0].numOfLyrics} lyrics
-        </p>
-      </div>
-
-      <div id="top_artist_div">
+    <div class="lyric-container">
+      <h2>POPULAR ARTISTS</h2>
+      <br />
+      <div
+        class="lyric-holder"
+        style="flex-direction: row; width: fit-content; flex-wrap: wrap; border: 0px; justify-content: center; gap: 2rem;"
+      >
         {prop.topArtist.map((x) => {
           return (
             <a href={`/${x._id}`}>
-              {" "}
-              <img
-                src={`/imgs/artists/${x._id}.png`}
-                alt={`${x.artist_data[0].name}`}
-              />
-              <span style="margin-left: 5px">
-                <b>{x.artist_data[0].name}</b>
-              </span>
+              <div
+                class="profile-img-holder"
+                style="width: fit-content; flex-direction: column;"
+              >
+                <img
+                  src={`/imgs/artists/${x._id}.png`}
+                  alt={`${x.artist_data[0].name}`}
+                  class="profile-img"
+                  style="border-radius: 100rem; height: 120px; width: 120px;"
+                />
+                <span>{x.artist_data[0].name}</span>
+              </div>
             </a>
           );
         })}

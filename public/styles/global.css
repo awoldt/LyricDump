@@ -48,6 +48,7 @@
     opacity: 1;
     font-weight: 600;
     cursor: pointer;
+    width: fit-content;
     transition: 150ms linear;
   }
 

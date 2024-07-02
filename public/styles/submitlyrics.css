@@ -1,0 +1,68 @@
+@media (min-width: 1px) {
+    .container-holder {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .container {
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: space-between;
+        margin-top: 10rem;
+        margin-bottom: 4rem;
+    }
+
+    .lyric-container {
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .lyric-holder {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4rem 2rem;
+        padding: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        border-bottom: 1px solid rgb(225, 225, 225);
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        textarea,
+        input {
+            width: 60%;
+            padding: 0.4rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border: 1px solid black;
+            resize: none;
+        }
+
+        textarea:focus,
+        input:focus {
+            outline: none !important;
+        }
+    }
+}
+
+@media (min-width: 799px) {
+    .container {
+        width: 70%;
+        margin-bottom: 8rem;
+    }
+}

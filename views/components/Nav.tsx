@@ -20,7 +20,7 @@ export default function Nav() {
       <div style="width: 100%; position: fixed; z-index: 2;       height: 2.5rem;   background-color: rgb(255, 255, 100); display: flex; justify-content: center; align-items: center;">
         <a
           href="/"
-          style="font-size: clamp(1rem, 4vw, 1.25rem); font-weight: 800; opacity: 1"
+          style="font-size: clamp(1rem, 4vw, 1.25rem); font-weight: 600; opacity: 1"
         >
           LYRIC DUMP
         </a>

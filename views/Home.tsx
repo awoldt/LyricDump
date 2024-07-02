@@ -85,24 +85,33 @@ export default function Homepage(props: PageProps) {
             <div className="container">
               <div style="display: flex; gap: 4rem; align-items: center; justify-content: center;">
                 <div>
-                  <span style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.4;">
-                    A Collection of the Funniest Song Lyrics of All Time.
-                  </span>
-                  <br />
-                  <br />
-                  <p>
-                    Lyric Dump is an archive of some of the most bizarre and
-                    cringe-worthy song lyrics ever. These lyrics are so strange
-                    that you'll wonder why the artist included them. Covering
-                    many genres, this site is your go-to destination for sharing
-                    hilarious lyrics with friends and family.
-                  </p>
+                  <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 2rem;">
+                    <span style="width: fit-content; font-weight: 600;">
+                      LYRIC DUMP
+                    </span>
+                    <div style="width: 80%; height: 1px; background-color: black;"></div>
+                  </div>
+                  <div>
+                    <span style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.4;">
+                      A Collection of the Funniest Song Lyrics of All Time.
+                    </span>
+                    <div style="margin-top: 1rem;">
+                      <p>
+                        Lyric Dump is an archive of some of the most bizarre and
+                        cringe-worthy song lyrics ever. These lyrics are so
+                        strange that you'll wonder why the artist included them.
+                        Covering many genres, this site is your go-to
+                        destination for sharing hilarious lyrics with friends
+                        and family.
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <img
                   src="/imgs/test.jpg"
-                  width={800}
-                  height={400}
-                  style="object-fit: cover"
+                  width={3300}
+                  height={2400}
+                  style="object-fit: cover; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0.75rem 0px; width: 800px; height: 500px;"
                 />
               </div>
               <FeaturedLyrics lyrics={props.featuredLyrics} />

@@ -99,43 +99,54 @@ app.get("/catalogue", async (c) => {
       <body>
         <Nav />
         <main>
-          <div id="container">
-            <h1>
-              There are currently <b>{numOfArtists}</b> artists stored in our
-              database.
-            </h1>
+          <div className="container-holder">
+            <div class="container">
+              <h2>ALL ARTISTS</h2>
+              {/* <h1>
+                There are currently {numOfArtists} artists stored in our
+                database.
+              </h1> */}
 
-            {artistList.map((x) => {
-              if (!/^[a-zA-Z]+$/.test(x._id)) {
-                return (
-                  <div>
-                    {x.artists.map((y: Artist) => {
-                      return (
-                        <a href={`/${y.artist_id}`} class="artist-link">
-                          {y.name}
-                        </a>
-                      );
-                    })}
-                  </div>
-                );
-              } else {
-                return (
-                  <div>
-                    <hr />
-                    <span class="letter-header">
-                      {x._id.toUpperCase()} ({x.artists.length})
-                    </span>
-                    {x.artists.map((y: Artist) => {
-                      return (
-                        <a href={`/${y.artist_id}`} class="artist-link">
-                          {y.name}
-                        </a>
-                      );
-                    })}
-                  </div>
-                );
-              }
-            })}
+              {artistList.map((x) => {
+                if (!/^[a-zA-Z]+$/.test(x._id)) {
+                  return (
+                    <div class="lyric-container">
+                      <div style="margin-bottom: 1rem;">
+                        <span># ({x.artists.length})</span>
+                      </div>
+                      {x.artists.map((y: Artist) => {
+                        return (
+                          <div class="lyric-holder">
+                            <a href={`/${y.artist_id}`} class="artist-link">
+                              {y.name}
+                            </a>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div class="lyric-container">
+                      <div style="margin-bottom: 1rem;">
+                        <span>
+                          {x._id.toUpperCase()} ({x.artists.length})
+                        </span>
+                      </div>
+                      {x.artists.map((y: Artist) => {
+                        return (
+                          <div class="lyric-holder">
+                            <a href={`/${y.artist_id}`} class="artist-link">
+                              {y.name}
+                            </a>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
         </main>
       </body>
@@ -177,35 +188,33 @@ app.get("/submitlyrics", (c) => {
       <body>
         <Nav />
         <main>
-          <div id="container">
-            <div id="banner_text">
-              <h1>Submit Lyrics</h1>
-              <p>
-                This site is always looking for new funny lyrics to add, if you
-                If you have any lyrics that you don't see on the site already,
-                be sure to submit your lyrics below!
-              </p>
+          <div class="container-holder">
+            <div class="container">
+              <h2>SUBMIT</h2>
+              {/* <p>
+                  This site is always looking for new funny lyrics to add, if
+                  you If you have any lyrics that you don't see on the site
+                  already, be sure to submit your lyrics below!
+                </p> */}
+
+              <form method="post" action="/submitlyrics">
+                <textarea
+                  name="lyric"
+                  placeholder="Lyrics"
+                  required
+                  rows={10}
+                ></textarea>
+                <input
+                  type="text"
+                  name="song"
+                  placeholder="Song"
+                  style="display: block; margin-top: 20px"
+                  required
+                />
+
+                <button style="margin-top: 2rem">SUBMIT LYRICS</button>
+              </form>
             </div>
-
-            <form method="post" action="/submitlyrics">
-              <textarea
-                name="lyric"
-                placeholder="Lyrics"
-                required
-                style="display: block; width: 70%"
-                rows={20}
-                cols={90}
-              ></textarea>
-              <input
-                type="text"
-                name="song"
-                placeholder="Song"
-                style="display: block; margin-top: 20px"
-                required
-              />
-
-              <button style="margin-top: 40px">Submit</button>
-            </form>
           </div>
         </main>
       </body>
