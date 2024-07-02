@@ -70,6 +70,43 @@ export async function GetArtistPageData(artistQuery: string) {
   }
 }
 
+export async function GetHomepageData() {
+  try {
+    const client = await pool.connect();
+
+    const recentLyrics: LyricsWithArtist[] = (
+      await client.query(`
+          SELECT lyrics.*, artists.query, artists.has_profile_img, artists.name
+          FROM lyrics 
+          JOIN artists ON lyrics.fk_artist_id = artists.id
+          ORDER BY lyrics.created_at DESC
+          LIMIT 12;
+        `)
+    ).rows;
+
+    const mostPopularArtists: PopularArtists[] = (
+      await client.query(`
+        SELECT artists.id, artists.name, artists.query, COUNT(lyrics.id) as lyrics_count
+        FROM artists
+        JOIN lyrics ON artists.id = lyrics.fk_artist_id
+        GROUP BY artists.id, artists.name, artists.query
+        ORDER BY lyrics_count DESC
+        LIMIT 18;
+      `)
+    ).rows;
+
+    client.release();
+
+    return {
+      recentLyrics,
+      mostPopularArtists,
+    };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
 /////////////////////////////////////////////////////
 
 import {
@@ -79,6 +116,8 @@ import {
   pool,
 } from "./db";
 import type { Artist, DisplayLyric, Lyric } from "./interfaces";
+import type { PopularArtists } from "./views/components/Home/PopularArtists";
+import type { LyricsWithArtist } from "./views/components/Home/RecentlyAddedLyrics";
 
 export async function GetRelatedArtists(artistID: string) {
   try {
@@ -102,89 +141,6 @@ export async function GetRelatedArtists(artistID: string) {
     relatedArtistsData.sort((a, b) => a.name.localeCompare(b.name));
 
     return relatedArtistsData;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
-
-export async function GetHomepageData() {
-  /*
-    Gets all the information needed to display on root route "/"
-  */
-
-  try {
-    const featuredLyrics = await HomepageLyricsCollection.find(
-      {},
-      { projection: { _id: 0 } }
-    ).toArray();
-
-    const popularArtists = await LyricsCollection.aggregate<{
-      _id: string;
-      numOfLyrics: number;
-      artist_data: Artist[];
-    }>([
-      {
-        $group: {
-          _id: "$artist_id",
-          numOfLyrics: { $count: {} },
-        },
-      },
-      {
-        $sort: { numOfLyrics: -1, _id: -1 }, // _id sort here will enforce stable order of results
-      },
-      {
-        $limit: 18,
-      },
-      {
-        $lookup: {
-          from: "artists_v2",
-          localField: "_id",
-          foreignField: "artist_id",
-          as: "artist_data",
-        },
-      },
-    ]).toArray();
-
-    const recentLyrics: DisplayLyric[] = (
-      await LyricsCollection.aggregate([
-        {
-          $sort: {
-            _id: -1,
-          },
-        },
-        {
-          $match: { explicit: false },
-        },
-        {
-          $lookup: {
-            from: "artists_v2",
-            localField: "artist_id",
-            foreignField: "artist_id",
-            as: "artist_data",
-          },
-        },
-        {
-          $limit: 9,
-        },
-      ]).toArray()
-    ).map((x) => {
-      return {
-        lyric: x.lyric,
-        song: x.song,
-        year: x.year,
-        artist_name: x.artist_data[0].name,
-        artist_query: x.artist_data[0].artist_id,
-        has_profile_img: x.artist_data[0].has_profile_img,
-        added_on: new Date(x._id.getTimestamp()),
-      };
-    });
-
-    return {
-      topArtist: popularArtists,
-      featuredLyrics: featuredLyrics,
-      recentLyrics: recentLyrics,
-    };
   } catch (err) {
     console.log(err);
     return null;
